@@ -9,37 +9,44 @@
 import UIKit
 
 class FavouriteTableViewCell: UITableViewCell {
-    var song: Song? {
-        didSet {
-            updateUI()
+  var p: Favourite? {
+    didSet {
+      updateUI()
+    }
+  }
+
+  @IBOutlet weak var songLabel: UILabel!
+  @IBOutlet weak var artistLabel: UILabel!
+  @IBOutlet weak var timeAndShowLabel: UILabel!
+  @IBOutlet weak var albumLabel: UILabel!
+  @IBOutlet weak var copyrightLabel: UILabel!
+
+
+  func updateUI() {
+    if let p = self.p {
+      timeAndShowLabel?.text = "\(p.song.longAt) — \(p.episode.name) w/ \(p.episode.dj)"
+      artistLabel?.text = "\(p.song.artist):"
+      songLabel?.text = "“\(p.song.name)”"
+      if (p.song.album != "") { albumLabel?.text = p.song.album}
+      if p.song.label != "" {
+        if let year = p.song.year {
+          copyrightLabel?.text = "(\(p.song.label), \(year))"
+        } else {
+          copyrightLabel?.text = "(\(p.song.label))"
         }
+      }
     }
+  }
 
-    @IBOutlet weak var showLabel: UILabel!
-    @IBOutlet weak var songLabel: UILabel!
-    @IBOutlet weak var artistLabel: UILabel!
 
-    func updateUI() {
-        showLabel?.text = nil
-        songLabel?.text = nil
-        artistLabel?.text = nil
-
-        if let song = self.song {
-            showLabel?.text = song.show
-            songLabel?.text = song.title
-            artistLabel?.text = song.artist
-        }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    timeAndShowLabel?.text = "—"
+    artistLabel?.text = "—"
+    songLabel?.text = "—"
+    albumLabel?.text = "—"
+    copyrightLabel?.text = ""
+    artistLabel?.font = UIFont(name: "Lato-Black", size: 16.0)
+  }
 
 }

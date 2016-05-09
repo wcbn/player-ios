@@ -21,20 +21,23 @@ class FavouritesTableViewController: UITableViewController {
     // navigation bar color
     let bar = self.navigationController?.navigationBar
     bar?.translucent = false
-    bar?.barTintColor = Colors.Dark.yellow
-    bar?.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Lato-Black", size: 18)!]
+    bar?.barTintColor = Colors.Dark.pink
+    bar?.titleTextAttributes = [
+      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
+      NSForegroundColorAttributeName: UIColor.whiteColor()
+    ]
 
     // cell height
     tableView.estimatedRowHeight = tableView.rowHeight
     tableView.rowHeight = UITableViewAutomaticDimension
-    
+
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = false
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem()
   }
-  
+
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -42,10 +45,10 @@ class FavouritesTableViewController: UITableViewController {
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     tableView.reloadData()
   }
-  
+
   // MARK: - UITableViewDataSource
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -53,38 +56,59 @@ class FavouritesTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return fav.favourites.count
+    if fav.needsInstructions() { return 1 }
+
+    return fav.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    if fav.needsInstructions() {
+      let cell = tableView.dequeueReusableCellWithIdentifier("Instructions") as! InstructionsTableViewCell
+      cell.backgroundColor = Colors.Dark.pink
+      return cell
+    }
+
     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! FavouriteTableViewCell
-    
-    // Configure the cell...
-    cell.song = fav.favourites[indexPath.row]
-    
+    cell.p = fav[indexPath.row]
+    cell.backgroundColor = UIColor.clearColor()
     return cell
   }
-  
-  /*
+
   // Override to support conditional editing of the table view.
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-  // Return NO if you do not want the specified item to be editable.
-  return true
+    if fav.needsInstructions() { return false }
+    return true
   }
-  */
-  
-  /*
+
   // Override to support editing the table view.
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-  if editingStyle == .Delete {
-  // Delete the row from the data source
-  tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-  } else if editingStyle == .Insert {
-  // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-  }    
+    // Necessary to enable the edit actions at all
   }
-  */
-  
+
+  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+
+    var actions: [UITableViewRowAction] = []
+
+    if fav[indexPath.row].url != nil {
+      let searchButton = UITableViewRowAction(style: .Default, title: "iTunes") {
+        _, inxPth in
+        let url = self.fav[inxPth.row].url!
+        UIApplication.sharedApplication().openURL(url)
+      }
+      searchButton.backgroundColor = Colors.Light.green
+      actions.append(searchButton)
+    }
+
+    let deleteButton = UITableViewRowAction(style: .Destructive, title: "Delete") { _, inxPth in
+      self.fav.removeAtIndex(inxPth.row)
+      tableView.deleteRowsAtIndexPaths([inxPth], withRowAnimation: .Bottom)
+    }
+    deleteButton.backgroundColor = Colors.Dark.red
+    actions.append(deleteButton)
+
+    return actions.reverse()
+  }
+
   /*
   // Override to support rearranging the table view.
   override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {

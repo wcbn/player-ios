@@ -14,56 +14,83 @@ import UIKit
 
 class WCBNRadioBrain: NSObject{
 
-  struct currentInfoType {
-    var title = "[Song]"
-    var artist = "[Artist]"
-    var showTitle = "[Show Name]"
+  // MARK: - Data Structures & Constants
+  static let Weekdays = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  struct Weekday {
+    var index: Int
+    var name:  String
+    var shows: [Show]
+  }
+
+  class Playlist {
+    var episode = Episode() {
+      didSet { setNowPlayingInfo() }
+    }
+
+    var semesterID: Int? = nil
+
     var albumArt = UIImage(named: "AlbumDefault")
-    var searchURL = NSURL(string: "http://www.wcbn.org")
-  }
+    var albumURL: NSURL? = nil
 
-  struct songInfo {
-    var artist = "—"
-    var name = "—"
-    var album = "—"
-    var albumArt = UIImage(named: "AlbumDefault")
-    var albumURL = NSURL(string: "http://www.wcbn.org")
-    var label = "—"
-    var year: Int? = nil
-    var request = false
-  }
+    var song: Song {
+      get {
+        if let s = episode.songs?.first { return s }
+        else { return Song() }
+      }
+    }
+    var schedule: [Weekday] = []
+    var showOnAir: NSIndexPath? = nil
 
-  struct showInfo {
-    var name = "Loading…"
-    var dj = ""
-    var times = " "
-  }
+    var titleForMPNowPlayingInfoCenter: String {
+      get {
+        if song.name != "—" { return song.name }
+        else if episode.name != "" { return episode.unambiguousName }
+        else { return "WCBN-FM Ann Arbor" }
+      }
+    }
+    var artistForMPNowPlayingInfoCenter: String {
+      get {
+        if song.artist != "—" { return song.artist }
+        else { return "" }
+      }
+    }
+    var albumTitleForMPNowPlayingInfoCenter: String {
+      get {
+        let t = titleForMPNowPlayingInfoCenter
+        if t == song.name {
+          return "WCBN-FM: \(episode.name) with \(episode.dj)"
+        } else {
+          return "WCBN-FM"
+        }
+      }
+    }
 
-  struct playlistInfo {
-    var song = songInfo()
-    var show = showInfo()
-  }
-
-  var playerItem: AVPlayerItem
-  var radio: AVPlayer
-  var isPlaying = false
-
-  let defaultAlbum = UIImage(named: "AlbumDefault")!
-  let defaultSearchURL = NSURL(string: "http://www.wcbn.org")
-
-  var currentInfo = playlistInfo() {
-    didSet {
-      NSNotificationCenter.defaultCenter().postNotificationName("DataReceived", object: nil)
-
-      let wcbn_string = "WCBN-FM — \(currentInfo.show.name) with \(currentInfo.show.dj)"
+    func setNowPlayingInfo() {
+      NSNotificationCenter.defaultCenter().postNotificationName("SongDataReceived", object: nil)
+      
       MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
-        MPMediaItemPropertyTitle: currentInfo.song.name,
-        MPMediaItemPropertyArtist: currentInfo.song.artist,
-        MPMediaItemPropertyArtwork: MPMediaItemArtwork.init(image: currentInfo.song.albumArt!),
-        MPMediaItemPropertyAlbumTitle: wcbn_string
+        MPMediaItemPropertyTitle: titleForMPNowPlayingInfoCenter,
+        MPMediaItemPropertyArtist: artistForMPNowPlayingInfoCenter,
+        MPMediaItemPropertyArtwork: MPMediaItemArtwork.init(image: albumArt!),
+        MPMediaItemPropertyAlbumTitle: albumTitleForMPNowPlayingInfoCenter,
+        MPNowPlayingInfoPropertyPlaybackRate: NSNumber(float: 1.0)
       ]
     }
   }
+
+  // MARK: - Instance Variables
+  let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+
+  var playerItem: AVPlayerItem
+  var radio: AVPlayer
+  var backgroundTaskIdentifier = UIBackgroundTaskInvalid
+  var isPlaying = false
+  let favourites = Favourites()
+
+
+  let defaultAlbum = UIImage(named: "AlbumDefault")!
+
+  var playlist = Playlist()
 
   var albumArtURL: NSURL? {
     didSet {
@@ -71,10 +98,16 @@ class WCBNRadioBrain: NSObject{
     }
   }
 
+  // MARK: - Lifecycle
 
   override init() {
-    let streamHD = NSURL(string: "http://www.wcbn.org/wcbn-hd.m3u" )
-    playerItem = AVPlayerItem(URL: streamHD!)
+    let streamURL: String
+    if let preferredStreamURL = delegate?.streamURL {
+      streamURL = preferredStreamURL
+    } else {
+      streamURL = WCBNStream.URL.medium
+    }
+    playerItem = AVPlayerItem(URL: NSURL(string: streamURL)!)
     radio = AVPlayer(playerItem: playerItem)
 
     let audioSession = AVAudioSession.sharedInstance()
@@ -86,80 +119,143 @@ class WCBNRadioBrain: NSObject{
 
     playerItem.addObserver(self, forKeyPath: "timedMetadata", options: .Old, context: nil)
 
-    radio.rate = 1.0
-    radio.play()
-
     UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+
+    let remoteCC = MPRemoteCommandCenter.sharedCommandCenter()
+    remoteCC.pauseCommand.addTargetWithHandler{ _ in self.stop() }
+    remoteCC.playCommand.addTargetWithHandler{ _ in self.play() }
+    remoteCC.nextTrackCommand.enabled = false
+    remoteCC.previousTrackCommand.enabled = false
+
+    radio.play()
   }
 
   override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
     if keyPath == "timedMetadata"  { fetchSongInfo() }
   }
-  
+
+  // MARK: - Networking
+
   private func fetchSongInfo() {
-    let qos = Int(QOS_CLASS_BACKGROUND.rawValue)
-    dispatch_async(dispatch_get_global_queue(qos, 0)) {
-      let apiURL = NSURL( string: "http://app.wcbn.org/playlist.json" )!
-      let data = NSData(contentsOfURL: apiURL)
-      dispatch_async(dispatch_get_main_queue()) {
-        do {
-          let jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+    let background_qos = Int(QOS_CLASS_BACKGROUND.rawValue)
+    dispatch_async(dispatch_get_global_queue(background_qos, 0)) {
+      let playlist_api_url = NSURL( string: "http://app.wcbn.org/playlist.json")!
+      if let data = NSData(contentsOfURL: playlist_api_url) {
+        dispatch_async(dispatch_get_main_queue()) {
+          let json = JSON(data: data)
 
-          let show = showInfo(
-            name:  jsonObject["on_air"]!!["name"] as! String,
-            dj:    jsonObject["on_air"]!!["dj"] as! String,
-            times: jsonObject["on_air"]!!["times"] as! String
-          )
-          self.currentInfo.show = show
+          self.playlist.semesterID = json["on_air"]["semester_id"].int
 
-          let songs = jsonObject["on_air"]!!["songs"] as! [AnyObject]
-          if songs.count > 0 {
-            let now = songs.first
-            let song = songInfo(
-              artist:   now!["artist"] as! String,
-              name:     now!["name"] as! String,
-              album:    now!["album"] as! String,
-              albumArt: self.currentInfo.song.albumArt,
-              albumURL: self.currentInfo.song.albumURL,
-              label:    now!["label"] as! String,
-              year:     now!["year"] as? Int,
-              request:  now!["request"] as! Bool
+          var songs: [Song] = []
+          for (_, s) : (String, JSON) in json["on_air"]["songs"] {
+            let song = Song(
+             artist:   s["artist"].stringValue,
+             name:     s["name"].stringValue,
+             album:    s["album"].stringValue,
+             label:    s["label"].stringValue,
+             year:     s["year"].int,
+             request:  s["request"].boolValue,
+             timestamp:s["at"].dateTime
             )
-            self.currentInfo.song = song
-            self.getAlbumArt()
+            songs.append(song)
           }
-          print(self.currentInfo)
 
-        } catch {}
+          let episode = Episode(
+            name:  json["on_air"]["name"].stringValue,
+            dj:    json["on_air"]["dj"].stringValue,
+            beginning: json["on_air"]["beginning"].dateTime,
+            ending: json["on_air"]["ending"].dateTime,
+            notes: json["on_air"]["show_notes"].string,
+            songs: songs
+          )
+//          let episodeChanged = episode.beginning != self.playlist.episode.beginning
+          let episodeChanged = true
+          self.playlist.episode = episode
+
+          if episodeChanged { self.fetchSchedule() }
+          self.fetchAlbumArt()
+        }
       }
     }
   }
-  
-  func getAlbumArt() {
-    currentInfo.song.albumArt = defaultAlbum
-    currentInfo.song.albumURL = defaultSearchURL
 
-    let qos = Int(QOS_CLASS_BACKGROUND.rawValue)
-    dispatch_async(dispatch_get_global_queue(qos, 0)) {
-      if let album = self.currentInfo.song.album.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
-        let iTunesQueryURL = "https://itunes.apple.com/search?limit=1&version=2&entity=album&term=\(album)"
+
+  private func fetchSchedule() {
+    let background_qos = Int(QOS_CLASS_BACKGROUND.rawValue)
+    dispatch_async(dispatch_get_global_queue(background_qos, 0)) {
+      if let semester_id = self.playlist.semesterID {
+        let playlist_api_url = NSURL( string: "http://app.wcbn.org/semesters/\(semester_id).json")!
+        if let data = NSData(contentsOfURL: playlist_api_url) {
+          dispatch_async(dispatch_get_main_queue()) {
+            let json = JSON(data: data)
+
+            var weekdays: [Weekday] = []
+            for (weekday, shows) : (String, JSON) in json["shows"] {
+              let w = Int(weekday)!
+              var ss: [Show] = []
+              for (i, show) : (String, JSON) in shows {
+                var djs: [Show.DJ] = []
+                for (_, dj) : (String, JSON) in show["djs"] {
+                  djs.append(Show.DJ(name: dj["name"].stringValue, id: dj["id"].intValue))
+                }
+
+                let s = Show()
+                s.url_for = show["url"].stringValue
+                s.name = show["name"].stringValue
+                s.description = show["description"].stringValue
+                s.djs = djs
+                s.with = show["with"].stringValue
+                s.start = show["beginning"].dateTime!
+                s.end = show["ending"].dateTime!
+                s.onAir = show["on_air"].boolValue
+                s.episodes = nil
+
+                if (s.onAir) {
+                  let iP = NSIndexPath(forRow: Int(i)!, inSection: w - 1)
+                  self.playlist.showOnAir = iP
+                }
+                ss.append(s)
+              }
+              ss.sortInPlace { a, b in  a.start.compare(b.start) == NSComparisonResult.OrderedAscending}
+              weekdays.append(Weekday(index: w, name: WCBNRadioBrain.Weekdays[w], shows: ss))
+            }
+            self.playlist.schedule = weekdays.sort { a, b in return a.index < b.index }
+            NSNotificationCenter.defaultCenter()
+              .postNotificationName("PlaylistDataReceived", object: nil)
+          }
+        }
+      }
+    }
+  }
+
+  func fetchAlbumArt() {
+    playlist.albumArt = defaultAlbum
+    playlist.albumURL = nil
+
+    if playlist.song.timestamp == nil { return }
+
+    let background_qos = Int(QOS_CLASS_BACKGROUND.rawValue)
+    dispatch_async(dispatch_get_global_queue(background_qos, 0)) {
+      let artist = self.playlist.song.artist
+      let album = self.playlist.song.album
+      if let query = "\(artist) \(album)".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
+        let iTunesQueryURL = "https://itunes.apple.com/search?limit=1&version=2&entity=album&term=\(query)"
         let apiURL = NSURL(string: iTunesQueryURL)!
-        let data = NSData(contentsOfURL: apiURL)
-        dispatch_async(dispatch_get_main_queue()) {
-          do {
-            let jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-            let results = jsonObject["results"] as! [AnyObject]
+        if let data = NSData(contentsOfURL: apiURL) {
+          dispatch_async(dispatch_get_main_queue()) {
+            let json = JSON(data: data)
+            let results = json["results"]
             if results.count > 0 {
-              let result = results.first
-              let smallArtworkURL = result!["artworkUrl100"] as! String
+              let smallArtworkURL = results[0]["artworkUrl100"].stringValue
+
               let regex = try! NSRegularExpression(pattern: "100x100", options: .CaseInsensitive)
-              
               let bigArtworkURL = regex.stringByReplacingMatchesInString(smallArtworkURL, options: [], range: NSRange(0..<smallArtworkURL.utf16.count), withTemplate: "1000x1000")
               self.albumArtURL = NSURL(string: bigArtworkURL)
-              self.currentInfo.song.albumURL = NSURL(string: result!["collectionViewUrl"] as! String)
-              print("iTunes API: artworkUrl = \(self.albumArtURL), collectionViewUrl = \(self.currentInfo.song.albumURL)")
+
+              self.playlist.albumURL = NSURL(string: results[0]["collectionViewUrl"].stringValue)
+              print("iTunes API: artworkUrl = \(self.albumArtURL), collectionViewUrl = \(self.playlist.albumURL)")
             }
-          } catch {}
+          }
         }
       }
     }
@@ -173,27 +269,60 @@ class WCBNRadioBrain: NSObject{
         if url == self.albumArtURL {
           dispatch_async(dispatch_get_main_queue()) {
             if imageData != nil {
-              self.currentInfo.song.albumArt = UIImage(data: imageData!)
+              self.playlist.albumArt = UIImage(data: imageData!)
             } else {
-              self.currentInfo.song.albumArt = self.defaultAlbum
+              self.playlist.albumArt = self.defaultAlbum
             }
             NSNotificationCenter.defaultCenter()
-              .postNotificationName("DataReceived", object: nil)
+              .postNotificationName("SongDataReceived", object: nil)
+            self.playlist.setNowPlayingInfo()
           }
         }
       }
     }
   }
 
+  // MARK: - Actions
+
+  func play() -> MPRemoteCommandHandlerStatus {
+    isPlaying = true
+    radio.replaceCurrentItemWithPlayerItem(playerItem)
+    radio.play()
+    return .Success
+  }
+
+  func stop() -> MPRemoteCommandHandlerStatus {
+    isPlaying = false
+    radio.pause()
+    radio.replaceCurrentItemWithPlayerItem(nil)
+    MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+      MPMediaItemPropertyTitle: "WCBN-FM Ann Arbor",
+      MPMediaItemPropertyArtist: "",
+      MPMediaItemPropertyArtwork: MPMediaItemArtwork.init(image: self.defaultAlbum),
+      MPMediaItemPropertyAlbumTitle: "",
+      MPNowPlayingInfoPropertyPlaybackRate: NSNumber(float: 0.0)
+    ]
+    return .Success
+  }
+
   func playOrPause() {
     if isPlaying {
-      print("Radio Paused")
-      isPlaying = false
-      radio.replaceCurrentItemWithPlayerItem(nil)
+      stop()
     } else {
-      print("Radio Playing")
-      isPlaying = true
-      radio.replaceCurrentItemWithPlayerItem(playerItem)
+      play()
     }
+  }
+
+  func addToOrRemoveCurrentSongFromFavourites() -> MPRemoteCommandHandlerStatus {
+    if (favourites.includeCurrentSong(playlist)) {
+      favourites.deleteLast()
+    } else {
+      favourites.appendCurrentSong(playlist)
+    }
+    return .Success
+  }
+
+  deinit {
+    playerItem.removeObserver(self, forKeyPath: "timedMetadata")
   }
 }

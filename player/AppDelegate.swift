@@ -12,13 +12,34 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  var radio: WCBNRadioBrain? = nil
+
+  private let defaults = NSUserDefaults.standardUserDefaults()
+
+  internal var streamURL: String {
+    get {
+      if let url = defaults.objectForKey("WCBNStreamURL") as? String {
+        return url
+      } else {
+        return WCBNStream.URL.medium
+      }
+    }
+    set {
+      defaults.setObject(newValue, forKey: "WCBNStreamURL")
+      radio?.stop()
+      radio = WCBNRadioBrain()
+      radio?.isPlaying = true
+    }
+  }
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+    radio = WCBNRadioBrain()
+
     if let tbc = window?.rootViewController as? UITabBarController {
       tbc.selectedIndex = 2
     }
 
-    UITabBar.appearance().barTintColor = Colors.Light.black
     UITabBar.appearance().tintColor = UIColor.whiteColor()
     UITabBar.appearance().alpha = 1.0
     return true
