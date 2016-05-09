@@ -238,7 +238,13 @@ class WCBNRadioBrain: NSObject{
     dispatch_async(dispatch_get_global_queue(background_qos, 0)) {
       let artist = self.playlist.song.artist
       let album = self.playlist.song.album
-      if let query = "\(artist) \(album)".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
+      let raw_query: String
+      if album.lowercaseString.rangeOfString("single") != nil || album.isEmpty {
+        raw_query = "\(artist) \(self.playlist.song.name)"
+      } else {
+        raw_query = "\(artist) \(album)"
+      }
+      if let query = raw_query.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
         let iTunesQueryURL = "https://itunes.apple.com/search?limit=1&version=2&entity=album&term=\(query)"
         let apiURL = NSURL(string: iTunesQueryURL)!
         if let data = NSData(contentsOfURL: apiURL) {
