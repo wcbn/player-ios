@@ -10,13 +10,23 @@ import UIKit
 
 class LightStatusBarNavigationController: UINavigationController {
 
+  var light = true {
+    didSet {
+      self.setNeedsStatusBarAppearanceUpdate()
+    }
+  }
+
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     self.setNeedsStatusBarAppearanceUpdate()
   }
 
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return UIStatusBarStyle.LightContent
+    if light {
+      return .LightContent
+    } else {
+      return .Default
+    }
   }
 
 }

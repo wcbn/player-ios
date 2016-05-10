@@ -196,7 +196,7 @@ class WCBNRadioBrain: NSObject{
               for (i, show) : (String, JSON) in shows {
                 var djs: [Show.DJ] = []
                 for (_, dj) : (String, JSON) in show["djs"] {
-                  djs.append(Show.DJ(name: dj["name"].stringValue, id: dj["id"].intValue))
+                  djs.append(Show.DJ(name: dj["name"].stringValue, path: dj["url"].stringValue))
                 }
 
                 let s = Show()

@@ -56,7 +56,16 @@ class ScheduleTableViewController: UITableViewController {
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    self.navigationController?.navigationBar.barTintColor = Colors.Dark.orange
+    let bar = self.navigationController?.navigationBar
+    bar?.barTintColor = Colors.Dark.orange
+    bar?.tintColor = UIColor.whiteColor()
+    bar?.titleTextAttributes = [
+      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
+      NSForegroundColorAttributeName: UIColor.whiteColor()
+    ]
+    if let navController = self.navigationController as? LightStatusBarNavigationController {
+      navController.light = true
+    }
   }
 
   override func viewDidAppear(animated: Bool) {

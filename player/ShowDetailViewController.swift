@@ -39,7 +39,16 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    self.navigationController?.navigationBar.barTintColor = Colors.Dark.orange
+    let bar = self.navigationController?.navigationBar
+    bar?.barTintColor = Colors.Dark.orange
+    bar?.tintColor = UIColor.whiteColor()
+    bar?.titleTextAttributes = [
+      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
+      NSForegroundColorAttributeName: UIColor.whiteColor()
+    ]
+    if let navController = self.navigationController as? LightStatusBarNavigationController {
+      navController.light = true
+    }
     djs.reloadData()
     recentEpisodes.reloadData()
   }
@@ -77,6 +86,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let djVC = storyboard?.instantiateViewControllerWithIdentifier("DJ") as! DJViewController
+    djVC.dj_path = show.djs[indexPath.row].path
     djVC.title = show.djs[indexPath.row].name
     navigationController?.pushViewController(djVC, animated: true)
   }

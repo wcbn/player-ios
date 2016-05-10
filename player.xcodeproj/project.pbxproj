@@ -22,6 +22,7 @@
 		430E3F131C488F0900476F48 /* FavouriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3F111C488F0900476F48 /* FavouriteTableViewCell.swift */; };
 		430E3F201C495ABE00476F48 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 430E3F1C1C495ABE00476F48 /* Lato-Black.ttf */; };
 		430E3F211C495ABE00476F48 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 430E3F1D1C495ABE00476F48 /* Lato-Bold.ttf */; };
+		4314F7671CE110D20045EB46 /* DJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4314F7661CE110D20045EB46 /* DJ.swift */; };
 		43207A9A1C4C39AC00DE6C62 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43207A991C4C39AC00DE6C62 /* Images.xcassets */; };
 		43207A9D1C4C3AEB00DE6C62 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9B1C4C3AEB00DE6C62 /* Lato-Italic.ttf */; };
 		43207A9E1C4C3AEB00DE6C62 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */; };
@@ -85,6 +86,7 @@
 		430E3F111C488F0900476F48 /* FavouriteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteTableViewCell.swift; sourceTree = "<group>"; };
 		430E3F1C1C495ABE00476F48 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		430E3F1D1C495ABE00476F48 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		4314F7661CE110D20045EB46 /* DJ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJ.swift; sourceTree = "<group>"; };
 		43207A991C4C39AC00DE6C62 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		43207A9B1C4C3AEB00DE6C62 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				43C94BC71CBB1F1B007D8797 /* Show.swift */,
+				4314F7661CE110D20045EB46 /* DJ.swift */,
 				43C94BC91CBB1F53007D8797 /* Song.swift */,
 				43C94BCC1CBB1FA4007D8797 /* Episode.swift */,
 			);
@@ -452,6 +455,7 @@
 				43C94BD11CBB6131007D8797 /* DJViewController.swift in Sources */,
 				438106751CA83230009547CD /* ShowNotesTableViewCell.swift in Sources */,
 				43207AA01C4C3F5200DE6C62 /* PlaylistTableViewController.swift in Sources */,
+				4314F7671CE110D20045EB46 /* DJ.swift in Sources */,
 				432B19031CA5C99700C1D216 /* SwiftyJSON.swift in Sources */,
 				43F03CA41CAE047D005E5D4E /* ShowDetailViewController.swift in Sources */,
 				430E3F0B1C488EC900476F48 /* WCBNRadioBrain.swift in Sources */,

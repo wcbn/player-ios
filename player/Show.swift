@@ -11,7 +11,7 @@ import Foundation
 class Show {
   struct DJ {
     var name = ""
-    var id = 0
+    var path = ""
   }
 
 
