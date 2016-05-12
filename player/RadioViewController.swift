@@ -17,12 +17,7 @@ class RadioViewController: UIViewController {
   @IBOutlet weak var songAlbum: UILabel!
   @IBOutlet weak var songLabel: UILabel!
   @IBOutlet weak var songYear: UILabel!
-  @IBOutlet weak var albumArt: UIImageView! {
-    didSet {
-      albumArt.layer.borderColor = UIColor.whiteColor().CGColor
-      albumArt.layer.borderWidth = 2.0
-    }
-  }
+  @IBOutlet weak var albumArt: UIImageView!
   @IBOutlet weak var playPauseButton: UIButton!
   @IBOutlet weak var starButton: UIButton! {
     didSet { starButton.tintColor = UIColor.whiteColor() }
@@ -63,8 +58,19 @@ class RadioViewController: UIViewController {
 
     playOrPauseMusic()
     self.updateUI()
+    
+    let l = albumArt.layer
+    // White border
+    l.borderColor = UIColor.whiteColor().CGColor
+    l.borderWidth = 2.0
+    // Drop shadow
+    l.shadowPath = UIBezierPath(rect: l.bounds).CGPath
+    l.shadowColor = UIColor.blackColor().CGColor
+    l.shadowOpacity = 0.5
+    l.shadowOffset = CGSizeMake(0, 16)
+    l.shadowRadius = 40
   }
-
+  
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     updateUI()
@@ -81,7 +87,9 @@ class RadioViewController: UIViewController {
       return s
     }
   }
-  
+
+  let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+
   func updateUI() {
     let song = delegate.radio!.playlist.song
     let show = delegate.radio!.playlist.episode
@@ -117,9 +125,31 @@ class RadioViewController: UIViewController {
     if delegate.radio!.isPlaying {
       playPauseButton.setImage(UIImage(named: "stop"),
                                forState: UIControlState.Normal)
+
+      let l = albumArt.layer
+      l.borderWidth = 2.0
+      l.shadowPath = UIBezierPath(rect: l.bounds).CGPath
+      l.shadowOpacity = 0.5
+
+      UIView.transitionWithView(albumArt,
+                                duration: 0.2,
+                                options: .TransitionCrossDissolve,
+                                animations: { self.effectView.removeFromSuperview() },
+                                completion: nil)
     } else {
       playPauseButton.setImage(UIImage(named: "play"),
                                forState: UIControlState.Normal)
+
+      let l = albumArt.layer
+      l.borderWidth = 0
+      l.shadowOpacity = 0
+
+      effectView.frame = l.bounds
+      UIView.transitionWithView(albumArt,
+                                duration: 0.2,
+                                options: .TransitionCrossDissolve,
+                                animations: { self.albumArt.addSubview(self.effectView) },
+                                completion: nil)
     }
 
     // Set enabled state of iTunes button
