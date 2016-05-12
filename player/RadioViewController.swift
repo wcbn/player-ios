@@ -129,7 +129,7 @@ class RadioViewController: UIViewController {
       let l = albumArt.layer
       l.borderWidth = 2.0
       l.shadowPath = UIBezierPath(rect: l.bounds).CGPath
-      l.shadowOpacity = 0.5
+      l.shadowColor = UIColor.blackColor().CGColor
 
       UIView.transitionWithView(albumArt,
                                 duration: 0.2,
@@ -142,7 +142,7 @@ class RadioViewController: UIViewController {
 
       let l = albumArt.layer
       l.borderWidth = 0
-      l.shadowOpacity = 0
+      l.shadowColor = UIColor.whiteColor().CGColor
 
       effectView.frame = l.bounds
       UIView.transitionWithView(albumArt,
