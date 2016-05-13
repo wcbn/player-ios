@@ -98,6 +98,27 @@ class WCBNRadioBrain: NSObject{
     }
   }
 
+  var currentSong: Song {
+    get {
+      if isPlaying { return playlist.song }
+      return Song()
+    }
+  }
+
+  var currentEpisode: Episode {
+    get {
+      if isPlaying { return playlist.episode }
+      return Episode()
+    }
+  }
+
+  var currentAlbumArt: UIImage {
+    get {
+      if isPlaying { return playlist.albumArt! }
+      return defaultAlbum
+    }
+  }
+
   // MARK: - Lifecycle
 
   override init() {
@@ -300,6 +321,7 @@ class WCBNRadioBrain: NSObject{
   func stop() -> MPRemoteCommandHandlerStatus {
     isPlaying = false
     radio.pause()
+    playlist.albumArt = self.defaultAlbum
     radio.replaceCurrentItemWithPlayerItem(nil)
     MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
       MPMediaItemPropertyTitle: "WCBN-FM Ann Arbor",

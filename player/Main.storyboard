@@ -67,8 +67,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="uD6-EK-67x">
                                 <rect key="frame" x="199" y="124" width="202" height="202"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="uD6-EK-67x" secondAttribute="height" multiplier="1:1" id="Eav-9x-IUj"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="J02-tq-ced"/>
                                     <constraint firstAttribute="width" secondItem="uD6-EK-67x" secondAttribute="height" multiplier="1:1" priority="750" id="QVw-Y9-c0B"/>
                                 </constraints>
                                 <variation key="default">
@@ -80,13 +82,13 @@
                                     <rect key="frame" x="40" y="114" width="189" height="189"/>
                                 </variation>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-6c-KLb">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-6c-KLb">
                                 <rect key="frame" x="40" y="346" width="520" height="185"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X6O-uG-C84">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X6O-uG-C84">
                                         <rect key="frame" x="0.0" y="0.0" width="520" height="41"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="xkB-ey-1ao">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="xkB-ey-1ao">
                                                 <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -112,10 +114,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="271" height="41"/>
                                         </variation>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-oP-t4O">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-oP-t4O">
                                         <rect key="frame" x="0.0" y="48" width="520" height="41"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-HD-KIr">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-HD-KIr">
                                                 <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -141,10 +143,10 @@
                                             <rect key="frame" x="0.0" y="48" width="271" height="41"/>
                                         </variation>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hsP-tF-2wg">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hsP-tF-2wg">
                                         <rect key="frame" x="0.0" y="96" width="520" height="41"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="fof-Qc-x4e">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="fof-Qc-x4e">
                                                 <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -170,10 +172,10 @@
                                             <rect key="frame" x="0.0" y="96" width="271" height="41"/>
                                         </variation>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-Ce-Z1j">
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-Ce-Z1j">
                                         <rect key="frame" x="0.0" y="144" width="520" height="41"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label (Year)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="khS-0f-RzB">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Label (Year)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="khS-0f-RzB">
                                                 <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -352,8 +354,15 @@
                                     <constraint firstItem="MID-YN-qSM" firstAttribute="centerX" secondItem="fKK-zb-lPf" secondAttribute="centerX" id="eUv-He-Oir"/>
                                 </constraints>
                             </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" image="act-play" translatesAutoresizingMaskIntoConstraints="NO" id="U37-vi-w3q">
+                                <rect key="frame" x="199" y="124" width="202" height="202"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="U37-vi-w3q" secondAttribute="height" multiplier="1:1" id="DL7-2e-mCv"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="uD6-EK-67x" secondAttribute="trailing" constant="32" id="1iR-cj-kjC"/>
                             <constraint firstAttribute="centerX" secondItem="uD6-EK-67x" secondAttribute="centerX" id="2I1-Rn-wM7"/>
@@ -368,6 +377,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iBm-6c-KLb" secondAttribute="bottom" constant="20" id="HhH-fi-LPN"/>
                             <constraint firstItem="iBm-6c-KLb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kb1-4m-paP"/>
                             <constraint firstItem="uD6-EK-67x" firstAttribute="width" secondItem="iBm-6c-KLb" secondAttribute="width" multiplier="0.7" id="Kba-ZS-P0a"/>
+                            <constraint firstItem="U37-vi-w3q" firstAttribute="centerY" secondItem="uD6-EK-67x" secondAttribute="centerY" id="NPs-1B-VMl"/>
                             <constraint firstItem="uD6-EK-67x" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="32" id="PTM-Q8-qgx"/>
                             <constraint firstItem="iBm-6c-KLb" firstAttribute="top" secondItem="fKK-zb-lPf" secondAttribute="bottom" constant="10" id="Tw9-gj-AIl"/>
                             <constraint firstItem="iBm-6c-KLb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="XXK-1T-Uk9"/>
@@ -387,10 +397,12 @@
                             </constraint>
                             <constraint firstItem="uD6-EK-67x" firstAttribute="height" secondItem="iBm-6c-KLb" secondAttribute="height" priority="750" id="nEC-Gc-eZi"/>
                             <constraint firstItem="iBm-6c-KLb" firstAttribute="top" secondItem="uD6-EK-67x" secondAttribute="bottom" constant="20" id="oNM-n9-hvO"/>
+                            <constraint firstItem="U37-vi-w3q" firstAttribute="width" secondItem="uD6-EK-67x" secondAttribute="width" id="rfa-Qg-Jwr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iBm-6c-KLb" secondAttribute="trailing" constant="35" id="rhX-4g-0ok">
                                 <variation key="heightClass=compact" constant="40"/>
                             </constraint>
                             <constraint firstItem="fKK-zb-lPf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="wXs-Wh-zSh"/>
+                            <constraint firstItem="U37-vi-w3q" firstAttribute="centerX" secondItem="uD6-EK-67x" secondAttribute="centerX" id="xgq-bF-TKf"/>
                             <constraint firstItem="iBm-6c-KLb" firstAttribute="leading" secondItem="uD6-EK-67x" secondAttribute="trailing" priority="750" constant="122" id="y0f-0t-LII">
                                 <variation key="heightClass=compact" constant="20"/>
                             </constraint>
@@ -442,6 +454,7 @@
                     <tabBarItem key="tabBarItem" title="Radio" image="tab-radio" selectedImage="tab-f-radio" id="iZD-vp-UzV"/>
                     <connections>
                         <outlet property="albumArt" destination="uD6-EK-67x" id="aT2-DC-pl2"/>
+                        <outlet property="playButton" destination="U37-vi-w3q" id="Epc-so-M9S"/>
                         <outlet property="showDescription" destination="Gti-7t-rJ3" id="R3m-lI-SZ7"/>
                         <outlet property="showTitle" destination="Jy8-KP-5dQ" id="ZCS-Xh-oxv"/>
                         <outlet property="songAlbum" destination="fYg-wI-bk1" id="sIb-DZ-BpK"/>
@@ -662,6 +675,9 @@
                                                             <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="15"/>
                                                             <color key="textColor" red="0.78169107439999996" green="0.24895396829999999" blue="0.019922761250000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
+                                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                                <rect key="frame" x="30" y="15" width="63" height="18"/>
+                                                            </variation>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -985,7 +1001,7 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                <rect key="frame" x="16" y="21.5" width="768" height="41"/>
+                                                <rect key="frame" x="16" y="21" width="768" height="41"/>
                                             </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="270" text="Show Notes:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJP-m8-1tR">
@@ -1388,6 +1404,7 @@
     </scenes>
     <resources>
         <image name="AlbumDefault" width="213" height="213"/>
+        <image name="act-play" width="304" height="304"/>
         <image name="tab-f-heart" width="32" height="32"/>
         <image name="tab-f-radio" width="32" height="32"/>
         <image name="tab-f-recent" width="32" height="32"/>

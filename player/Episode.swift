@@ -9,7 +9,7 @@
 import Foundation
 
 struct Episode {
-  var name = "Loading…"
+  var name = ""
   var dj = ""
   var beginning: NSDate? = nil
   var ending: NSDate? = nil
