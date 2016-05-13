@@ -222,7 +222,7 @@
                                         <rect key="frame" x="85" y="25" width="252" height="69"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="800" misplaced="YES" text="WCBN-FM Ann Arbor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaC-yN-JB7">
-                                                <rect key="frame" x="57" y="0.0" width="137" height="17"/>
+                                                <rect key="frame" x="58" y="0.0" width="137" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -243,7 +243,7 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fX2-og-mQn">
-                                                <rect key="frame" x="57" y="17" width="137" height="1"/>
+                                                <rect key="frame" x="58" y="17" width="137" height="1"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Fr3-fY-Y7I"/>

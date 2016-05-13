@@ -11,6 +11,7 @@ import AVFoundation
 import AVKit
 import MediaPlayer
 import UIKit
+import SwiftyJSON
 
 class WCBNRadioBrain: NSObject{
 

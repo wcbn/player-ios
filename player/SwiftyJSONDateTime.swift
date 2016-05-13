@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 // From https://github.com/SwiftyJSON/SwiftyJSON/issues/421
 
