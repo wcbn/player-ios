@@ -15,8 +15,7 @@ class RadioViewController: UIViewController {
   @IBOutlet weak var songTitle: UILabel!
   @IBOutlet weak var songArtist: UILabel!
   @IBOutlet weak var songAlbum: UILabel!
-  @IBOutlet weak var songLabel: UILabel!
-  @IBOutlet weak var songYear: UILabel!
+  @IBOutlet weak var songLabelAndYear: UILabel!
   @IBOutlet weak var albumArt: UIImageView!
   @IBOutlet weak var playPauseButton: UIButton!
   @IBOutlet weak var starButton: UIButton! {
@@ -102,12 +101,11 @@ class RadioViewController: UIViewController {
     songTitle.text = stringOrDash(song.name)
     songArtist.text = stringOrDash(song.artist)
     songAlbum.text = stringOrDash(song.album)
-    songLabel.text = stringOrDash(song.label)
+    var labelAndYear = stringOrDash(song.label)
     if song.year != nil {
-      songYear.text = "\(song.year!)"
-    } else {
-      songYear.text = "—"
+      labelAndYear += "\(song.year!)"
     }
+    songLabelAndYear.text = labelAndYear
     albumArt.image = delegate.radio!.playlist.albumArt
 
     // Set color of star button

@@ -11,13 +11,11 @@
 		430B85E51CA8981C0047A944 /* LightStatusBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430B85E41CA8981C0047A944 /* LightStatusBarNavigationController.swift */; };
 		430B85E71CA8ED200047A944 /* WCBNStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430B85E61CA8ED200047A944 /* WCBNStream.swift */; };
 		430E3ED61C488B7200476F48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3ED51C488B7200476F48 /* AppDelegate.swift */; };
-		430E3EE21C488B7200476F48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 430E3EE01C488B7200476F48 /* LaunchScreen.storyboard */; };
 		430E3EED1C488B7200476F48 /* playerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3EEC1C488B7200476F48 /* playerTests.swift */; };
 		430E3EF81C488B7200476F48 /* playerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3EF71C488B7200476F48 /* playerUITests.swift */; };
 		430E3F071C488C5C00476F48 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3F061C488C5C00476F48 /* Colors.swift */; };
 		430E3F0A1C488EC900476F48 /* RadioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3F081C488EC900476F48 /* RadioViewController.swift */; };
 		430E3F0B1C488EC900476F48 /* WCBNRadioBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3F091C488EC900476F48 /* WCBNRadioBrain.swift */; };
-		430E3F0F1C488EEF00476F48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 430E3F0E1C488EEF00476F48 /* Main.storyboard */; };
 		430E3F121C488F0900476F48 /* FavouritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3F101C488F0900476F48 /* FavouritesTableViewController.swift */; };
 		430E3F131C488F0900476F48 /* FavouriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3F111C488F0900476F48 /* FavouriteTableViewCell.swift */; };
 		430E3F201C495ABE00476F48 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 430E3F1C1C495ABE00476F48 /* Lato-Black.ttf */; };
@@ -33,6 +31,8 @@
 		435B71F51CAF853700D4880B /* DJCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435B71F41CAF853700D4880B /* DJCollectionViewCell.swift */; };
 		438106751CA83230009547CD /* ShowNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438106741CA83230009547CD /* ShowNotesTableViewCell.swift */; };
 		438106771CA832B6009547CD /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438106761CA832B6009547CD /* ScheduleTableViewCell.swift */; };
+		4392061C1CE58083009C3BFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4392061B1CE58083009C3BFF /* Main.storyboard */; };
+		4392061E1CE580B4009C3BFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4392061D1CE580B4009C3BFF /* LaunchScreen.storyboard */; };
 		4393E6991CA5D3B7000B2D6F /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393E6981CA5D3B7000B2D6F /* PlaylistTableViewCell.swift */; };
 		4393E69B1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393E69A1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift */; };
 		4393E69D1CA62B8D000B2D6F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393E69C1CA62B8D000B2D6F /* SettingsTableViewController.swift */; };
@@ -70,7 +70,6 @@
 		430B85E61CA8ED200047A944 /* WCBNStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCBNStream.swift; sourceTree = "<group>"; };
 		430E3ED21C488B7200476F48 /* player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		430E3ED51C488B7200476F48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		430E3EE11C488B7200476F48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		430E3EE31C488B7200476F48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		430E3EE81C488B7200476F48 /* playerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = playerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		430E3EEC1C488B7200476F48 /* playerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playerTests.swift; sourceTree = "<group>"; };
@@ -81,7 +80,6 @@
 		430E3F061C488C5C00476F48 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		430E3F081C488EC900476F48 /* RadioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioViewController.swift; sourceTree = "<group>"; };
 		430E3F091C488EC900476F48 /* WCBNRadioBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCBNRadioBrain.swift; sourceTree = "<group>"; };
-		430E3F0D1C488EEF00476F48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		430E3F101C488F0900476F48 /* FavouritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouritesTableViewController.swift; sourceTree = "<group>"; };
 		430E3F111C488F0900476F48 /* FavouriteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteTableViewCell.swift; sourceTree = "<group>"; };
 		430E3F1C1C495ABE00476F48 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -97,6 +95,8 @@
 		435B71F41CAF853700D4880B /* DJCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJCollectionViewCell.swift; sourceTree = "<group>"; };
 		438106741CA83230009547CD /* ShowNotesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowNotesTableViewCell.swift; sourceTree = "<group>"; };
 		438106761CA832B6009547CD /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		4392061B1CE58083009C3BFF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4392061D1CE580B4009C3BFF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4393E6981CA5D3B7000B2D6F /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		4393E69A1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONDateTime.swift; sourceTree = "<group>"; };
 		4393E69C1CA62B8D000B2D6F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 			children = (
 				430E3ED51C488B7200476F48 /* AppDelegate.swift */,
 				430E3EE31C488B7200476F48 /* Info.plist */,
-				430E3F0E1C488EEF00476F48 /* Main.storyboard */,
+				4392061B1CE58083009C3BFF /* Main.storyboard */,
 				4393E69E1CA62B9A000B2D6F /* settings */,
 				43CD432F1CA5C5AC0031B20A /* schedule */,
 				43207AA11C4C3F5700DE6C62 /* recent */,
@@ -234,7 +234,7 @@
 				43207A9B1C4C3AEB00DE6C62 /* Lato-Italic.ttf */,
 				43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */,
 				430E3F1D1C495ABE00476F48 /* Lato-Bold.ttf */,
-				430E3EE01C488B7200476F48 /* LaunchScreen.storyboard */,
+				4392061D1CE580B4009C3BFF /* LaunchScreen.storyboard */,
 			);
 			name = share;
 			sourceTree = "<group>";
@@ -411,13 +411,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4392061C1CE58083009C3BFF /* Main.storyboard in Resources */,
 				430E3F201C495ABE00476F48 /* Lato-Black.ttf in Resources */,
 				43207A9A1C4C39AC00DE6C62 /* Images.xcassets in Resources */,
 				430E3F211C495ABE00476F48 /* Lato-Bold.ttf in Resources */,
-				430E3F0F1C488EEF00476F48 /* Main.storyboard in Resources */,
+				4392061E1CE580B4009C3BFF /* LaunchScreen.storyboard in Resources */,
 				43207A9E1C4C3AEB00DE6C62 /* Lato-Regular.ttf in Resources */,
 				43207A9D1C4C3AEB00DE6C62 /* Lato-Italic.ttf in Resources */,
-				430E3EE21C488B7200476F48 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,26 +504,6 @@
 			targetProxy = 430E3EF41C488B7200476F48 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		430E3EE01C488B7200476F48 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				430E3EE11C488B7200476F48 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		430E3F0E1C488EEF00476F48 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				430E3F0D1C488EEF00476F48 /* Base */,
-			);
-			name = Main.storyboard;
-			path = ../../wcbnRadio/wcbnRadio;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		430E3EFA1C488B7200476F48 /* Debug */ = {
