@@ -64,7 +64,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="uD6-EK-67x">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uD6-EK-67x">
                                 <rect key="frame" x="199" y="124" width="202" height="202"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
@@ -72,24 +72,33 @@
                                     <constraint firstAttribute="width" secondItem="uD6-EK-67x" secondAttribute="height" multiplier="1:1" id="Eav-9x-IUj"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="J02-tq-ced"/>
                                     <constraint firstAttribute="width" secondItem="uD6-EK-67x" secondAttribute="height" multiplier="1:1" priority="750" id="QVw-Y9-c0B"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="402" id="cPB-nb-zUj">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="600"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Eav-9x-IUj"/>
+                                        <exclude reference="cPB-nb-zUj"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact" misplaced="YES">
                                     <rect key="frame" x="40" y="114" width="189" height="189"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="cPB-nb-zUj"/>
+                                    </mask>
+                                </variation>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-6c-KLb">
-                                <rect key="frame" x="40" y="346" width="520" height="185"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-6c-KLb">
+                                <rect key="frame" x="20" y="346" width="560" height="185"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X6O-uG-C84">
-                                        <rect key="frame" x="0.0" y="0.0" width="520" height="41"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="xkB-ey-1ao">
-                                                <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -97,8 +106,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="271" height="17"/>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shigeto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Zc9-Bk-MeY">
-                                                <rect key="frame" x="0.0" y="17" width="520" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shigeto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Zc9-Bk-MeY">
+                                                <rect key="frame" x="0.0" y="17" width="560" height="24"/>
                                                 <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -115,10 +124,10 @@
                                         </variation>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-oP-t4O">
-                                        <rect key="frame" x="0.0" y="48" width="520" height="41"/>
+                                        <rect key="frame" x="0.0" y="48" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-HD-KIr">
-                                                <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -126,8 +135,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="271" height="17"/>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detroit, Pt. 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cHI-aX-w05">
-                                                <rect key="frame" x="0.0" y="17" width="520" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detroit, Pt. 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="cHI-aX-w05">
+                                                <rect key="frame" x="0.0" y="17" width="560" height="24"/>
                                                 <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -144,10 +153,10 @@
                                         </variation>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hsP-tF-2wg">
-                                        <rect key="frame" x="0.0" y="96" width="520" height="41"/>
+                                        <rect key="frame" x="0.0" y="96" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="fof-Qc-x4e">
-                                                <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -155,8 +164,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="271" height="17"/>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Better Time Than Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fYg-wI-bk1">
-                                                <rect key="frame" x="0.0" y="17" width="520" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Better Time Than Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="fYg-wI-bk1">
+                                                <rect key="frame" x="0.0" y="17" width="560" height="24"/>
                                                 <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -173,10 +182,10 @@
                                         </variation>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-Ce-Z1j">
-                                        <rect key="frame" x="0.0" y="144" width="520" height="41"/>
+                                        <rect key="frame" x="0.0" y="144" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Label (Year)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="khS-0f-RzB">
-                                                <rect key="frame" x="0.0" y="0.0" width="520" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -187,8 +196,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="23" height="17"/>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="650" text="Ghostly International (2014)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rvR-n8-tKQ">
-                                                <rect key="frame" x="0.0" y="17" width="520" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="650" text="Ghostly International (2014)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="rvR-n8-tKQ">
+                                                <rect key="frame" x="0.0" y="17" width="560" height="24"/>
                                                 <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -218,11 +227,11 @@
                             <view contentMode="scaleToFill" horizontalHuggingPriority="400" verticalHuggingPriority="800" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="fKK-zb-lPf">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="104"/>
                                 <subviews>
-                                    <stackView contentMode="scaleToFill" verticalHuggingPriority="800" misplaced="YES" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MID-YN-qSM">
-                                        <rect key="frame" x="85" y="25" width="252" height="69"/>
+                                    <stackView contentMode="scaleToFill" verticalHuggingPriority="800" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MID-YN-qSM">
+                                        <rect key="frame" x="20" y="25" width="560" height="69"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="800" misplaced="YES" text="WCBN-FM Ann Arbor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaC-yN-JB7">
-                                                <rect key="frame" x="58" y="0.0" width="137" height="17"/>
+                                                <rect key="frame" x="122" y="0.0" width="317" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -239,11 +248,11 @@
                                                     <rect key="frame" x="57" y="0.0" width="137" height="17"/>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                    <rect key="frame" x="57" y="0.0" width="137" height="17"/>
+                                                    <rect key="frame" x="312" y="0.0" width="137" height="17"/>
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fX2-og-mQn">
-                                                <rect key="frame" x="58" y="17" width="137" height="1"/>
+                                                <rect key="frame" x="122" y="17" width="317" height="1"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Fr3-fY-Y7I"/>
@@ -261,11 +270,11 @@
                                                     <rect key="frame" x="57" y="17" width="137" height="1"/>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                    <rect key="frame" x="57" y="17" width="137" height="1"/>
+                                                    <rect key="frame" x="312" y="17" width="137" height="1"/>
                                                 </variation>
                                             </view>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="800" verticalCompressionResistancePriority="800" misplaced="YES" text="Ceci n’est pas Freeform" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jy8-KP-5dQ">
-                                                <rect key="frame" x="0.0" y="23" width="252" height="29"/>
+                                                <rect key="frame" x="155" y="23" width="252" height="29"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="64" id="tpn-FK-CN0"/>
                                                 </constraints>
@@ -290,11 +299,11 @@
                                                     <rect key="frame" x="0.0" y="23" width="252" height="29"/>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                    <rect key="frame" x="0.0" y="23" width="252" height="29"/>
+                                                    <rect key="frame" x="255" y="23" width="252" height="29"/>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="800" misplaced="YES" text="with Cameron" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-7t-rJ3">
-                                                <rect key="frame" x="86" y="52" width="81" height="17"/>
+                                                <rect key="frame" x="240" y="52" width="81" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -311,7 +320,7 @@
                                                     <rect key="frame" x="86" y="52" width="81" height="17"/>
                                                 </variation>
                                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                    <rect key="frame" x="86" y="52" width="81" height="17"/>
+                                                    <rect key="frame" x="340" y="52" width="81" height="17"/>
                                                 </variation>
                                             </label>
                                         </subviews>
@@ -341,7 +350,7 @@
                                             <rect key="frame" x="-16" y="20" width="252" height="69"/>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                            <rect key="frame" x="185" y="25" width="252" height="69"/>
+                                            <rect key="frame" x="185" y="25" width="760" height="69"/>
                                         </variation>
                                     </stackView>
                                 </subviews>
@@ -350,6 +359,7 @@
                                     <constraint firstItem="MID-YN-qSM" firstAttribute="top" secondItem="fKK-zb-lPf" secondAttribute="top" constant="25" id="7DZ-jN-mRG">
                                         <variation key="heightClass=compact-widthClass=compact" constant="25"/>
                                     </constraint>
+                                    <constraint firstItem="MID-YN-qSM" firstAttribute="leading" secondItem="fKK-zb-lPf" secondAttribute="leading" constant="20" id="X9m-UX-lqg"/>
                                     <constraint firstAttribute="bottom" secondItem="MID-YN-qSM" secondAttribute="bottom" constant="10" id="ZI3-qz-w6P"/>
                                     <constraint firstItem="MID-YN-qSM" firstAttribute="centerX" secondItem="fKK-zb-lPf" secondAttribute="centerX" id="eUv-He-Oir"/>
                                 </constraints>
@@ -380,7 +390,7 @@
                             <constraint firstItem="U37-vi-w3q" firstAttribute="centerY" secondItem="uD6-EK-67x" secondAttribute="centerY" id="NPs-1B-VMl"/>
                             <constraint firstItem="uD6-EK-67x" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="32" id="PTM-Q8-qgx"/>
                             <constraint firstItem="iBm-6c-KLb" firstAttribute="top" secondItem="fKK-zb-lPf" secondAttribute="bottom" constant="10" id="Tw9-gj-AIl"/>
-                            <constraint firstItem="iBm-6c-KLb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="XXK-1T-Uk9"/>
+                            <constraint firstItem="iBm-6c-KLb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="XXK-1T-Uk9"/>
                             <constraint firstItem="iBm-6c-KLb" firstAttribute="leading" secondItem="uD6-EK-67x" secondAttribute="trailing" priority="750" constant="138" id="eUc-p2-gM9">
                                 <variation key="heightClass=compact" constant="20"/>
                             </constraint>

@@ -46,6 +46,7 @@
                                     <constraint firstAttribute="width" secondItem="RBc-t8-fuT" secondAttribute="height" multiplier="1:1" priority="750" id="DIm-AF-ifK"/>
                                     <constraint firstAttribute="width" secondItem="RBc-t8-fuT" secondAttribute="height" multiplier="1:1" id="NXE-hK-HTR"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="PI4-hw-9UX"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="RYT-9r-W7a"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
