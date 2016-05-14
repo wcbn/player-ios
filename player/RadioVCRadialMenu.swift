@@ -53,7 +53,7 @@ extension RadioViewController {
     r.center = CGPoint(x: albumArt.center.x, y: albumArt.center.y - 60 - albumArt.frame.height / 2)
   }
 
-  func openRadialMenu(gesture:UIGestureRecognizer) {
+  @IBAction func openRadialMenu(gesture:UIGestureRecognizer) {
     if !delegate.radio!.isPlaying { return }
     let loc = gesture.locationInView(blurBehindRadialMenu)
     switch(gesture.state) {

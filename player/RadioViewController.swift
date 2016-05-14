@@ -43,7 +43,7 @@ MFMessageComposeViewControllerDelegate
     RadialOption(name: "act-share", message: "Share this song with your friends", color: "#5B48A2"),
   ]
 
-  func playOrPauseMusic(_: UITapGestureRecognizer) {
+  @IBAction func playOrPauseMusic(_: UITapGestureRecognizer) {
     delegate.radio!.playOrPause()
     updateUI()
   }
@@ -83,14 +83,6 @@ MFMessageComposeViewControllerDelegate
     l.shadowOpacity = 0.5
     l.shadowOffset = CGSizeMake(0, 16)
     l.shadowRadius = 40
-
-    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(playOrPauseMusic))
-    tapRecognizer.delegate = self
-    self.albumArt.addGestureRecognizer(tapRecognizer)
-    self.albumArt.userInteractionEnabled = true
-
-    let longPress = UILongPressGestureRecognizer(target: self, action: #selector(openRadialMenu(_:)))
-    albumArt.addGestureRecognizer(longPress)
 
     loadRadialMenu()
   }

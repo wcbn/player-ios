@@ -64,7 +64,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uD6-EK-67x">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uD6-EK-67x">
                                 <rect key="frame" x="199" y="124" width="202" height="202"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
@@ -90,6 +90,11 @@
                                         <include reference="cPB-nb-zUj"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="fMt-ko-PIV" appends="YES" id="y6n-JE-Iwp"/>
+                                    <outletCollection property="gestureRecognizers" destination="78d-ZZ-TgI" appends="YES" id="QHU-I9-vu0"/>
+                                    <outletCollection property="gestureRecognizers" destination="wVn-cn-E7e" appends="YES" id="ewg-Vz-jAb"/>
+                                </connections>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-6c-KLb">
                                 <rect key="frame" x="20" y="346" width="560" height="185"/>
@@ -474,6 +479,21 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="fMt-ko-PIV">
+                    <connections>
+                        <action selector="playOrPauseMusic:" destination="BYZ-38-t0r" id="w7I-76-JAg"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="78d-ZZ-TgI">
+                    <connections>
+                        <action selector="openRadialMenu:" destination="BYZ-38-t0r" id="Qzi-yv-80Y"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="wVn-cn-E7e">
+                    <connections>
+                        <action selector="openRadialMenu:" destination="BYZ-38-t0r" id="W7a-UF-89j"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="493" y="1455"/>
         </scene>
