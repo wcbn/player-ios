@@ -52,6 +52,7 @@ extension RadioViewController {
   }
 
   func openRadialMenu(gesture:UIGestureRecognizer) {
+    if !delegate.radio!.isPlaying { return }
     let loc = gesture.locationInView(blurBehindRadialMenu)
     switch(gesture.state) {
     case .Began:
