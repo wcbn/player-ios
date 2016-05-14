@@ -7,6 +7,7 @@ target 'player' do
 
   # Pods for player
   pod 'SwiftyJSON', '~> 2.3.2'
+  pod 'pop'
 
   target 'playerTests' do
     inherit! :search_paths

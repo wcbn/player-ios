@@ -24,15 +24,30 @@ class RadioViewController: UIViewController, UIGestureRecognizerDelegate {
   let favs = Favourites()
   var resizingLabels: [UILabel] = []
 
-  @IBAction func playOrPauseMusic(_: UITapGestureRecognizer) {
+  var radialMenu: RadialMenu!
+
+  struct RadialOption {
+    var name: String
+    var message: String
+    var color: String
+  }
+
+  let options: [RadialOption] = [
+    RadialOption(name: "act-heart", message: "Add this song to your favorites", color: "#F47CC3"),
+    RadialOption(name: "act-message", message: "Send an iMessage to the DJ", color: "#2ECC71"),
+    RadialOption(name: "act-iTunes", message: "Find this song in the iTunes Store", color: "#FFCD01"),
+    RadialOption(name: "act-share", message: "Share this song with your friends", color: "#5B48A2"),
+  ]
+
+  func playOrPauseMusic(_: UITapGestureRecognizer) {
     delegate.radio!.playOrPause()
     updateUI()
   }
-  @IBAction func starSong() {
+  func starSong() {
     delegate.radio!.addToOrRemoveCurrentSongFromFavourites()
     updateUI()
   }
-  @IBAction func search() {
+  func searchiTunes() {
     if let url = delegate.radio!.playlist.albumURL {
       UIApplication.sharedApplication().openURL(url)
     }
@@ -69,8 +84,13 @@ class RadioViewController: UIViewController, UIGestureRecognizerDelegate {
     tapRecognizer.delegate = self
     self.albumArt.addGestureRecognizer(tapRecognizer)
     self.albumArt.userInteractionEnabled = true
+
+    let longPress = UILongPressGestureRecognizer(target: self, action: #selector(openRadialMenu(_:)))
+    albumArt.addGestureRecognizer(longPress)
+
+    loadRadialMenu()
   }
-  
+
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     updateUI()
@@ -88,7 +108,9 @@ class RadioViewController: UIViewController, UIGestureRecognizerDelegate {
     }
   }
 
-  let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+  let albumArtEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+  let blurBehindRadialMenu = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+  let radialMenuHint = UILabel()
 
   func updateLabels() {
     let song = delegate.radio!.currentSong
@@ -118,7 +140,7 @@ class RadioViewController: UIViewController, UIGestureRecognizerDelegate {
       l.shadowColor = UIColor.blackColor().CGColor
 
       UIView.transitionWithView(albumArt, duration: 0.2, options: .TransitionCrossDissolve,
-                                animations: { self.effectView.removeFromSuperview() },
+                                animations: { self.albumArtEffectView.removeFromSuperview() },
                                 completion: nil)
       UIView.transitionWithView(playButton, duration: 0.2, options: .TransitionCrossDissolve,
                                 animations: { self.playButton.hidden = true },
@@ -127,9 +149,9 @@ class RadioViewController: UIViewController, UIGestureRecognizerDelegate {
       l.borderWidth = 0
       l.shadowColor = UIColor.whiteColor().CGColor
 
-      effectView.frame = l.bounds
+      albumArtEffectView.frame = l.bounds
       UIView.transitionWithView(albumArt, duration: 0.2, options: .TransitionCrossDissolve,
-                                animations: { self.albumArt.addSubview(self.effectView) },
+                                animations: { self.albumArt.addSubview(self.albumArtEffectView) },
                                 completion: nil)
       UIView.transitionWithView(playButton, duration: 0.2, options: .TransitionCrossDissolve,
                                 animations: { self.playButton.hidden = false },
@@ -160,5 +182,4 @@ class RadioViewController: UIViewController, UIGestureRecognizerDelegate {
 //    }
 
   }
-  
 }

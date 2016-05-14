@@ -1,0 +1,117 @@
+//
+//  RadioVCRadialMenu.swift
+//  player
+//
+//  Created by Cameron Bothner on 5/13/16.
+//  Copyright © 2016 Cameron Bothner. All rights reserved.
+//
+
+import UIKit
+
+extension RadioViewController {
+
+  func loadRadialMenu() {
+    var subMenus: [RadialSubMenu] = []
+    for i in 0..<options.count{
+      subMenus.append(self.createSubMenu(i))
+    }
+    radialMenu = RadialMenu(menus: subMenus, radius: 130.0)
+    radialMenu.center = albumArt.center
+    radialMenu.openDelayStep = 0.05
+    radialMenu.closeDelayStep = 0.00
+    radialMenu.minAngle = -90
+    radialMenu.maxAngle = 270
+    radialMenu.activatedDelay = 0.0
+    radialMenu.backgroundView.alpha = 0.0
+
+    radialMenu.onClose = {
+      for subMenu in self.radialMenu.subMenus {
+        self.resetSubMenu(subMenu)
+      }
+    }
+    radialMenu.onHighlight = { subMenu in self.highlightSubMenu(subMenu) }
+    radialMenu.onUnhighlight = { subMenu in self.resetSubMenu(subMenu) }
+    radialMenu.onActivate = { subMenu in self.activateSubMenu(subMenu)}
+
+    blurBehindRadialMenu.hidden = true
+    tabBarController?.view.addSubview(blurBehindRadialMenu)
+    blurBehindRadialMenu.contentView.addSubview(radialMenu)
+
+    radialMenuHint.font = UIFont(name: "Lato-Bold", size: 16)
+    radialMenuHint.textColor = UIColor.whiteColor()
+    radialMenuHint.text = ""
+    blurBehindRadialMenu.contentView.addSubview(radialMenuHint)
+  }
+
+  func setRadialMenuHint(text: String) {
+    let r = radialMenuHint
+    r.text = text
+    r.sizeToFit()
+    r.center = CGPoint(x: albumArt.center.x, y: albumArt.center.y - 60 - albumArt.frame.height / 2)
+  }
+
+  func openRadialMenu(gesture:UIGestureRecognizer) {
+    let loc = gesture.locationInView(blurBehindRadialMenu)
+    switch(gesture.state) {
+    case .Began:
+      blurBehindRadialMenu.frame = view.bounds
+      blurBehindRadialMenu.hidden = false
+
+      setRadialMenuHint("Tap once to stop streaming")
+
+      radialMenu.openAtPosition(loc)
+    case .Ended:
+      blurBehindRadialMenu.hidden = true
+      radialMenu.close()
+    case .Changed:
+      radialMenu.moveAtPosition(loc)
+    default:
+      break
+    }
+  }
+
+  func createSubMenu(i: Int) -> RadialSubMenu {
+    let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 160))
+    image.image = UIImage(named: options[i].name)!
+    let subMenu = RadialSubMenu(imageView: image)
+    subMenu.layer.cornerRadius = 80
+    subMenu.userInteractionEnabled = true
+    subMenu.tag = i
+    resetSubMenu(subMenu)
+    return subMenu
+  }
+
+  func highlightSubMenu(subMenu: RadialSubMenu) {
+    setRadialMenuHint(options[subMenu.tag].message)
+    UIView.animateWithDuration(0.1) {
+      subMenu.transform = CGAffineTransformMakeScale(1.25, 1.25)
+    }
+  }
+
+  func resetSubMenu(subMenu: RadialSubMenu) {
+    UIView.animateWithDuration(0.1) {
+      subMenu.transform = CGAffineTransformMakeScale(0.8, 0.8)  // = 1 / 1.25
+    }
+  }
+
+  func activateSubMenu(subMenu: RadialSubMenu) {
+    let option = options[subMenu.tag]
+    switch option.name {
+    case "act-heart":
+      starSong()
+      flash(UIColor(rgba: option.color))
+    case "act-iTunes":
+      searchiTunes()
+    default:
+      break
+    }
+  }
+
+  func flash(color: UIColor) {
+    UIView.animateWithDuration(0.3, animations: {
+      self.view.backgroundColor = color
+    }, completion: { _ in
+      UIView.animateWithDuration(0.3) { self.view.backgroundColor = Colors.Light.blue }
+    })
+  }
+}
