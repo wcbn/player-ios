@@ -69,7 +69,9 @@ public class RadialMenu: UIView, RadialSubMenuDelegate {
     
     // FIXME: Make private when Swift adds access controls
     public var subMenus: [RadialSubMenu]
-    
+
+    let closeButton = UIImageView(image: UIImage(named: "back"))
+
     var numOpeningSubMenus = 0
     var numOpenedSubMenus = 0
     var numHighlightedSubMenus = 0
@@ -150,6 +152,9 @@ public class RadialMenu: UIView, RadialSubMenuDelegate {
         backgroundView.transform = CGAffineTransformMakeScale(0.000001, 0.000001)
         
         addSubview(backgroundView)
+
+        closeButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        addSubview(closeButton)
     }
     
     func resetDefaults() {
@@ -183,7 +188,9 @@ public class RadialMenu: UIView, RadialSubMenuDelegate {
         show()
         
         let relPos = convertPoint(position, fromView:superview)
-        
+
+        closeButton.center = relPos
+
         for (i, subMenu) in subMenus.enumerate() {
             let subMenuPos = getPositionForSubMenu(subMenu)
             let delay = openDelayStep * Double(i)
