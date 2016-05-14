@@ -8,8 +8,12 @@
 
 import UIKit
 import MediaPlayer
+import MessageUI
 
-class RadioViewController: UIViewController, UIGestureRecognizerDelegate {
+class RadioViewController: UIViewController,
+UIGestureRecognizerDelegate,
+MFMessageComposeViewControllerDelegate
+{
   @IBOutlet weak var showTitle: UILabel!
   @IBOutlet weak var showDescription: UILabel!
   @IBOutlet weak var songTitle: UILabel!

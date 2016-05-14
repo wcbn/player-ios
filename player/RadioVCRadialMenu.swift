@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 extension RadioViewController {
 
@@ -89,6 +90,7 @@ extension RadioViewController {
   }
 
   func resetSubMenu(subMenu: RadialSubMenu) {
+    setRadialMenuHint("Tap once to stop streaming")
     UIView.animateWithDuration(0.1) {
       subMenu.transform = CGAffineTransformMakeScale(0.8, 0.8)  // = 1 / 1.25
     }
@@ -102,9 +104,32 @@ extension RadioViewController {
       flash(UIColor(rgba: option.color))
     case "act-iTunes":
       searchiTunes()
+    case "act-message":
+      flash(UIColor(rgba: option.color))
+      textWCBN()
     default:
       break
     }
+  }
+
+  func textWCBN() {
+    if !MFMessageComposeViewController.canSendText() {
+      let alert = UIAlertController(title: "Cannot send", message: "This device does not support sending iMessages.", preferredStyle: .Alert)
+      let dismiss = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      alert.addAction(dismiss)
+      presentViewController(alert, animated: true, completion: nil)
+      return
+    }
+
+    let composeView = MFMessageComposeViewController()
+    composeView.messageComposeDelegate = self
+
+    composeView.recipients = ["radio@wcbn.org"]
+    presentViewController(composeView, animated: true, completion: nil)
+  }
+
+  func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+    controller.dismissViewControllerAnimated(true, completion: nil)
   }
 
   func flash(color: UIColor) {
