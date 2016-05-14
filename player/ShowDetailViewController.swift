@@ -119,6 +119,10 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     cell.backgroundColor = UIColor.clearColor()
 
+    let selectionColor = UIView()
+    selectionColor.backgroundColor = UIColor.whiteColor()
+    cell.selectedBackgroundView = selectionColor
+
     recentEpisodesHeight.constant = recentEpisodes.contentSize.height
 
     return cell
