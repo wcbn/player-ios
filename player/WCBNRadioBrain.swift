@@ -66,6 +66,18 @@ class WCBNRadioBrain: NSObject{
       }
     }
 
+    var description: String {
+      get {
+        var d = ""
+        if song.name != "—" { d += "\(song.name) " }
+        if song.name != "—" && song.artist != "—" { d += "by " }
+        if song.artist != "—" { d += "\(song.artist) " }
+        if song.name != "—" || song.artist != "—" { d += "on "}
+        d += "\(episode.unambiguousName)"
+        return d
+      }
+    }
+
     func setNowPlayingInfo() {
       NSNotificationCenter.defaultCenter().postNotificationName("SongDataReceived", object: nil)
       
@@ -88,6 +100,12 @@ class WCBNRadioBrain: NSObject{
   var isPlaying = false
   let favourites = Favourites()
 
+  var optionalDescription: String? {
+    get {
+      if !isPlaying { return nil }
+      return playlist.description
+    }
+  }
 
   let defaultAlbum = UIImage(named: "AlbumDefault")!
 
