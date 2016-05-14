@@ -118,8 +118,13 @@ extension RadioViewController {
     let description = delegate.radio?.optionalDescription
     let on = description == nil ? "" : " on "
     let content = "I’m listening to \(description ?? "")\(on)WCBN-FM. Tune in at wcbn.org!"
+
     let shareSheet = UIActivityViewController(activityItems: [content as NSString], applicationActivities: nil)
+    shareSheet.modalPresentationStyle = .Popover
     presentViewController(shareSheet, animated: true, completion: nil)
+    let popoverController = shareSheet.popoverPresentationController
+    popoverController?.sourceView = albumArt
+    popoverController?.sourceRect = albumArt.bounds
   }
 
   func textWCBN() {
