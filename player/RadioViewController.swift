@@ -62,10 +62,11 @@ MFMessageComposeViewControllerDelegate
     let notificationCenter = NSNotificationCenter.defaultCenter()
     let mainQueue = NSOperationQueue.mainQueue()
     notificationCenter.addObserverForName("SongDataReceived",
-      object: nil,
-      queue: mainQueue)
-      { notification in
-          self.updateUI()
+                                          object: nil,
+                                          queue: mainQueue)
+    { notification in
+      self.explainInterface()
+      self.updateUI()
     }
 
     self.setNeedsStatusBarAppearanceUpdate()
@@ -177,5 +178,14 @@ MFMessageComposeViewControllerDelegate
 //      searchButton.enabled = false
 //    }
 
+  }
+
+
+  func explainInterface() {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    if (!defaults.boolForKey("interfaceExplained[3.0.0-beta4]")) {
+      explainRadialMenu()
+      defaults.setBool(true, forKey: "interfaceExplained[3.0.0-beta4]")
+    }
   }
 }

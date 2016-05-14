@@ -486,12 +486,12 @@
                 </tapGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="78d-ZZ-TgI">
                     <connections>
-                        <action selector="openRadialMenu:" destination="BYZ-38-t0r" id="Qzi-yv-80Y"/>
+                        <action selector="longPressed:" destination="BYZ-38-t0r" id="Vpc-ub-qxG"/>
                     </connections>
                 </pongPressGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="wVn-cn-E7e">
                     <connections>
-                        <action selector="openRadialMenu:" destination="BYZ-38-t0r" id="W7a-UF-89j"/>
+                        <action selector="longPressed:" destination="BYZ-38-t0r" id="EX6-od-dXv"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>

@@ -53,29 +53,37 @@ extension RadioViewController {
     r.center = CGPoint(x: albumArt.center.x, y: albumArt.center.y - 60 - albumArt.frame.height / 2)
   }
 
-  @IBAction func openRadialMenu(gesture:UIGestureRecognizer) {
+  @IBAction func longPressed(gesture:UIGestureRecognizer) {
     if !delegate.radio!.isPlaying { return }
     let loc = gesture.locationInView(blurBehindRadialMenu)
     switch(gesture.state) {
     case .Began:
-      blurBehindRadialMenu.frame = view.bounds
-      UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
-                                animations: { self.blurBehindRadialMenu.hidden = false },
-                                completion: nil)
-
-      setRadialMenuHint("Tap once to stop streaming")
-
-      radialMenu.openAtPosition(loc)
+      openRadialMenu(loc)
     case .Ended:
-      UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
-                                animations: { self.blurBehindRadialMenu.hidden = true },
-                                completion: nil)
-      radialMenu.close()
+      closeRadialMenu()
     case .Changed:
       radialMenu.moveAtPosition(loc)
     default:
       break
     }
+  }
+
+  func openRadialMenu(location: CGPoint) {
+    blurBehindRadialMenu.frame = view.bounds
+    UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
+                              animations: { self.blurBehindRadialMenu.hidden = false },
+                              completion: nil)
+    
+    setRadialMenuHint("Tap once to stop streaming")
+    
+    radialMenu.openAtPosition(location)
+  }
+
+  func closeRadialMenu() {
+    UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
+                              animations: { self.blurBehindRadialMenu.hidden = true },
+                              completion: nil)
+    radialMenu.close()
   }
 
   func createSubMenu(i: Int) -> RadialSubMenu {
@@ -160,5 +168,27 @@ extension RadioViewController {
     }, completion: { _ in
       UIView.animateWithDuration(0.3) { self.view.backgroundColor = Colors.Light.blue }
     })
+  }
+
+
+
+
+  func explainRadialMenu() {
+    delay(1) {
+      self.openRadialMenu(self.albumArt.center)
+      self.setRadialMenuHint("Tap and hold the album artwork to do more")
+
+      let tapRecog = UITapGestureRecognizer(target: self, action: #selector(self.endExplainRadialMenu))
+      self.blurBehindRadialMenu.addGestureRecognizer(tapRecog)
+    }
+  }
+
+  func endExplainRadialMenu() {
+    closeRadialMenu()
+    if let recogs = blurBehindRadialMenu.gestureRecognizers {
+      for recog in recogs {
+        blurBehindRadialMenu.removeGestureRecognizer(recog)
+      }
+    }
   }
 }
