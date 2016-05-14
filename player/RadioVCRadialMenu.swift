@@ -59,13 +59,17 @@ extension RadioViewController {
     switch(gesture.state) {
     case .Began:
       blurBehindRadialMenu.frame = view.bounds
-      blurBehindRadialMenu.hidden = false
+      UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
+                                animations: { self.blurBehindRadialMenu.hidden = false },
+                                completion: nil)
 
       setRadialMenuHint("Tap once to stop streaming")
 
       radialMenu.openAtPosition(loc)
     case .Ended:
-      blurBehindRadialMenu.hidden = true
+      UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
+                                animations: { self.blurBehindRadialMenu.hidden = true },
+                                completion: nil)
       radialMenu.close()
     case .Changed:
       radialMenu.moveAtPosition(loc)
