@@ -189,6 +189,7 @@ public class RadialMenu: UIView, RadialSubMenuDelegate {
         
         let relPos = convertPoint(position, fromView:superview)
 
+        backgroundView.center = relPos
         closeButton.center = relPos
 
         for (i, subMenu) in subMenus.enumerate() {

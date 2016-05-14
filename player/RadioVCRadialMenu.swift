@@ -23,7 +23,7 @@ extension RadioViewController {
     radialMenu.minAngle = -90
     radialMenu.maxAngle = 270
     radialMenu.activatedDelay = 0.0
-    radialMenu.backgroundView.alpha = 0.0
+    radialMenu.backgroundView.alpha = 0.5
 
     radialMenu.onClose = {
       for subMenu in self.radialMenu.subMenus {
