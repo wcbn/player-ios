@@ -42,6 +42,8 @@ extension RadioViewController {
     radialMenuHint.textColor = UIColor.whiteColor()
     radialMenuHint.text = ""
     blurBehindRadialMenu.contentView.addSubview(radialMenuHint)
+
+
   }
 
   func setRadialMenuHint(text: String) {

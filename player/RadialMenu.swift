@@ -137,7 +137,7 @@ public class RadialMenu: UIView, RadialSubMenuDelegate {
         layer.zPosition = -2
         
         // set a sane highlight distance by default..might need to be tweaked based on your needs
-        highlightDistance = radius * 0.75 // allow aggressive highlights near submenu
+        highlightDistance = radius * 0.55 // allow aggressive highlights near submenu
         minHighlightDistance = radius * 0.25 // but not within 25% of center
         
         backgroundView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
