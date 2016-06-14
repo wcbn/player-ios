@@ -85,12 +85,12 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     return CGSizeMake(size.width + 32, size.height + 24)
   }
 
-//  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-//    let djVC = storyboard?.instantiateViewControllerWithIdentifier("DJ") as! DJViewController
-//    djVC.dj_path = show.djs[indexPath.row].path
-//    djVC.title = show.djs[indexPath.row].name
-//    navigationController?.pushViewController(djVC, animated: true)
-//  }
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    let djVC = storyboard?.instantiateViewControllerWithIdentifier("DJ") as! DJViewController
+    djVC.dj_path = show.djs[indexPath.row].path
+    djVC.title = show.djs[indexPath.row].name
+    navigationController?.pushViewController(djVC, animated: true)
+  }
 
   // MARK: - Recent Episodes
 
