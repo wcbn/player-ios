@@ -6,7 +6,7 @@
 //  Copyright © 2016 WCBN-FM Ann Arbor. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 func delay(delay:Double, closure:()->()) {
   dispatch_after(

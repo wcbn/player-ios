@@ -177,7 +177,7 @@ class WCBNRadioBrain: NSObject{
   // MARK: - Networking
 
   private func fetchSongInfo() {
-    let playlistEndpointURL = NSURL( string: "http://app.wcbn.org/playlist.json")!
+    let playlistEndpointURL = NSURL( string: "https://app.wcbn.org/playlist.json")!
     fetch(jsonFrom: playlistEndpointURL) { json in
       self.playlist.semesterID = json["on_air"]["semester_id"].int
       
@@ -215,7 +215,7 @@ class WCBNRadioBrain: NSObject{
 
   private func fetchSchedule() {
     guard let semesterID = self.playlist.semesterID else { return }
-    let semesterEndpointURL = NSURL( string: "http://app.wcbn.org/semesters/\(semesterID).json")!
+    let semesterEndpointURL = NSURL( string: "https://app.wcbn.org/semesters/\(semesterID).json")!
 
     fetch(jsonFrom: semesterEndpointURL) { json in
       var weekdays: [Weekday] = []

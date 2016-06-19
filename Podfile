@@ -20,3 +20,8 @@ target 'player' do
   end
 
 end
+
+target 'todaySchedule' do
+  use_frameworks!
+  pod 'SwiftyJSON', '~> 2.3.2'
+end

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="VCx-HO-5fc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lato-Black.ttf">
+            <string>Lato-Black</string>
+        </mutableArray>
+        <mutableArray key="Lato-Italic.ttf">
+            <string>Lato-Italic</string>
+        </mutableArray>
+        <mutableArray key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="dTZ-Ae-BhP">
+            <objects>
+                <viewController id="VCx-HO-5fc" customClass="TodayViewController" customModule="todaySchedule" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sqW-a6-BdI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rct-vu-lAc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" verticalHuggingPriority="300" simulatedAppContext="notificationCenter" layoutMarginsFollowReadableWidth="YES" id="hb9-Ce-caH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="TUi-io-jMA">
+                                <rect key="frame" x="16" y="8" width="288" height="134"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="270" verticalCompressionResistancePriority="760" misplaced="YES" text="The Beatles: “Savoy Truffle”" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2H-l2-kXz">
+                                        <rect key="frame" x="0.0" y="0.0" width="201" height="20"/>
+                                        <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" red="0.78823529410000004" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="It’s Hot In Here" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-Tm-bEp">
+                                        <rect key="frame" x="0.0" y="24" width="107" height="19"/>
+                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" red="0.78823529410000004" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" misplaced="YES" text="with the IHIH Team" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7f6-Dr-iMp">
+                                        <rect key="frame" x="0.0" y="46" width="111" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" red="0.78823529410000004" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6W3-E9-XOD">
+                                        <rect key="frame" x="0.0" y="50" width="73" height="30"/>
+                                        <state key="normal" title="Listen Live">
+                                            <color key="titleColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="100" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RQj-Ht-NI6">
+                                        <rect key="frame" x="0.0" y="84" width="288" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Uce-Tm-bEp" firstAttribute="top" secondItem="b2H-l2-kXz" secondAttribute="bottom" constant="4" id="1Kk-GC-L7u"/>
+                                    <constraint firstItem="7f6-Dr-iMp" firstAttribute="top" secondItem="Uce-Tm-bEp" secondAttribute="bottom" constant="4" id="9V3-lh-W8f"/>
+                                    <constraint firstItem="6W3-E9-XOD" firstAttribute="top" secondItem="7f6-Dr-iMp" secondAttribute="bottom" id="aGs-wg-u7C"/>
+                                    <constraint firstItem="RQj-Ht-NI6" firstAttribute="top" secondItem="6W3-E9-XOD" secondAttribute="bottom" id="vVa-Dr-wha"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="TUi-io-jMA" secondAttribute="trailing" id="GQV-cl-vAg"/>
+                            <constraint firstItem="Rct-vu-lAc" firstAttribute="top" secondItem="TUi-io-jMA" secondAttribute="bottom" constant="8" symbolic="YES" id="UpC-Z0-rAg"/>
+                            <constraint firstItem="TUi-io-jMA" firstAttribute="leading" secondItem="hb9-Ce-caH" secondAttribute="leadingMargin" id="YpG-JC-3ox"/>
+                            <constraint firstItem="TUi-io-jMA" firstAttribute="top" secondItem="sqW-a6-BdI" secondAttribute="bottom" constant="8" symbolic="YES" id="qyH-PJ-QEH"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="150"/>
+                    <connections>
+                        <outlet property="onAirShowName" destination="Uce-Tm-bEp" id="0QW-jG-Csu"/>
+                        <outlet property="onAirShowWith" destination="7f6-Dr-iMp" id="6Ys-Zu-sLS"/>
+                        <outlet property="onAirSongInfo" destination="b2H-l2-kXz" id="Tq9-2G-6vK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FEf-aG-GmW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-202" y="209"/>
+        </scene>
+    </scenes>
+</document>
