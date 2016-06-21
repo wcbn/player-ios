@@ -12,8 +12,7 @@ import SwiftyJSON
 
 class TodayViewController: UIViewController, NCWidgetProviding {
   @IBOutlet weak var onAirSongInfo: UILabel!
-  @IBOutlet weak var onAirShowName: UILabel!
-  @IBOutlet weak var onAirShowWith: UILabel!
+  @IBOutlet weak var onAirShowInfo: UILabel!
 
   struct TodayViewInfo {
     var showName = ""
@@ -24,14 +23,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     var songInfo: String {
       get {
         guard let artist = artistName, song = songName else {
-          return "No Song"
+          return "—"
         }
         return "\(artist): “\(song)”"
       }
     }
-    var showWith: String {
+    var showInfo: String {
       get {
-        return "with \(djName)"
+        return "\(showName) with \(djName)"
       }
     }
   }
@@ -54,25 +53,43 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
   }
 
+  @IBAction func openWCBNApp() {
+    let wcbn = NSURL(string: "wcbn://")
+    extensionContext?.openURL(wcbn!, completionHandler: nil)
+  }
+
   func updateUI() {
     onAirSongInfo.text = onAir.songInfo
-    onAirShowName.text = onAir.showName
-    onAirShowWith.text = onAir.showWith
+    onAirShowInfo.text = onAir.showInfo
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.preferredContentSize = CGSizeMake(0, 100)
+    
+    let os = NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 10, minorVersion: 0, patchVersion: 0))
+    if !os {
+      onAirSongInfo.textColor = .whiteColor()
+      onAirShowInfo.textColor = .whiteColor()
+    }
   }
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     fetchOnAndUpcoming()
-    updateUI()
   }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+
+  func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
+    return UIEdgeInsets(
+      top: defaultMarginInsets.top,
+      left: defaultMarginInsets.left,
+      bottom: defaultMarginInsets.top,
+      right: defaultMarginInsets.right)
   }
 
   func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
