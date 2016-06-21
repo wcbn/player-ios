@@ -139,6 +139,11 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       delegate.streamURL = action.key
       navigationController?.popViewControllerAnimated(true)
 
+    case "review":
+      let reviewURL = NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=600658964&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")
+      UIApplication.sharedApplication().openURL(reviewURL!)
+      deselectSelectedRow()
+
     default:
       return
     }
