@@ -22,7 +22,8 @@ struct Favourite {
   init(playlist p: WCBNRadioBrain.Playlist) {
     song = p.song
     episode = p.episode
-    url = p.albumURL
+//    url = p.albumURL
+    url = nil
   }
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Song {
+struct Song : Equatable {
   var artist = "—"
   var name = "—"
   var album = "—"
@@ -38,4 +38,10 @@ struct Song {
       } else { return "" }
     }
   }
+}
+
+func ==(lhs: Song, rhs: Song) -> Bool {
+  return (lhs.artist == rhs.artist) &&
+         (lhs.name == lhs.name) &&
+         (lhs.album == lhs.album)
 }

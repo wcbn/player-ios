@@ -31,7 +31,6 @@ class WCBNRadioBrain: NSObject{
     var semesterID: Int? = nil
 
     var albumArt = UIImage(named: "AlbumDefault")
-    var albumURL: NSURL? = nil
 
     var song: Song {
       get {
@@ -208,7 +207,10 @@ class WCBNRadioBrain: NSObject{
       self.playlist.episode = episode
       
       if episodeChanged { self.fetchSchedule() }
-      self.fetchAlbumArt()
+
+      self.delegate!.songSearchService.lookup(self.playlist.song) {
+        self.albumArtURL = self.delegate!.songSearchService.albumArtURL()
+      }
     }
   }
 
@@ -254,45 +256,6 @@ class WCBNRadioBrain: NSObject{
     }
   }
 
-
-  func fetchAlbumArt() {
-    playlist.albumArt = defaultAlbum
-    playlist.albumURL = nil
-
-    guard let _ = playlist.song.timestamp else { return }
-    
-    let artist = self.playlist.song.artist
-    let album = self.playlist.song.album
-
-    let raw_query: String
-    if album.lowercaseString.rangeOfString("single") != nil || album.isEmpty {
-      raw_query = "\(artist) \(self.playlist.song.name)"
-    } else {
-      raw_query = "\(artist) \(album)"
-    }
-
-    guard let query = raw_query.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) else {
-      return
-    }
-
-    let iTunesQueryURL = "https://itunes.apple.com/search?limit=1&version=2&entity=album&term=\(query)"
-    let apiURL = NSURL(string: iTunesQueryURL)!
-
-    fetch(jsonFrom: apiURL) { response in
-      let results = response["results"]
-      if results.count > 0 {
-        let smallArtworkURL = results[0]["artworkUrl100"].stringValue
-        
-        let regex = try! NSRegularExpression(pattern: "100x100", options: .CaseInsensitive)
-        let bigArtworkURL = regex.stringByReplacingMatchesInString(smallArtworkURL, options: [], range: NSRange(0..<smallArtworkURL.utf16.count), withTemplate: "1000x1000")
-        self.albumArtURL = NSURL(string: bigArtworkURL)
-        
-        self.playlist.albumURL = NSURL(string: results[0]["collectionViewUrl"].stringValue)
-        print("iTunes API: artworkUrl = \(self.albumArtURL), collectionViewUrl = \(self.playlist.albumURL)")
-      }
-    }
-  }
-  
   private func fetchImage() {
     guard let url = albumArtURL else { return }
     fetch(dataFrom: url, onFailure: { self.playlist.albumArt = self.defaultAlbum })

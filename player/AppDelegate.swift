@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   var radio: WCBNRadioBrain? = nil
+  var songSearchService: SongSearchService = iTunesService.sharedInstance
 
   private let defaults = NSUserDefaults.standardUserDefaults()
 
@@ -31,6 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       radio?.isPlaying = true
     }
   }
+
+//  internal var playlistService: SongSearchService {
+//    get {
+//      return svc = defaults.objectForKey("saveService") as? SongSearchService
+//    }
+//    set {
+//      defaults.setObject(newValue, forKey: "saveService")
+//    }
+//  }
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 

@@ -30,6 +30,16 @@
 				<string>wcbn</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.arbormoon.WCBN</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wcbn-spotify</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>5</string>

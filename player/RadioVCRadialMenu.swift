@@ -10,7 +10,6 @@ import UIKit
 import MessageUI
 
 extension RadioViewController {
-
   func loadRadialMenu() {
     var subMenus: [RadialSubMenu] = []
     for i in 0..<options.count{
@@ -117,8 +116,8 @@ extension RadioViewController {
     case "act-heart":
       starSong()
       flash(UIColor(rgba: option.color))
-    case "act-iTunes":
-      searchiTunes()
+    case "act-\(delegate.songSearchService.name)":
+      delegate.songSearchService.enplaylist() {  }
     case "act-message":
       flash(UIColor(rgba: option.color))
       textWCBN()

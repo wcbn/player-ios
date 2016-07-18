@@ -36,12 +36,11 @@ MFMessageComposeViewControllerDelegate
     var color: String
   }
 
-  let options: [RadialOption] = [
-    RadialOption(name: "act-heart", message: "Add this song to your favorites", color: "#F47CC3"),
-    RadialOption(name: "act-message", message: "Send an iMessage to the DJ", color: "#2ECC71"),
-    RadialOption(name: "act-iTunes", message: "Find this song in the iTunes Store", color: "#FFCD01"),
-    RadialOption(name: "act-share", message: "Share this song with your friends", color: "#5B48A2"),
-  ]
+  var options: [RadialOption] = [
+      RadialOption(name: "act-heart", message: "Add this song to your favorites", color: "#F47CC3"),
+      RadialOption(name: "act-message", message: "Send an iMessage to the DJ", color: "#2ECC71"),
+      RadialOption(name: "act-share", message: "Share this song with your friends", color: "#5B48A2"),
+    ]
 
   @IBAction func playOrPauseMusic(_: UITapGestureRecognizer) {
     delegate.radio!.playOrPause()
@@ -50,11 +49,6 @@ MFMessageComposeViewControllerDelegate
   func starSong() {
     delegate.radio!.addToOrRemoveCurrentSongFromFavourites()
     updateUI()
-  }
-  func searchiTunes() {
-    if let url = delegate.radio!.playlist.albumURL {
-      UIApplication.sharedApplication().openURL(url)
-    }
   }
 
   override func viewDidLoad() {
@@ -84,6 +78,9 @@ MFMessageComposeViewControllerDelegate
     l.shadowOpacity = 0.5
     l.shadowOffset = CGSizeMake(0, 16)
     l.shadowRadius = 40
+
+    let service = delegate.songSearchService
+    options.insert(RadialOption(name: "act-\(service.name)", message: service.message, color: service.color), atIndex: 2)
 
     loadRadialMenu()
   }
@@ -159,25 +156,6 @@ MFMessageComposeViewControllerDelegate
   func updateUI() {
     updateLabels()
     updateUIReflectingPlayOrPause()
-
-//    // Set color of star button
-//    starButton.enabled = true
-//    if favs.includeCurrentSong(delegate.radio!.playlist) {
-//      starButton.tintColor = Colors.Light.pink
-//    } else if delegate.radio!.playlist.song.name != "—" {
-//      starButton.tintColor = UIColor.whiteColor()
-//    } else {
-//      starButton.enabled = false
-//      starButton.tintColor = UIColor.whiteColor()
-//    }
-
-//    // Set enabled state of iTunes button
-//    if let _ = delegate.radio!.playlist.albumURL {
-//      searchButton.enabled = true
-//    } else {
-//      searchButton.enabled = false
-//    }
-
   }
 
 

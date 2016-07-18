@@ -14,11 +14,12 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
   private let settings: [String: [[Setting]]] = [
     "Settings": [
       [
+        Setting(message: "Stream Quality", accessoryType: .DisclosureIndicator),
+        Setting(message: "“Save Song” Service", accessoryType: .DisclosureIndicator)
+      ],[
         Setting(key: "call", message: "Call the studio"),
         Setting(key: "text", message: "Send an iMessage to the DJ"),
         Setting(key: "donate", message: "Give WCBN a buck or two"),
-      ],[
-        Setting(key: "quality", message: "Stream Quality", accessoryType: .DisclosureIndicator)
       ],[
         Setting(key: "about", message: "About WCBN"),
         Setting(key: "review", message: "Write a review of our app")
@@ -29,6 +30,13 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
         Setting(key: WCBNStream.URL.high, message: WCBNStream.nameFromURL[WCBNStream.URL.high]!),
         Setting(key: WCBNStream.URL.medium, message: WCBNStream.nameFromURL[WCBNStream.URL.medium]!),
         Setting(key: WCBNStream.URL.low, message: WCBNStream.nameFromURL[WCBNStream.URL.low]!),
+      ]
+    ],
+    "“Save Song” Service" : [
+      [
+        Setting(message: "iTunes"),
+        Setting(message: "Spotify"),
+        Setting(message: "Apple Music")
       ]
     ]
   ]
@@ -52,7 +60,10 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     var realAccessoryType: UITableViewCellAccessoryType
     var accessoryType: UITableViewCellAccessoryType {
       get {
-        if (realAccessoryType == .None) && (key == delegate.streamURL) {
+        if (realAccessoryType == .None) && (
+            (key == delegate.streamURL) //||
+//             (key == delegate.saveService)
+        ) {
           return .Checkmark
         } else {
           return realAccessoryType
@@ -71,6 +82,14 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
 
     init(key: String, message: String) {
       self.init(key: key, message: message, accessoryType: .None)
+    }
+
+    init(message: String, accessoryType: UITableViewCellAccessoryType) {
+      self.init(key: message, message: message, accessoryType: accessoryType)
+    }
+
+    init(message: String) {
+      self.init(key: message, message: message, accessoryType: .None)
     }
   }
 
@@ -109,11 +128,16 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     // Configure the cell...
     cell.textLabel?.text = setting.message
 
-    if setting.key == "quality" {
-      cell.detailTextLabel?.text = WCBNStream.nameFromURL[delegate.streamURL]!
-    } else {
-      cell.detailTextLabel?.text = ""
+    let detail: String
+    switch setting.key {
+    case "Stream Quality":
+      detail = WCBNStream.nameFromURL[delegate.streamURL]!
+//    case "“Save Song” Service":
+//      detail = delegate.saveService
+    default:
+      detail = ""
     }
+    cell.detailTextLabel?.text = detail
 
     cell.accessoryType = setting.accessoryType
 
@@ -127,16 +151,16 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
 
     case "call": callWCBN()
     case "text": textWCBN()
-
-    case "quality":
-      let qualitySettingsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsTableViewController
-      qualitySettingsViewController.settingsGroup = "Stream Quality"
-      self.navigationController?.pushViewController(qualitySettingsViewController, animated: true)
-
     case WCBNStream.URL.high,
          WCBNStream.URL.medium,
          WCBNStream.URL.low:
       delegate.streamURL = action.key
+      navigationController?.popViewControllerAnimated(true)
+
+    case "iTunes",
+         "spotify",
+         "appleMusic":
+//      delegate.saveService = action.key
       navigationController?.popViewControllerAnimated(true)
 
     case "review":
@@ -145,7 +169,10 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       deselectSelectedRow()
 
     default:
-      return
+      let nextSettingsVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsTableViewController
+      nextSettingsVC.settingsGroup = action.key
+      self.navigationController?.pushViewController(nextSettingsVC, animated: true)
+
     }
   }
 
