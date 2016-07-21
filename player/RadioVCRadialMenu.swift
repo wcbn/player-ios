@@ -11,6 +11,10 @@ import MessageUI
 
 extension RadioViewController {
   func loadRadialMenu() {
+    let service = delegate.songSearchService
+    options[2] = RadialOption(name: "act-\(service.name)", message: service.message, color: service.color)
+    blurBehindRadialMenu.contentView.subviews.forEach { subview in subview.removeFromSuperview() }
+
     var subMenus: [RadialSubMenu] = []
     for i in 0..<options.count{
       subMenus.append(self.createSubMenu(i))

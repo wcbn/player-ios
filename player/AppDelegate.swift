@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   var radio: WCBNRadioBrain? = nil
-  var songSearchService: SongSearchService = iTunesService.sharedInstance
 
   private let defaults = NSUserDefaults.standardUserDefaults()
 
@@ -33,14 +32,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   }
 
-//  internal var playlistService: SongSearchService {
-//    get {
-//      return svc = defaults.objectForKey("saveService") as? SongSearchService
-//    }
-//    set {
-//      defaults.setObject(newValue, forKey: "saveService")
-//    }
-//  }
+  internal var songSearchService: SongSearchService {
+    get {
+      let name = defaults.stringForKey("songSearchServiceChoice")
+      let svc = SongSearchServiceChoice(rawValue: name ?? "iTunes")
+      return getSongSearchService(byChoice: svc ?? .iTunes)
+    }
+    set {
+      defaults.setObject(newValue.name, forKey: "songSearchServiceChoice")
+      NSNotificationCenter.defaultCenter()
+        .postNotificationName("songSearchServiceChoiceSet", object: nil)
+    }
+  }
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 

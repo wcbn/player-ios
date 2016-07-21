@@ -33,11 +33,9 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       ]
     ],
     "“Save Song” Service" : [
-      [
-        Setting(message: "iTunes"),
-        Setting(message: "Spotify"),
-        Setting(message: "Apple Music")
-      ]
+      SongSearchServiceChoice.allChoices.map { choice in
+        return Setting(message: choice.rawValue)
+      }
     ]
   ]
 
@@ -61,8 +59,8 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     var accessoryType: UITableViewCellAccessoryType {
       get {
         if (realAccessoryType == .None) && (
-            (key == delegate.streamURL) //||
-//             (key == delegate.saveService)
+            (key == delegate.streamURL) ||
+            (key == delegate.songSearchService.name)
         ) {
           return .Checkmark
         } else {
@@ -132,8 +130,8 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     switch setting.key {
     case "Stream Quality":
       detail = WCBNStream.nameFromURL[delegate.streamURL]!
-//    case "“Save Song” Service":
-//      detail = delegate.saveService
+    case "“Save Song” Service":
+      detail = delegate.songSearchService.name
     default:
       detail = ""
     }
@@ -157,10 +155,10 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       delegate.streamURL = action.key
       navigationController?.popViewControllerAnimated(true)
 
-    case "iTunes",
-         "spotify",
-         "appleMusic":
-//      delegate.saveService = action.key
+    case let value where SongSearchServiceChoice.rawValues.contains(value):
+      let choice = SongSearchServiceChoice(rawValue: action.key)
+      let svc = getSongSearchService(byChoice: choice ?? .iTunes)
+      delegate.songSearchService = svc
       navigationController?.popViewControllerAnimated(true)
 
     case "review":

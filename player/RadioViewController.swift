@@ -39,6 +39,7 @@ MFMessageComposeViewControllerDelegate
   var options: [RadialOption] = [
       RadialOption(name: "act-heart", message: "Add this song to your favorites", color: "#F47CC3"),
       RadialOption(name: "act-message", message: "Send an iMessage to the DJ", color: "#2ECC71"),
+      RadialOption(name: "", message: "", color: "#000000"),
       RadialOption(name: "act-share", message: "Share this song with your friends", color: "#5B48A2"),
     ]
 
@@ -55,13 +56,14 @@ MFMessageComposeViewControllerDelegate
     super.viewDidLoad()
     let notificationCenter = NSNotificationCenter.defaultCenter()
     let mainQueue = NSOperationQueue.mainQueue()
-    notificationCenter.addObserverForName("SongDataReceived",
-                                          object: nil,
-                                          queue: mainQueue)
-    { notification in
+    notificationCenter.addObserverForName("SongDataReceived", object: nil, queue: mainQueue) { _ in
       self.explainInterface()
       self.updateUI()
     }
+    notificationCenter.addObserverForName("songSearchServiceChoiceSet", object: nil, queue: mainQueue) { _ in
+      self.loadRadialMenu()
+    }
+
 
     self.setNeedsStatusBarAppearanceUpdate()
 
@@ -78,9 +80,6 @@ MFMessageComposeViewControllerDelegate
     l.shadowOpacity = 0.5
     l.shadowOffset = CGSizeMake(0, 16)
     l.shadowRadius = 40
-
-    let service = delegate.songSearchService
-    options.insert(RadialOption(name: "act-\(service.name)", message: service.message, color: service.color), atIndex: 2)
 
     loadRadialMenu()
   }

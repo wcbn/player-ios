@@ -19,6 +19,21 @@ protocol SongSearchService {
   func albumArtURL() -> NSURL?
 }
 
-enum SongSearchServices {
+enum SongSearchServiceChoice: String {
   case iTunes
+  case Spotify
+
+  static let allChoices = [iTunes, Spotify]
+  static var rawValues: [String] { get {
+    return allChoices.map { choice in return choice.rawValue }
+  }}
+}
+
+func getSongSearchService(byChoice choice: SongSearchServiceChoice) -> SongSearchService {
+  switch choice {
+  case .Spotify:
+    return SpotifyService.sharedInstance
+  case .iTunes:
+    return iTunesService.sharedInstance
+  }
 }
