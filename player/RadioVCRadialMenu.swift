@@ -121,7 +121,8 @@ extension RadioViewController {
       starSong()
       flash(UIColor(rgba: option.color))
     case "act-\(delegate.songSearchService.name)":
-      delegate.songSearchService.enplaylist() {  }
+      delegate.songSearchService.enplaylist() { }
+      flash(UIColor(rgba: option.color))
     case "act-message":
       flash(UIColor(rgba: option.color))
       textWCBN()

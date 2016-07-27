@@ -9,7 +9,7 @@
 import XCTest
 
 class SongSearchServiceTests: XCTestCase {
-  let service = iTunesService.sharedInstance
+  let service = SpotifyService.sharedInstance
 
   override func setUp() {
     super.setUp()

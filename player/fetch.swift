@@ -30,3 +30,28 @@ func fetch(jsonFrom endpointURL: NSURL, then callback: (JSON) -> Void) {
     callback(json)
   }
 }
+
+func hit(url: NSURL,
+         containingBody body: JSON = nil,
+         using method: String = "GET",
+         withHeaders headers: [String:String] = [:],
+         then callback: (JSON) -> Void) {
+  let request = NSMutableURLRequest(URL: url)
+
+  headers.forEach { key, value in
+    request.setValue(value, forHTTPHeaderField: key)
+  }
+
+  request.HTTPMethod = method
+
+  do {
+    try request.HTTPBody = body.rawData()
+  } catch {}
+
+  NSURLSession.sharedSession().dataTaskWithRequest(request) { data, _, error in
+    if data != nil && data!.length > 0 && error == nil {
+      let json = JSON(data: data!)
+      callback(json)
+    }
+  }.resume()
+}

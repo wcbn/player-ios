@@ -166,6 +166,15 @@ class WCBNRadioBrain: NSObject{
     remoteCC.nextTrackCommand.enabled = false
     remoteCC.previousTrackCommand.enabled = false
 
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    let mainQueue = NSOperationQueue.mainQueue()
+    notificationCenter.addObserverForName("SpotifySessionUpdated", object: nil, queue: mainQueue) { _ in
+      self.fetchSongInfo()
+    }
+    notificationCenter.addObserverForName("songSearchServiceChoiceSet", object: nil, queue: mainQueue) { _ in
+      self.fetchAlbumArtURL()
+    }
+
     radio.play()
   }
 
@@ -208,10 +217,14 @@ class WCBNRadioBrain: NSObject{
       
       if episodeChanged { self.fetchSchedule() }
 
+      self.fetchAlbumArtURL()
+    }
+  }
+
+  private func fetchAlbumArtURL() {
       self.delegate!.songSearchService.lookup(self.playlist.song) {
         self.albumArtURL = self.delegate!.songSearchService.albumArtURL()
       }
-    }
   }
 
 

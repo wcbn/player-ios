@@ -57,6 +57,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UITabBar.appearance().alpha = 1.0
     return true
   }
+  
+  // Handle Spotify OAuth callback
+  func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    let auth = SPTAuth.defaultInstance()
+    if auth.canHandleURL(url) {
+      auth.handleAuthCallbackWithTriggeredAuthURL(url) { error, session in
+        guard (error == nil)  else {
+          print("Auth error: \(error)")
+          return
+        }
+
+        auth.session = session
+        NSNotificationCenter.defaultCenter().postNotificationName("SpotifySessionUpdated", object: self)
+      }
+      return true
+    }
+    return false
+  }
 
   func applicationWillResignActive(application: UIApplication) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

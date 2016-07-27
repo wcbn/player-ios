@@ -25,9 +25,9 @@
 		43207A9E1C4C3AEB00DE6C62 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */; };
 		43207AA01C4C3F5200DE6C62 /* PlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43207A9F1C4C3F5200DE6C62 /* PlaylistTableViewController.swift */; };
 		43207AA31C502FC600DE6C62 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43207AA21C502FC600DE6C62 /* delay.swift */; };
-		432C6B8E1D19A4B70077531E /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432C6B8D1D19A4B70077531E /* Spotify.framework */; };
 		432C6B901D19A5B50077531E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432C6B8F1D19A5B50077531E /* AVFoundation.framework */; };
 		432C6B921D19A5BD0077531E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432C6B911D19A5BD0077531E /* SystemConfiguration.framework */; };
+		432DD3891D48D4E200483911 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CAC3F81D40E78C00A5BA1B /* Spotify.framework */; };
 		43357FEC1C4B5E4C0085EA57 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43357FEB1C4B5E4C0085EA57 /* Favourites.swift */; };
 		433987711CE681CF00F01E29 /* CircleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4339876E1CE681CF00F01E29 /* CircleHelpers.swift */; };
 		433987721CE681CF00F01E29 /* RadialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4339876F1CE681CF00F01E29 /* RadialMenu.swift */; };
@@ -61,6 +61,7 @@
 		43C94BCD1CBB1FA4007D8797 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C94BCC1CBB1FA4007D8797 /* Episode.swift */; };
 		43C94BCF1CBB40BD007D8797 /* RecentEpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C94BCE1CBB40BD007D8797 /* RecentEpisodeTableViewCell.swift */; };
 		43C94BD11CBB6131007D8797 /* DJViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C94BD01CBB6131007D8797 /* DJViewController.swift */; };
+		43CAC3F91D40E78C00A5BA1B /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CAC3F81D40E78C00A5BA1B /* Spotify.framework */; };
 		43CD432E1CA5C5A60031B20A /* ScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD432D1CA5C5A60031B20A /* ScheduleTableViewController.swift */; };
 		43E7F1D81D10A10A0052AFF6 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E7F1D71D10A10A0052AFF6 /* TodayViewController.swift */; };
 		43E7F1DB1D10A10A0052AFF6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43E7F1D91D10A10A0052AFF6 /* MainInterface.storyboard */; };
@@ -141,7 +142,6 @@
 		43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		43207A9F1C4C3F5200DE6C62 /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
 		43207AA21C502FC600DE6C62 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
-		432C6B8D1D19A4B70077531E /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		432C6B8F1D19A5B50077531E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		432C6B911D19A5BD0077531E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43357FEB1C4B5E4C0085EA57 /* Favourites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
@@ -174,6 +174,8 @@
 		43C94BCC1CBB1FA4007D8797 /* Episode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		43C94BCE1CBB40BD007D8797 /* RecentEpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentEpisodeTableViewCell.swift; sourceTree = "<group>"; };
 		43C94BD01CBB6131007D8797 /* DJViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJViewController.swift; sourceTree = "<group>"; };
+		43CAC3F81D40E78C00A5BA1B /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = player/Spotify.framework; sourceTree = "<group>"; };
+		43CAC3FA1D40E7B400A5BA1B /* player-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "player-Bridging-Header.h"; path = "player/player-Bridging-Header.h"; sourceTree = "<group>"; };
 		43CD432D1CA5C5A60031B20A /* ScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewController.swift; sourceTree = "<group>"; };
 		43E7F1D31D10A10A0052AFF6 /* todaySchedule.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = todaySchedule.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E7F1D41D10A10A0052AFF6 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -202,7 +204,7 @@
 				432C6B921D19A5BD0077531E /* SystemConfiguration.framework in Frameworks */,
 				432C6B901D19A5B50077531E /* AVFoundation.framework in Frameworks */,
 				DA2A253E71A75B369EBA6795 /* Pods_player.framework in Frameworks */,
-				432C6B8E1D19A4B70077531E /* Spotify.framework in Frameworks */,
+				43CAC3F91D40E78C00A5BA1B /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83E4BA3033B3CC3EC8996E07 /* Pods_playerTests.framework in Frameworks */,
+				432DD3891D48D4E200483911 /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,9 +451,10 @@
 		4ADDA6D75A4D8B4E23799FB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43CAC3FA1D40E7B400A5BA1B /* player-Bridging-Header.h */,
+				43CAC3F81D40E78C00A5BA1B /* Spotify.framework */,
 				432C6B911D19A5BD0077531E /* SystemConfiguration.framework */,
 				432C6B8F1D19A5B50077531E /* AVFoundation.framework */,
-				432C6B8D1D19A4B70077531E /* Spotify.framework */,
 				439EB4D51D15953C00739134 /* Pods_player.framework */,
 				439EB4D31D15951400739134 /* SwiftyJSON.framework */,
 				235266AF230DB55F69DF76AB /* Pods_player.framework */,
@@ -1035,6 +1039,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/player",
 				);
 				INFOPLIST_FILE = player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1046,6 +1051,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.arbormoon.WCBN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "./player/player-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1061,6 +1067,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/player",
 				);
 				INFOPLIST_FILE = player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1072,6 +1079,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.arbormoon.WCBN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "./player/player-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1080,6 +1088,10 @@
 			baseConfigurationReference = 57E19C956B2328D1E0463A19 /* Pods-playerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/player",
+				);
 				INFOPLIST_FILE = playerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wcbn.playerTests;
@@ -1093,6 +1105,10 @@
 			baseConfigurationReference = 8501ABA764DAACA0ADF1AC64 /* Pods-playerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/player",
+				);
 				INFOPLIST_FILE = playerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wcbn.playerTests;
