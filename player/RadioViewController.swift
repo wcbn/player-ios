@@ -154,7 +154,9 @@ MFMessageComposeViewControllerDelegate
 
   func updateUI() {
     updateLabels()
-    updateUIReflectingPlayOrPause()
+    delay(0.01) {
+      self.updateUIReflectingPlayOrPause()
+    }
   }
 
 
