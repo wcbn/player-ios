@@ -223,7 +223,7 @@ class WCBNRadioBrain: NSObject{
 
   private func fetchAlbumArtURL() {
       self.delegate!.songSearchService.lookup(self.playlist.song) {
-        self.albumArtURL = self.delegate!.songSearchService.albumArtURL()
+        self.albumArtURL = self.delegate!.songSearchService.albumArtURL
       }
   }
 

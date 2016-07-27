@@ -99,11 +99,17 @@ extension RadioViewController {
     resetSubMenu(subMenu)
     return subMenu
   }
-
+  
   func highlightSubMenu(subMenu: RadialSubMenu) {
-    setRadialMenuHint(options[subMenu.tag].message)
-    UIView.animateWithDuration(0.1) {
-      subMenu.transform = CGAffineTransformMakeScale(1.25, 1.25)
+    let opt = options[subMenu.tag]
+    let svc = delegate.songSearchService
+    if opt.name == "act-\(svc.name)" && !svc.canEnplaylist {
+      setRadialMenuHint("Song cannot be found in \(svc.name)")
+    } else {
+      setRadialMenuHint(opt.message)
+      UIView.animateWithDuration(0.1) {
+        subMenu.transform = CGAffineTransformMakeScale(1.25, 1.25)
+      }
     }
   }
 
@@ -115,13 +121,15 @@ extension RadioViewController {
   }
 
   func activateSubMenu(subMenu: RadialSubMenu) {
+    let svc = delegate.songSearchService
     let option = options[subMenu.tag]
     switch option.name {
     case "act-heart":
       starSong()
       flash(UIColor(rgba: option.color))
-    case "act-\(delegate.songSearchService.name)":
-      delegate.songSearchService.enplaylist() { }
+    case "act-\(svc.name)":
+      if !svc.canEnplaylist { break }
+      svc.enplaylist() { }
       flash(UIColor(rgba: option.color))
     case "act-message":
       flash(UIColor(rgba: option.color))

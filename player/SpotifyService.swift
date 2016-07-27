@@ -13,7 +13,7 @@ class SpotifyService: SongSearchService {
   static let sharedInstance = SpotifyService()
 
   var name: String {  get { return "Spotify" }  }
-  var message: String {  get { return "Add this song to your Spotify playlist" }  }
+  var message: String {  get { return "Add this song to your “WCBN” playlist" }  }
   var color: String {  get { return "#1ED760" }  }
 
   var racing: Bool = false
@@ -89,6 +89,10 @@ class SpotifyService: SongSearchService {
 
 // MARK: - Enplaylist
   
+  var canEnplaylist: Bool { get {
+    return currentTrackURI != nil
+  } }
+
   func enplaylist(then: () -> ()) {
     guard let session = SPTAuth.defaultInstance().session where session.isValid()
       else {
@@ -193,7 +197,7 @@ class SpotifyService: SongSearchService {
     return q.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) ?? ""
   }
 
-  func albumArtURL() -> NSURL? {
+  var albumArtURL: NSURL? { get {
     return !racing ? currentAlbumArtURL : nil
-  }
+  } }
 }

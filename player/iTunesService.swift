@@ -34,15 +34,19 @@ class iTunesService : SongSearchService {
     }
   }
 
+  var canEnplaylist: Bool { get {
+    return currentAlbumURL != nil
+  } }
+
   func enplaylist(then: () -> ()) {
     guard let url = currentAlbumURL else {  return  }
     UIApplication.sharedApplication().openURL(url)
     then()
   }
 
-  func albumArtURL() -> NSURL? {
+  var albumArtURL: NSURL? { get {
     return !racing ? currentAlbumArtURL : nil
-  }
+  } }
 
 
 

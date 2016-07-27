@@ -16,7 +16,8 @@ protocol SongSearchService {
   func lookup(song: Song, then: () -> ())
   func enplaylist(then: () -> ())
 
-  func albumArtURL() -> NSURL?
+  var canEnplaylist: Bool { get }
+  var albumArtURL: NSURL? { get }
 }
 
 enum SongSearchServiceChoice: String {
