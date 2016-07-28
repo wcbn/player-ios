@@ -58,6 +58,11 @@ class iTunesService : SongSearchService {
       if results.count > 0 {
         self.currentAlbumArtURL = self.largeAlbumArtURL(fromSmallArtworkURL: results[0]["artworkUrl100"].stringValue)
         self.currentAlbumURL = NSURL(string: results[0]["collectionViewUrl"].stringValue)
+        print("iTunes: Track found at \(self.currentAlbumURL!)")
+      } else {
+        self.currentAlbumArtURL = nil
+        self.currentAlbumURL = nil
+        print("iTunes: Track not found")
       }
 
       then()

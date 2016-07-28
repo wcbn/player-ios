@@ -24,29 +24,36 @@ class SpotifyService: SongSearchService {
   var wcbnPlaylistID: String?
 
   let kClientId = "df271c9e066e4f0d8cbf09567e0c5212"
-  let kCallbackURL = "wcbn-spotify://callback"
-//  static let kTokenSwapURL = "http://localhost:1234/swap"
+  let kCallbackURL = NSURL(string: "wcbn-spotify://callback")!
+  let kTokenSwapURL = NSURL(string: "https://app.wcbn.org/spotify/swap")!
+  let kTokenRefreshURL = NSURL(string: "http://app.wcbn.org/spotify/refresh")!
 
 // MARK: - Authentication
 
   init() {
     print("Initializing SpotifyService shared instance now.")
-    authenticate()
-  }
-
-  private func authenticate() {
     let auth = SPTAuth.defaultInstance()
+    auth.sessionUserDefaultsKey = "SpotifySessionUserDefaultsKey"
     auth.clientID = kClientId
-    auth.redirectURL = NSURL(string: kCallbackURL)
+    auth.redirectURL = kCallbackURL
     auth.requestedScopes = [
       SPTAuthPlaylistReadPrivateScope,
       SPTAuthPlaylistModifyPublicScope,
       SPTAuthPlaylistModifyPrivateScope
     ]
-    auth.sessionUserDefaultsKey = "SpotifySessionUserDefaultsKey"
+    auth.tokenSwapURL = kTokenSwapURL
+    auth.tokenRefreshURL = kTokenRefreshURL
+  }
 
-    if (!(auth.session == nil) && !auth.session.isValid() && auth.hasTokenRefreshService) {
-      renewToken()
+  private func ensureAuthenticated(callback: () -> ()) {
+    let auth = SPTAuth.defaultInstance()
+
+    if auth.session == nil {
+      openLoginPage()
+    } else if auth.session.isValid() {
+      callback()
+    } else if auth.hasTokenRefreshService {
+      self.renewToken(callback)
     } else {
       openLoginPage()
     }
@@ -64,24 +71,22 @@ class SpotifyService: SongSearchService {
     }
   }
 
-  private func renewToken() {
+  private func renewToken(then: () -> ()) {
     let auth = SPTAuth.defaultInstance()
     auth.renewSession(auth.session) { error, session in
       auth.session = session
 
       if ((error) != nil) {
         print("Error renewing session: \(error)")
+        self.openLoginPage()
+      } else {
+        then()
       }
     }
   }
 
   private func hitSpotifyAPIWithSession(atEndpoint endpointURL: String, containingBody body: JSON = nil, using method: String = "GET", then callback: (JSON) -> Void) {
-    guard let session = SPTAuth.defaultInstance().session where session.isValid()
-      else {
-        authenticate()
-        return
-    }
-
+    let session = SPTAuth.defaultInstance().session
     let authenticationHeader = ["Authorization": "Bearer \(session.accessToken!)"]
     let url = NSURL(string: "https://api.spotify.com/v1\(endpointURL)")!
     hit(url, containingBody: body, using: method, withHeaders: authenticationHeader, then: callback)
@@ -94,16 +99,13 @@ class SpotifyService: SongSearchService {
   } }
 
   func enplaylist(then: () -> ()) {
-    guard let session = SPTAuth.defaultInstance().session where session.isValid()
-      else {
-        authenticate()
-        return
-    }
     guard let track = currentTrackURI else { return }
-
-    getWCBNPlaylistID { id in
-      self.addTrackToPlaylist(id, trackURI: track) { error in
-        then()
+    
+    ensureAuthenticated {
+      self.getWCBNPlaylistID { id in
+        self.addTrackToPlaylist(id, trackURI: track) { error in
+          then()
+        }
       }
     }
   }
@@ -144,32 +146,24 @@ class SpotifyService: SongSearchService {
     let session = SPTAuth.defaultInstance().session
     let endpoint = "/users/\(session.canonicalUsername!)/playlists/\(playlistID)/tracks?position=0&uris=\(trackURI)"
     hitSpotifyAPIWithSession(atEndpoint: endpoint, using: "POST") { r in
-      print("Spotify: Enplaylisted")
+      print("Spotify: Added track \(trackURI) to playlist \(playlistID)")
       then()
     }
   }
 
 // MARK: - Lookup
 
-  func lookup(song: Song, then: () -> ()) {
-    guard let session = SPTAuth.defaultInstance().session where session.isValid()
-      else {
-        authenticate()
-        return
-    }
-
+  func lookup(song: Song, then callback: () -> ()) {
     if currentSong != nil && currentSong! == song {
-      then()
+      callback()
     } else {
-      currentSong = song
-      searchSpotify(then)
+      ensureAuthenticated {  self.searchSpotify(song, then: callback)  }
     }
   }
 
-  private func searchSpotify(then: () -> ()) {
+  private func searchSpotify(song: Song, then callback: () -> ()) {
     racing = true
-    guard let song = currentSong else {  return  }
-
+    currentSong = song
     fetch(jsonFrom: queryURL(song)) { response in
       let results = response["tracks"]["items"]
       if results.count > 0 {
@@ -177,12 +171,12 @@ class SpotifyService: SongSearchService {
         self.currentAlbumArtURL = results[0]["album"]["images"][0]["url"].URL
         self.currentTrackURI = results[0]["uri"].string
       } else {
-        print("Spotify: Track not found.")
+        print("Spotify: Track not found")
         self.currentAlbumArtURL = nil
         self.currentTrackURI = nil
       }
       self.racing = false
-      then()
+      callback()
     }
   }
 

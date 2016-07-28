@@ -270,7 +270,10 @@ class WCBNRadioBrain: NSObject{
   }
 
   private func fetchImage() {
-    guard let url = albumArtURL else { return }
+    guard let url = albumArtURL else {
+      playlist.albumArt = defaultAlbum
+      return
+    }
     fetch(dataFrom: url, onFailure: { self.playlist.albumArt = self.defaultAlbum })
     { imageData in
       self.playlist.albumArt = UIImage(data: imageData)

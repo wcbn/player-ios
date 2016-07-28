@@ -45,7 +45,7 @@
 	<string>5</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>spotify-action--</string>
+		<string>spotify-action---</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
