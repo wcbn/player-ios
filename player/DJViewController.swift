@@ -9,13 +9,20 @@
 import UIKit
 import SwiftyJSON
 
-class DJViewController: UIViewController {
+class DJViewController: UIViewController,
+UITableViewDelegate, UITableViewDataSource {
 
   var dj_path = ""
   var dj = DJ()
 
+  var showsBySemester : [DJShowsGroup] = [] {
+    didSet {  tableView.reloadData()  }
+  }
+
   @IBOutlet weak var profileImage: UIImageView!
   @IBOutlet weak var djBio: UITextView!
+
+  @IBOutlet weak var tableView: UITableView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -60,6 +67,17 @@ class DJViewController: UIViewController {
    }
    */
 
+  struct DJShowsGroup {
+    let showName: String
+    let semesters: [DJShowsRow]
+  }
+
+  struct DJShowsRow {
+    let showID: Int
+    let semesterName: String
+    let times: String
+  }
+
   private func fetchDJProfile() {
     let background_qos = Int(QOS_CLASS_BACKGROUND.rawValue)
     dispatch_async(dispatch_get_global_queue(background_qos, 0)) {
@@ -75,8 +93,42 @@ class DJViewController: UIViewController {
           dj.website = NSURL(string: json["website"].stringValue)
           dj.about = json["about"].stringValue
           self.djBio.attributedText = NSAttributedString(string: dj.about, attributes: [NSFontAttributeName: UIFont(name: "Lato-Regular", size: 14)!])
+
+          self.showsBySemester = json["shows"].arrayValue.map { show in
+            let showName = show["name"].stringValue
+            let semesters = show["semesters"].arrayValue.map { semester in
+              return DJShowsRow(showID: semester["id"].intValue, semesterName: semester["semester"].stringValue, times: semester["times"].stringValue)  // TODO: Generate these strings
+            }
+            return DJShowsGroup(showName: showName, semesters: semesters)
+          }
         }
       }
     }
+  }
+
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return showsBySemester.count
+  }
+
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return showsBySemester[section].semesters.count
+  }
+
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return showsBySemester[section].showName
+  }
+
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("ShowBySemesterCell", forIndexPath: indexPath)
+    let show = showsBySemester[indexPath.section].semesters[indexPath.row]
+
+    cell.textLabel?.text = show.semesterName
+    cell.detailTextLabel?.text = show.times
+
+    return cell
+  }
+
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    print(indexPath)
   }
 }

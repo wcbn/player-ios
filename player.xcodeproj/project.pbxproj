@@ -258,6 +258,7 @@
 				430E3EE31C488B7200476F48 /* Info.plist */,
 				4392061B1CE58083009C3BFF /* Main.storyboard */,
 				4393E69E1CA62B9A000B2D6F /* settings */,
+				43C94BD21CBB613A007D8797 /* dj */,
 				43CD432F1CA5C5AC0031B20A /* schedule */,
 				43207AA11C4C3F5700DE6C62 /* recent */,
 				430E3F141C488F1000476F48 /* favorites */,
@@ -419,7 +420,6 @@
 		43CD432F1CA5C5AC0031B20A /* schedule */ = {
 			isa = PBXGroup;
 			children = (
-				43C94BD21CBB613A007D8797 /* dj */,
 				435B71F31CAF71C800D4880B /* show */,
 				435B71F01CAF719E00D4880B /* semester */,
 			);
