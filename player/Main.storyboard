@@ -1223,8 +1223,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="55.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="400" verticalHuggingPriority="260" verticalCompressionResistancePriority="755" text="Tap the heart icon on the “Radio” screen to save the currenly playing song in your favorites." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPY-M9-eYH">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="400" verticalHuggingPriority="260" verticalCompressionResistancePriority="755" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPY-M9-eYH">
                                             <rect key="frame" x="16" y="8" width="568" height="39.5"/>
+                                            <string key="text">Press and hold on the album artwork on the “Radio” screen, and drag upwards to add the currently playing song to your favorites.</string>
                                             <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="16"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>

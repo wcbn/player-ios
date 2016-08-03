@@ -10,8 +10,10 @@ import UIKit
 import MessageUI
 
 class SettingsTableViewController: UITableViewController, MFMessageComposeViewControllerDelegate {
+
+  typealias STVC = SettingsTableViewController
   
-  private let settings: [String: [SettingsGroup]] = [
+  static let settings: [String: [SettingsGroup]] = [
     "Settings": [
       SettingsGroup(settings: [
         Setting(message: "Stream Quality", accessoryType: .DisclosureIndicator),
@@ -28,11 +30,13 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
         ])
     ],
     "Stream Quality": [
-      SettingsGroup(instructions: "Choose a stream quality.", settings: [
-        Setting(key: WCBNStream.URL.high, message: WCBNStream.nameFromURL[WCBNStream.URL.high]!),
-        Setting(key: WCBNStream.URL.medium, message: WCBNStream.nameFromURL[WCBNStream.URL.medium]!),
-        Setting(key: WCBNStream.URL.low, message: WCBNStream.nameFromURL[WCBNStream.URL.low]!),
-        ])
+      SettingsGroup(instructions:
+        "Choosing the highest quality stream is essential for your audiophile cred: our HD stream sounds better than our FM broadcast! But the higher the quality, the more buffering you might experience, and the more data you will use. WCBN is not liable for any overage fees you may be charged, but we will be deeply honored to learn of their extent.",
+        settings: [
+        Setting(key: WCBNStream.URL.high, message: "HD", description: "320 kbps = 144 MB/hr"),
+        Setting(key: WCBNStream.URL.medium, message: "Normal", description: "128 kbps = 57.6 MB/hr"),
+        Setting(key: WCBNStream.URL.low, message: "Low Quality", description: "64 kbps = 28.8 MB/hr"),
+        ]),
     ],
     "“Save Song” Service": [SettingsGroup(instructions: "Choose which service you’d like to use to save any new favorites you hear on WCBN. You can choose to purchase songs from the iTunes music library, or add them to a Spotify playlist. You can only save songs that are in the library of your chosen service.", settings:
       SongSearchServiceChoice.allChoices.map { choice in
@@ -40,18 +44,27 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       })
     ],
     "Give to WCBN": [
-      SettingsGroup(instructions: "Thank you for considering supporting WCBN. Gifts listed above are one-time “In-App Purchases” which support the station.", settings: [
-        Setting(key: "1USD", message: "This song is pretty good.", description: "$0.99"),
-        Setting(key: "2USD", message: "Wow, this DJ has such personality!", description: "$1.99"),
-        Setting(key: "5USD", message: "Can I implant a receiver in my brain yet?", description: "$4.99"),
+      SettingsGroup(title: "The Tip Jar", instructions: "Thank you for your support. These one-time gifts will let the DJ know how much you appreciate them.\n", settings: [
+        Setting(key: "tip-sm", message: "This song is my jam!", description: "$0.99"),
+        Setting(key: "tip-md", message: "Wow, you’re working hard today!", description: "$1.99"),
+        Setting(key: "tip-lg", message: "Can I get a tuner implant yet?", description: "$4.99"),
         ]),
-      SettingsGroup(instructions: "You may give any amount, and claim the donation as tax-exempt, by donating through the University of Michigan’s giving portal.", settings: [
-        Setting(key: "UM OUD", message: "Make a tax-exempt gift of any amount"),
+//      SettingsGroup(title: "Your Freeform Subscription", instructions: "Your ongoing support is essential to keeping the station alive. These charges will recur monthly, but you can cancel at any time.", settings: [
+//        Setting(key: "sub-sm", message: "I listen all the time.", description: "$5/mo"),
+//        Setting(key: "sub-md", message: "I discover so much music here!", description: "$10/mo"),
+//        Setting(key: "sub-lg", message: "Can I get a tuner implant yet?", description: "$20/mo"),
+//        ]),
+      SettingsGroup(instructions: "You may give any amount, and claim the donation as tax-exempt, by donating through the giving portal of the University of Michigan, a registered 501(c)(3) non-profit.\n\n", settings: [
+        Setting(key: "UM-OUD", message: "Make a tax-exempt gift of any amount"),
         ])
     ],
     "About WCBN": [
-      SettingsGroup(title: "Freeing your mind since 1972", instructions: "Earliest history of WCBN.\n"),
-      SettingsGroup(title: "Personal Radio", instructions: "WCBN DJs always make their own choices.\n"),
+      SettingsGroup(title: "The far left of the dial", instructions:
+        "WCBN is the University of Michigan’s student run, freeform radio station, broadcasting all day, everyday, at 88.3MHz in Ann Arbor, MI. We are proud to expose our listeners to music and public affairs shows that they cannot hear on other radio stations. In doing so, we develop the individual voices of our student DJs, and build them up as managers, fundraisers, engineers, technologists, and artists.\n"),
+      SettingsGroup(title: "Freeing your mind since 1972", instructions:
+        "The Campus Broadcasting Network was born in 1952 as an AM station in three University dormitories and could only be heard in those buildings. To reach a wider audience with our unique student perspective, we moved to FM in 1972. We have grown and shrunk over the years, as the stature of college radio waxed and waned, but in a world where every song  is available at a touch, we have found a niche as curatorial tastemakers to help you cut through the noise.\n"),
+      SettingsGroup(title: "Personal Radio", instructions:
+        "Foundational to our philosophy of “Freeform” is the idea that every DJ has a right and a responsibility to thoughtfully choose each song that they play. We have no prescriptions for numbers of hits per hour, nor computerized playlist-players to automate a show. Whether music or talk, every moment of every show on WCBN is the pure creative output of its host. Shoot them a note or pick up the phone: make a connection with your DJ.\n\n"),
     ],
   ]
 
@@ -63,7 +76,7 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     static let CellReuseIdentifier = "Setting"
   }
 
-  private struct SettingsGroup {
+  struct SettingsGroup {
     let title: String?
     let instructions: String?
     let settings: [Setting]
@@ -74,7 +87,7 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     }
   }
 
-  private struct Setting {
+  struct Setting {
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var key: String
     var message: String
@@ -121,27 +134,29 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     ]
     navTitle.title = settingsGroup
 
-    self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionFooterHeight = 100;
+    tableView.sectionFooterHeight = UITableViewAutomaticDimension;
+    tableView.estimatedSectionFooterHeight = 1000;
   }
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     tableView.reloadData()
+    view.setNeedsLayout()
   }
-  
+
+
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return settings[settingsGroup]!.count
+    return STVC.settings[settingsGroup]!.count
   }
 
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return settings[settingsGroup]![section].settings.count
+    return STVC.settings[settingsGroup]![section].settings.count
   }
 
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath)
 
-    let setting = settings[settingsGroup]![indexPath.section].settings[indexPath.row]
+    let setting = STVC.settings[settingsGroup]![indexPath.section].settings[indexPath.row]
 
     // Configure the cell...
     cell.textLabel?.text = setting.message
@@ -166,7 +181,7 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
   }
 
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return settings[settingsGroup]![section].title
+    return STVC.settings[settingsGroup]![section].title
   }
 
   override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -176,7 +191,7 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     v.addSubview(label)
 
     label.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: 8).active = true
-    label.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 4).active = true
+    label.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 0).active = true
 
     let guide = v.readableContentGuide
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -188,44 +203,18 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
 
   func labelForFooter(section: Int) -> UILabel {
     let label = UILabel()
-    label.text = settings[settingsGroup]![section].instructions
-    label.font = UIFont(name: "Lato-Regular", size: 15)
+    label.text = STVC.settings[settingsGroup]![section].instructions
+    if tableView.numberOfRowsInSection(section) > 0 {
+      label.font = UIFont(name: "Lato-Regular", size: 14)
+      label.textColor = UIColor.grayColor()
+    } else {
+      label.font = UIFont(name: "Lato-Regular", size: 16)
+    }
+    label.allowsDefaultTighteningForTruncation = true
+    label.adjustsFontSizeToFitWidth = true
+    label.minimumScaleFactor = 0.9
     label.numberOfLines = 0
     label.preservesSuperviewLayoutMargins = true
-    label.sizeToFit()
     return label
   }
-
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let action = settings[settingsGroup]![indexPath.section].settings[indexPath.row]
-
-    switch action.key {
-
-    case "call": callWCBN()
-    case "text": textWCBN()
-    case WCBNStream.URL.high,
-         WCBNStream.URL.medium,
-         WCBNStream.URL.low:
-      delegate.streamURL = action.key
-      navigationController?.popViewControllerAnimated(true)
-
-    case let value where SongSearchServiceChoice.rawValues.contains(value):
-      let choice = SongSearchServiceChoice(rawValue: action.key)
-      let svc = getSongSearchService(byChoice: choice ?? .iTunes)
-      delegate.songSearchService = svc
-      navigationController?.popViewControllerAnimated(true)
-
-    case "review":
-      let reviewURL = NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=600658964&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")
-      UIApplication.sharedApplication().openURL(reviewURL!)
-      deselectSelectedRow()
-
-    default:
-      let nextSettingsVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsTableViewController
-      nextSettingsVC.settingsGroup = action.key
-      self.navigationController?.pushViewController(nextSettingsVC, animated: true)
-
-    }
-  }
-
 }
