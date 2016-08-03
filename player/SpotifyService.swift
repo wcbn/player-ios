@@ -144,7 +144,7 @@ class SpotifyService: SongSearchService {
   // MARK: Add Song to Playlist
   private func addTrackToPlaylist(playlistID: String, trackURI: String, then: () -> ()) {
     let session = SPTAuth.defaultInstance().session
-    let endpoint = "/users/\(session.canonicalUsername!)/playlists/\(playlistID)/tracks?position=0&uris=\(trackURI)"
+    let endpoint = "/users/\(session.canonicalUsername!)/playlists/\(playlistID)/tracks?uris=\(trackURI)"
     hitSpotifyAPIWithSession(atEndpoint: endpoint, using: "POST") { r in
       print("Spotify: Added track \(trackURI) to playlist \(playlistID)")
       then()
