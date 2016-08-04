@@ -16,7 +16,10 @@ UITableViewDelegate, UITableViewDataSource {
   var dj = DJ()
 
   var showsBySemester : [DJShowsGroup] = [] {
-    didSet {  tableView.reloadData()  }
+    didSet {
+      tableView.reloadData()
+      resizeTableView()
+    }
   }
 
   @IBOutlet weak var profileImage: UIImageView!
@@ -39,11 +42,19 @@ UITableViewDelegate, UITableViewDataSource {
       navController.light = false
     }
 
+    let guide = view.readableContentGuide
+    djBio.translatesAutoresizingMaskIntoConstraints = false
+    guide.leftAnchor.constraintEqualToAnchor(djBio.leftAnchor).active = true
+    guide.rightAnchor.constraintEqualToAnchor(djBio.rightAnchor).active = true
+
     let layer = profileImage.layer
     layer.cornerRadius = profileImage.bounds.width / 2
     layer.masksToBounds = true;
     layer.borderColor = UIColor.whiteColor().CGColor
     layer.borderWidth = 2.0
+
+    tableView.scrollEnabled = false
+    tableView.backgroundColor = UIColor.clearColor()
 
     fetchDJProfile()
   }
@@ -130,5 +141,11 @@ UITableViewDelegate, UITableViewDataSource {
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     print(indexPath)
+  }
+
+  func resizeTableView() {
+    tableView.layoutIfNeeded()
+    let size = tableView.contentSize
+    tableView.heightAnchor.constraintEqualToConstant(size.height).active = true
   }
 }
