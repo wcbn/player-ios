@@ -164,6 +164,14 @@ class SpotifyService: SongSearchService {
   private func searchSpotify(song: Song, then callback: () -> ()) {
     racing = true
     currentSong = song
+
+    guard !song.blank else {
+      self.currentAlbumArtURL = nil
+      self.currentTrackURI = nil
+      callback()
+      return
+    }
+
     fetch(jsonFrom: queryURL(song)) { response in
       let results = response["tracks"]["items"]
       if results.count > 0 {

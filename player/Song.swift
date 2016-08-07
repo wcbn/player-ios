@@ -17,6 +17,11 @@ struct Song : Equatable {
   var request = false
   var timestamp: NSDate? = nil
 
+  var blank: Bool {
+    get {
+      return self == Song()
+    }
+  }
 
   var at : String {
     get {

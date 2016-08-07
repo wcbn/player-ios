@@ -51,7 +51,12 @@ class iTunesService : SongSearchService {
 
 
   private func queryiTunes(then: () -> ()) {
-    guard let song = currentSong else {  return  }
+    guard let song = currentSong where !(song.blank) else {
+      self.currentAlbumArtURL = nil
+      self.currentAlbumURL = nil
+      then()
+      return
+    }
 
     fetch(jsonFrom: queryURL(song)) { response in
       let results = response["results"]
