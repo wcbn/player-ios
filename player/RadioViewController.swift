@@ -60,7 +60,9 @@ MFMessageComposeViewControllerDelegate
     let notificationCenter = NSNotificationCenter.defaultCenter()
     let mainQueue = NSOperationQueue.mainQueue()
     notificationCenter.addObserverForName("SongDataReceived", object: nil, queue: mainQueue) { _ in
-      self.explainInterface()
+      if (self.delegate.radio?.isPlaying ?? false) {
+        self.explainInterface()
+      }
       self.updateUI()
     }
     notificationCenter.addObserverForName("songSearchServiceChoiceSet", object: nil, queue: mainQueue) { _ in
