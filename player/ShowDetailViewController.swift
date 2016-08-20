@@ -14,6 +14,7 @@ UITableViewDelegate, UITableViewDataSource,
 UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
   var show = Show()
+  var semesterName = ""
 
   @IBOutlet weak var showDescription: UITextView!
   @IBOutlet var djs: UICollectionView!

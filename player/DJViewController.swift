@@ -40,6 +40,20 @@ UITableViewDelegate, UITableViewDataSource {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    let guide = view.readableContentGuide
+    djBio.translatesAutoresizingMaskIntoConstraints = false
+    guide.leftAnchor.constraintEqualToAnchor(djBio.leftAnchor).active = true
+    guide.rightAnchor.constraintEqualToAnchor(djBio.rightAnchor).active = true
+
+    tableView.scrollEnabled = false
+    tableView.backgroundColor = UIColor.clearColor()
+
+    fetchDJProfile()
+  }
+
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+
     let bar = self.navigationController?.navigationBar
     bar?.translucent = false
     bar?.barTintColor = UIColor(rgba: "#EBEBF1FF")
@@ -51,22 +65,6 @@ UITableViewDelegate, UITableViewDataSource {
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = false
     }
-
-    let guide = view.readableContentGuide
-    djBio.translatesAutoresizingMaskIntoConstraints = false
-    guide.leftAnchor.constraintEqualToAnchor(djBio.leftAnchor).active = true
-    guide.rightAnchor.constraintEqualToAnchor(djBio.rightAnchor).active = true
-
-    let layer = profileImage.layer
-    layer.cornerRadius = profileImage.bounds.width / 2
-    layer.masksToBounds = true;
-    layer.borderColor = UIColor.whiteColor().CGColor
-    layer.borderWidth = 2.0
-
-    tableView.scrollEnabled = false
-    tableView.backgroundColor = UIColor.clearColor()
-
-    fetchDJProfile()
   }
 
   override func viewDidLayoutSubviews() {
@@ -94,9 +92,14 @@ UITableViewDelegate, UITableViewDataSource {
   }
 
   struct DJShowsRow {
-    let showID: Int
-    let semesterName: String
-    let times: String
+    let show: Show
+    let semesterStart: NSDate
+
+    var semesterName: String { get {
+      let dateFormatter = NSDateFormatter()
+      dateFormatter.dateFormat = NSDateFormatter.dateFormatFromTemplate("yyyyMMMM", options: 0, locale: NSLocale.currentLocale())
+      return dateFormatter.stringFromDate(semesterStart)
+    } }
   }
 
   private func fetchDJProfile() {
@@ -119,8 +122,8 @@ UITableViewDelegate, UITableViewDataSource {
           self.showsBySemester = json["shows"].arrayValue.map { show in
             let showName = show["name"].stringValue
             let semesters = show["semesters"].arrayValue.map { semester in
-
-              return DJShowsRow(showID: semester["id"].intValue, semesterName: semester["semester"].stringValue, times: semester["times"].stringValue)  // TODO: Generate these strings
+              return DJShowsRow(show: Show(fromJSON: semester),
+                        semesterStart: semester["semester_beginning"].dateTime!)
             }
             return DJShowsGroup(showName: showName, semesters: semesters)
           }
@@ -143,16 +146,25 @@ UITableViewDelegate, UITableViewDataSource {
 
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("ShowBySemesterCell", forIndexPath: indexPath)
-    let show = showsBySemester[indexPath.section].semesters[indexPath.row]
+    let row = showsBySemester[indexPath.section].semesters[indexPath.row]
 
-    cell.textLabel?.text = show.semesterName
-    cell.detailTextLabel?.text = show.times
+    cell.textLabel?.text = row.semesterName
+    cell.detailTextLabel?.text = row.show.times
 
     return cell
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let showVC = self.storyboard?.instantiateViewControllerWithIdentifier("ShowDetails") as! ShowDetailViewController
+    let row = showsBySemester[indexPath.section].semesters[indexPath.row]
+    showVC.show = row.show
+    showVC.title = row.show.name
 
+    let back = UIBarButtonItem()
+    back.title = dj.dj_name
+    self.navigationItem.backBarButtonItem = back
+
+    self.navigationController?.pushViewController(showVC, animated: true)
   }
 
   func resizeTableView() {
