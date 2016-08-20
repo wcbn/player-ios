@@ -145,6 +145,9 @@ extension RadioViewController {
     default:
       break
     }
+
+    let defaults = NSUserDefaults.standardUserDefaults()
+    defaults.setBool(true, forKey: "interfaceExplained[RadialMenu]")
   }
 
   func shareSong() {

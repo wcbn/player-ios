@@ -160,11 +160,16 @@ MFMessageComposeViewControllerDelegate
   }
 
 
+  var explainedThisSession = false
+
   func explainInterface() {
+    if explainedThisSession {  return  }
     let defaults = NSUserDefaults.standardUserDefaults()
-    if (!defaults.boolForKey("interfaceExplained[3.0.0-beta4]")) {
+
+    if (!defaults.boolForKey("interfaceExplained[RadialMenu]")) {
       explainRadialMenu()
-      defaults.setBool(true, forKey: "interfaceExplained[3.0.0-beta4]")
     }
+
+    explainedThisSession = true
   }
 }
