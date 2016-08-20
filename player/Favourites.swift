@@ -14,6 +14,7 @@ class Favourites {
   private let defaults = NSUserDefaults.standardUserDefaults()
 
   var songs: [Favourite] {
+
     get {
       if let plist = defaults.objectForKey(defaultsKey) as? [[String:AnyObject]] {
         var songs: [Favourite] = []
@@ -21,24 +22,8 @@ class Favourites {
           let e = s as! [String: [String: AnyObject]]
           songs.append(
             Favourite(
-              song: Song(
-                artist: e["song"]!["artist"] as! String,
-                name: e["song"]!["name"] as! String,
-                album: e["song"]!["album"] as! String,
-                label: e["song"]!["label"] as! String,
-                year: e["song"]!["year"] as? Int,
-                request: e["song"]!["request"] as! Bool,
-                timestamp: e["song"]!["timestamp"] as? NSDate
-              ),
-              episode: Episode(
-                name: e["episode"]!["name"] as! String,
-                dj: e["episode"]!["dj"] as! String,
-                beginning: nil,
-                ending: nil,
-                notes: nil,
-                songs: nil
-              ),
-              url: NSURL(string: e["song"]!["url"] as! String)
+              song: Song(fromPlist: e["song"]!),
+              episode: Episode(fromPlist: e["episode"]!)
             )
           )
         }
@@ -47,24 +32,10 @@ class Favourites {
         return []
       }
     }
+
     set {
-      var arr = [[String:AnyObject]]()
-      for e in newValue {
-        let d: [String: [String: AnyObject]] = [
-          "song": [
-            "artist": e.song.artist,
-            "name": e.song.name,
-            "album": e.song.album,
-            "label": e.song.label,
-            "year": e.song.year ?? 0,
-            "request": e.song.request,
-            "url": e.url?.absoluteString ?? "",
-            "timestamp": e.song.timestamp ?? NSDate() ],
-          "episode": [
-            "name": e.episode.name,
-            "dj": e.episode.dj],
-          ]
-        arr.append(d)
+      let arr: [[String:AnyObject]] = newValue.map{ e in
+        return [ "song": e.song.dictionary, "episode": e.episode.dictionary]
       }
       defaults.setObject(arr, forKey: defaultsKey)
     }

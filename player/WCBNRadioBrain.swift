@@ -189,32 +189,10 @@ class WCBNRadioBrain: NSObject{
     fetch(jsonFrom: playlistEndpointURL) { json in
       self.playlist.semesterID = json["on_air"]["semester_id"].int
       
-      var songs: [Song] = []
-      for (_, s) : (String, JSON) in json["on_air"]["songs"] {
-        let song = Song(
-          artist:   s["artist"].stringValue,
-          name:     s["name"].stringValue,
-          album:    s["album"].stringValue,
-          label:    s["label"].stringValue,
-          year:     s["year"].int,
-          request:  s["request"].boolValue,
-          timestamp:s["at"].dateTime
-        )
-        songs.append(song)
-      }
-      
-      let episode = Episode(
-        name:  json["on_air"]["name"].stringValue,
-        dj:    json["on_air"]["dj"].stringValue,
-        beginning: json["on_air"]["beginning"].dateTime,
-        ending: json["on_air"]["ending"].dateTime,
-        notes: json["on_air"]["show_notes"].string,
-        songs: songs
-      )
-      //          let episodeChanged = episode.beginning != self.playlist.episode.beginning
-      let episodeChanged = true
+      let episode = Episode(fromJSON: json["on_air"])
+      let episodeChanged = episode.beginning != self.playlist.episode.beginning
       self.playlist.episode = episode
-      
+
       if episodeChanged { self.fetchSchedule() }
 
       self.fetchAlbumArtURL()
@@ -238,29 +216,14 @@ class WCBNRadioBrain: NSObject{
         let w = Int(weekday)!
         var ss: [Show] = []
         for (i, show) : (String, JSON) in shows {
-          var djs: [Show.DJ] = []
-          for (_, dj) : (String, JSON) in show["djs"] {
-            djs.append(Show.DJ(name: dj["name"].stringValue, path: dj["url"].stringValue))
-          }
-          
-          let s = Show()
-          s.url_for = show["url"].stringValue
-          s.name = show["name"].stringValue
-          s.description = show["description"].stringValue
-          s.djs = djs
-          s.with = show["with"].stringValue
-          s.start = show["beginning"].dateTime!
-          s.end = show["ending"].dateTime!
-          s.onAir = show["on_air"].boolValue
-          s.episodes = nil
-          
+          let s = Show(fromJSON: show)
           if (s.onAir) {
             let iP = NSIndexPath(forRow: Int(i)!, inSection: w - 1)
             self.playlist.showOnAir = iP
           }
           ss.append(s)
         }
-        ss.sortInPlace { a, b in  a.start.compare(b.start) == NSComparisonResult.OrderedAscending}
+        ss.sortInPlace { a, b in  a.start.compare(b.start) == .OrderedAscending}
         weekdays.append(Weekday(index: w, name: WCBNRadioBrain.Weekdays[w], shows: ss))
       }
       self.playlist.schedule = weekdays.sort { a, b in return a.index < b.index }

@@ -162,45 +162,11 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
   // MARK: - Networking
 
   private func fetchShowInfo() {
-    let background_qos = Int(QOS_CLASS_BACKGROUND.rawValue)
-    dispatch_async(dispatch_get_global_queue(background_qos, 0)) {
-      let playlist_api_url = self.show.url
-      if let data = NSData(contentsOfURL: playlist_api_url) {
-        dispatch_async(dispatch_get_main_queue()) {
-          let json = JSON(data: data)
-
-          var episodes: [Episode] = []
-
-          for (_, ep) : (String, JSON) in json["episodes"] {
-            var songs: [Song] = []
-            for (_, s) : (String, JSON) in ep["songs"] {
-              let song = Song(
-               artist:   s["artist"].stringValue,
-               name:     s["name"].stringValue,
-               album:    s["album"].stringValue,
-               label:    s["label"].stringValue,
-               year:     s["year"].int,
-               request:  s["request"].boolValue,
-               timestamp:s["at"].dateTime
-              )
-              songs.append(song)
-            }
-
-            let episode = Episode(
-              name:  ep["name"].stringValue,
-              dj:    ep["dj"].stringValue,
-              beginning: ep["beginning"].dateTime,
-              ending: ep["ending"].dateTime,
-              notes: ep["show_notes"].string,
-              songs: songs.reverse()
-            )
-            episodes.append(episode)
-          }
-
-          self.show.episodes = episodes
-          self.recentEpisodes.reloadData()
-        }
+    fetch(jsonFrom: show.url) { json in
+      self.show.episodes = json["episodes"].arrayValue.map { episode in
+        return Episode(fromJSON: episode)
       }
+      self.recentEpisodes.reloadData()
     }
   }
 }

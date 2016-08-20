@@ -114,7 +114,7 @@ class PlaylistTableViewController: UITableViewController {
     let favButton = UITableViewRowAction(style: .Default, title: "Favorite") {
       _, inxPth in
       let song = self.episode.songs![inxPth.row - self.episode.numberOfNotesCells]
-      self.delegate.radio!.favourites.append(Favourite(song: song, episode: self.episode, url: nil))
+      self.delegate.radio!.favourites.append(Favourite(song: song, episode: self.episode))
       tableView.editing = false
     }
     favButton.backgroundColor = Colors.Light.watermelon

@@ -11,19 +11,15 @@ import Foundation
 struct Favourite {
   let song: Song
   let episode: Episode
-  let url: NSURL?
 
-  init(song s: Song, episode ep: Episode, url u: NSURL?) {
+  init(song s: Song, episode ep: Episode) {
     song = s
     episode = ep
-    url = u
   }
 
   init(playlist p: WCBNRadioBrain.Playlist) {
     song = p.song
     episode = p.episode
-//    url = p.albumURL
-    url = nil
   }
 }
 

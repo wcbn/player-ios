@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct Episode {
   var name = ""
@@ -47,4 +48,24 @@ struct Episode {
       }
     }
   }
+
+  init() {  }
+
+  init(fromJSON json: JSON) {
+    name = json["name"].stringValue
+    dj = json["dj"].stringValue
+    beginning = json["beginning"].dateTime
+    ending = json["ending"].dateTime
+    notes = json["show_notes"].string
+    songs = json["songs"].array?.map { song in return Song(fromJSON: song) }
+  }
+
+  init(fromPlist plist: [String: AnyObject]) {
+    name = plist["name"] as! String
+    dj = plist["dj"] as! String
+  }
+
+  var dictionary: [String: AnyObject] { get {
+    return ["name": name, "dj": dj]
+  } }
 }

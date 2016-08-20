@@ -15,6 +15,16 @@ UITableViewDelegate, UITableViewDataSource {
   var dj_path = ""
   var dj = DJ()
 
+  var profileImageURL: NSURL? {
+    didSet {
+      if profileImageURL != nil {
+        fetch(dataFrom: profileImageURL!) { r in
+          self.profileImage.image = UIImage(data: r)
+        }
+      }
+    }
+  }
+
   var showsBySemester : [DJShowsGroup] = [] {
     didSet {
       tableView.reloadData()
@@ -32,7 +42,7 @@ UITableViewDelegate, UITableViewDataSource {
     
     let bar = self.navigationController?.navigationBar
     bar?.translucent = false
-    bar?.barTintColor = Colors.Dark.white
+    bar?.barTintColor = UIColor(rgba: "#EBEBF1FF")
     bar?.tintColor = UIColor.blackColor()
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
@@ -99,6 +109,7 @@ UITableViewDelegate, UITableViewDataSource {
 
           let dj = self.dj
           dj.id = json["id"].intValue
+          self.profileImageURL = json["image_url"].URL
           dj.dj_name = json["dj_name"].stringValue
           dj.real_name = json["real_name"].string
           dj.website = NSURL(string: json["website"].stringValue)
@@ -108,6 +119,7 @@ UITableViewDelegate, UITableViewDataSource {
           self.showsBySemester = json["shows"].arrayValue.map { show in
             let showName = show["name"].stringValue
             let semesters = show["semesters"].arrayValue.map { semester in
+
               return DJShowsRow(showID: semester["id"].intValue, semesterName: semester["semester"].stringValue, times: semester["times"].stringValue)  // TODO: Generate these strings
             }
             return DJShowsGroup(showName: showName, semesters: semesters)
@@ -140,7 +152,7 @@ UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print(indexPath)
+
   }
 
   func resizeTableView() {

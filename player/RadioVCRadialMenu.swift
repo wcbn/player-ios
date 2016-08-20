@@ -128,9 +128,15 @@ extension RadioViewController {
       starSong()
       flash(UIColor(rgba: option.color))
     case "act-\(svc.name)":
-      if !svc.canEnplaylist { break }
-      svc.enplaylist() { }
-      flash(UIColor(rgba: option.color))
+      if svc.canEnplaylist {
+        svc.enplaylist() { }
+        flash(UIColor(rgba: option.color))
+      } else {
+        let alert = UIAlertController(title: "Cannot Save Song", message: "This song cannot be found in the \(svc.name) library.", preferredStyle: .Alert)
+        let dismiss = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(dismiss)
+        presentViewController(alert, animated: true, completion: nil)
+      }
     case "act-message":
       flash(UIColor(rgba: option.color))
       textWCBN()

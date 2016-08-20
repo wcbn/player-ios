@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Show {
   struct DJ {
@@ -35,6 +36,23 @@ class Show {
       let beginning = dateFormatter.stringFromDate(start)
       let ending = dateFormatter.stringFromDate(end)
       return "\(beginning)–\(ending)"
+    }
+  }
+
+  init() {  }
+  
+  init(fromJSON json: JSON) {
+    url_for = json["url"].stringValue
+    name = json["name"].stringValue
+    description = json["description"].stringValue
+    with = json["with"].stringValue
+    start = json["beginning"].dateTime!
+    end = json["ending"].dateTime!
+    onAir = json["on_air"].boolValue
+    episodes = nil
+
+    djs = json["djs"].arrayValue.map { dj in
+      return Show.DJ(name: dj["name"].stringValue, path: dj["url"].stringValue)
     }
   }
 }

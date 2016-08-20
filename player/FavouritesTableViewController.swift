@@ -89,16 +89,16 @@ class FavouritesTableViewController: UITableViewController {
 
     var actions: [UITableViewRowAction] = []
 
-    if fav[indexPath.row].url != nil {
-      let searchButton = UITableViewRowAction(style: .Default, title: "iTunes") {
-        _, inxPth in
-        let url = self.fav[inxPth.row].url!
-        UIApplication.sharedApplication().openURL(url)
-      }
-      searchButton.backgroundColor = Colors.Light.green
-      actions.append(searchButton)
-    }
-
+//    if fav[indexPath.row].url != nil {
+//      let searchButton = UITableViewRowAction(style: .Default, title: "iTunes") {
+//        _, inxPth in
+//        let url = self.fav[inxPth.row].url!
+//        UIApplication.sharedApplication().openURL(url)
+//      }
+//      searchButton.backgroundColor = Colors.Light.green
+//      actions.append(searchButton)
+//    }
+//
     let deleteButton = UITableViewRowAction(style: .Destructive, title: "Delete") { _, inxPth in
       self.fav.removeAtIndex(inxPth.row)
       tableView.deleteRowsAtIndexPaths([inxPth], withRowAnimation: .Bottom)
