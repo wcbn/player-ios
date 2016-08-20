@@ -174,8 +174,6 @@ class WCBNRadioBrain: NSObject{
     notificationCenter.addObserverForName("songSearchServiceChoiceSet", object: nil, queue: mainQueue) { _ in
       self.fetchAlbumArtURL()
     }
-
-    radio.play()
   }
 
   override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {

@@ -44,6 +44,9 @@ MFMessageComposeViewControllerDelegate
     ]
 
   @IBAction func playOrPauseMusic(_: UITapGestureRecognizer) {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    defaults.setBool(true, forKey: "LaunchedBefore")
+
     delegate.radio!.playOrPause()
     updateUI()
   }
@@ -67,7 +70,11 @@ MFMessageComposeViewControllerDelegate
 
     self.setNeedsStatusBarAppearanceUpdate()
 
-    delegate.radio!.playOrPause()
+    let defaults = NSUserDefaults.standardUserDefaults()
+    if (defaults.boolForKey("LaunchedBefore")) {
+      delegate.radio!.playOrPause()
+    }
+
     self.updateUI()
     
     let l = albumArt.layer
