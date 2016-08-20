@@ -47,6 +47,8 @@
 		438106771CA832B6009547CD /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438106761CA832B6009547CD /* ScheduleTableViewCell.swift */; };
 		4392061C1CE58083009C3BFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4392061B1CE58083009C3BFF /* Main.storyboard */; };
 		4392061E1CE580B4009C3BFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4392061D1CE580B4009C3BFF /* LaunchScreen.storyboard */; };
+		4392A1641D68ED5F009C69AF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4392A1631D68ED5F009C69AF /* StoreKit.framework */; };
+		4392A1661D68F2A2009C69AF /* TipJarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392A1651D68F2A2009C69AF /* TipJarTableViewController.swift */; };
 		4393E6991CA5D3B7000B2D6F /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393E6981CA5D3B7000B2D6F /* PlaylistTableViewCell.swift */; };
 		4393E69B1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393E69A1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift */; };
 		4393E69D1CA62B8D000B2D6F /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393E69C1CA62B8D000B2D6F /* SettingsTableViewController.swift */; };
@@ -157,6 +159,8 @@
 		438106761CA832B6009547CD /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		4392061B1CE58083009C3BFF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4392061D1CE580B4009C3BFF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4392A1631D68ED5F009C69AF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		4392A1651D68F2A2009C69AF /* TipJarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipJarTableViewController.swift; sourceTree = "<group>"; };
 		4393E6981CA5D3B7000B2D6F /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		4393E69A1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONDateTime.swift; sourceTree = "<group>"; };
 		4393E69C1CA62B8D000B2D6F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 			files = (
 				432C6B921D19A5BD0077531E /* SystemConfiguration.framework in Frameworks */,
 				432C6B901D19A5B50077531E /* AVFoundation.framework in Frameworks */,
+				4392A1641D68ED5F009C69AF /* StoreKit.framework in Frameworks */,
 				43CAC3F91D40E78C00A5BA1B /* Spotify.framework in Frameworks */,
 				4CF6D33D36FA007D199BA1FB /* Pods_player.framework in Frameworks */,
 			);
@@ -393,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				4393E69C1CA62B8D000B2D6F /* SettingsTableViewController.swift */,
+				4392A1651D68F2A2009C69AF /* TipJarTableViewController.swift */,
 				430B85E21CA8939A0047A944 /* SettingsActions.swift */,
 			);
 			name = settings;
@@ -440,6 +446,7 @@
 		4ADDA6D75A4D8B4E23799FB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4392A1631D68ED5F009C69AF /* StoreKit.framework */,
 				43CAC3FA1D40E7B400A5BA1B /* player-Bridging-Header.h */,
 				43CAC3F81D40E78C00A5BA1B /* Spotify.framework */,
 				432C6B911D19A5BD0077531E /* SystemConfiguration.framework */,
@@ -563,6 +570,9 @@
 						DevelopmentTeam = Z9F779QJXA;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};
@@ -824,6 +834,7 @@
 				438106751CA83230009547CD /* ShowNotesTableViewCell.swift in Sources */,
 				439EB4D91D1596A100739134 /* fetch.swift in Sources */,
 				43207AA01C4C3F5200DE6C62 /* PlaylistTableViewController.swift in Sources */,
+				4392A1661D68F2A2009C69AF /* TipJarTableViewController.swift in Sources */,
 				4314F7671CE110D20045EB46 /* DJ.swift in Sources */,
 				43F03CA41CAE047D005E5D4E /* ShowDetailViewController.swift in Sources */,
 				433987711CE681CF00F01E29 /* CircleHelpers.swift in Sources */,

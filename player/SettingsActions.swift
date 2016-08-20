@@ -35,10 +35,9 @@ extension SettingsTableViewController {
       UIApplication.sharedApplication().openURL(reviewURL!)
       deselectSelectedRow()
 
-    case "UM-OUD":
-      let giftURL = NSURL(string: "https://leadersandbest.umich.edu/find/#!/give/basket/fund/361991")
-      UIApplication.sharedApplication().openURL(giftURL!)
-      deselectSelectedRow()
+    case "give":
+      let tipJar = self.storyboard?.instantiateViewControllerWithIdentifier("TipJarTableView") as! TipJarTableViewController
+      self.navigationController?.pushViewController(tipJar, animated: true)
 
     default:
       let nextSettingsVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsTableViewController
@@ -47,7 +46,6 @@ extension SettingsTableViewController {
 
     }
   }
-
 
   func callWCBN() {
     let alert = UIAlertController(title: "Call WCBN", message: "Hit call to give us a ring. Unfortunately, the music will have to be paused and long-distance charges may ensue.", preferredStyle: .Alert)

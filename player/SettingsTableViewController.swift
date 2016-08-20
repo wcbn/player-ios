@@ -8,11 +8,20 @@
 
 import UIKit
 import MessageUI
+import StoreKit
 
 class SettingsTableViewController: UITableViewController, MFMessageComposeViewControllerDelegate {
 
   typealias STVC = SettingsTableViewController
-  
+
+  static func conditionalTipJarSetting() -> [Setting] {
+    if SKPaymentQueue.canMakePayments() {
+      return [Setting(key: "give", message: "Give WCBN a buck or two")]
+    } else {
+      return []
+    }
+  }
+
   static let settings: [String: [SettingsGroup]] = [
     "Settings": [
       SettingsGroup(settings: [
@@ -21,9 +30,8 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
         ]),
       SettingsGroup(settings: [
         Setting(key: "call", message: "Call the studio"),
-        Setting(key: "text", message: "Send an iMessage to the DJ"),
-        Setting(key: "Give to WCBN", message: "Give WCBN a buck or two"),
-        ]),
+        Setting(key: "text", message: "Send an iMessage to the DJ")
+        ] + STVC.conditionalTipJarSetting()),
       SettingsGroup(settings: [
         Setting(message: "About WCBN"),
         Setting(key: "review", message: "Write a review of our app")
@@ -42,21 +50,6 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       SongSearchServiceChoice.allChoices.map { choice in
         return Setting(message: choice.rawValue)
       })
-    ],
-    "Give to WCBN": [
-      SettingsGroup(title: "The Tip Jar", instructions: "Thank you for your support. These one-time gifts will let the DJ know how much you appreciate them.\n", settings: [
-        Setting(key: "tip-sm", message: "This song is my jam!", description: "$0.99"),
-        Setting(key: "tip-md", message: "Wow, you’re working hard today!", description: "$1.99"),
-        Setting(key: "tip-lg", message: "Can I get a tuner implant yet?", description: "$4.99"),
-        ]),
-//      SettingsGroup(title: "Your Freeform Subscription", instructions: "Your ongoing support is essential to keeping the station alive. These charges will recur monthly, but you can cancel at any time.", settings: [
-//        Setting(key: "sub-sm", message: "I listen all the time.", description: "$5/mo"),
-//        Setting(key: "sub-md", message: "I discover so much music here!", description: "$10/mo"),
-//        Setting(key: "sub-lg", message: "Can I get a tuner implant yet?", description: "$20/mo"),
-//        ]),
-      SettingsGroup(instructions: "You may give any amount, and claim the donation as tax-exempt, by donating through the giving portal of the University of Michigan, a registered 501(c)(3) non-profit.\n\n", settings: [
-        Setting(key: "UM-OUD", message: "Make a tax-exempt gift of any amount"),
-        ])
     ],
     "About WCBN": [
       SettingsGroup(title: "The far left of the dial", instructions:
@@ -132,10 +125,12 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
       NSForegroundColorAttributeName: UIColor.blackColor()
     ]
+
     navTitle.title = settingsGroup
 
     tableView.sectionFooterHeight = UITableViewAutomaticDimension;
     tableView.estimatedSectionFooterHeight = 1000;
+
   }
 
   override func viewWillAppear(animated: Bool) {
