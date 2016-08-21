@@ -111,6 +111,9 @@ extension RadioViewController {
         subMenu.transform = CGAffineTransformMakeScale(1.25, 1.25)
       }
     }
+
+    let defaults = NSUserDefaults.standardUserDefaults()
+    defaults.setBool(true, forKey: "interfaceExplained[RadialMenu]")
   }
 
   func resetSubMenu(subMenu: RadialSubMenu) {
@@ -145,9 +148,6 @@ extension RadioViewController {
     default:
       break
     }
-
-    let defaults = NSUserDefaults.standardUserDefaults()
-    defaults.setBool(true, forKey: "interfaceExplained[RadialMenu]")
   }
 
   func shareSong() {
