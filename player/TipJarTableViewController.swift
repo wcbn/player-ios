@@ -34,9 +34,9 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
   var products: [SKProduct] = []
 
   static var tipNames = Set([
-    "org.wcbn.smallTip",
-    "org.wcbn.mediumTip",
-    "org.wcbn.largeTip"
+    "org.wcbn.tip1",
+    "org.wcbn.tip2",
+    "org.wcbn.tip5"
   ])
 
   @objc func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
@@ -51,7 +51,7 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
   }
 
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if section == 1 {
+    if section == 1 || products == [] {
       return 1
     }
     return products.count
@@ -63,9 +63,13 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
     if indexPath.section == 1 {
       cell.textLabel?.text = "Make a tax-exempt gift of any amount"
       cell.detailTextLabel?.text = ""
+    }
+    else if products == [] {
+      cell.textLabel?.text = "Loading..."
+      cell.detailTextLabel?.text = ""
     } else {
       let product = products[indexPath.row]
-      cell.textLabel?.text = products[indexPath.row].localizedTitle
+      cell.textLabel?.text = products[indexPath.row].localizedDescription
 
       let numberFormatter = NSNumberFormatter()
       numberFormatter.formatterBehavior = .Behavior10_4
@@ -120,18 +124,18 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
     return label
   }
 
+  override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    return !(indexPath.section == 0 && products == [])
+  }
+
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if indexPath.section == 1 {
       let giftURL = NSURL(string: "https://leadersandbest.umich.edu/find/#!/give/basket/fund/361991")
       UIApplication.sharedApplication().openURL(giftURL!)
       deselectSelectedRow()
-    } else {
-        let alert = UIAlertController(title: "Payments disabled in Beta", message: "Thanks for your diligent testing, though!", preferredStyle: .Alert)
-        let dismiss = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alert.addAction(dismiss)
-        presentViewController(alert, animated: true, completion: deselectSelectedRow)
-//      let payment = SKPayment(product: products[indexPath.row])
-//      SKPaymentQueue.defaultQueue().addPayment(payment)
+    } else if products != [] {
+      let payment = SKPayment(product: products[indexPath.row])
+      SKPaymentQueue.defaultQueue().addPayment(payment)
     }
   }
 
@@ -146,10 +150,7 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
         presentViewController(alert, animated: true, completion: deselectSelectedRow)
       case .Failed:
         SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-        let alert = UIAlertController(title: "Payment Failed", message: transaction.error?.localizedFailureReason, preferredStyle: .Alert)
-        let dismiss = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alert.addAction(dismiss)
-        presentViewController(alert, animated: true, completion: deselectSelectedRow)
+        deselectSelectedRow()
       default:
         break
       }
