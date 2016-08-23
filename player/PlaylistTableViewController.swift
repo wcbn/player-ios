@@ -19,6 +19,7 @@ class PlaylistTableViewController: UITableViewController {
   }
 
   @IBOutlet weak var navTitle: UINavigationItem!
+  @IBOutlet weak var djButton: UIButton!
 
   func setDataIfViewIsRecentlyPlayed() {
     if self == navigationController?.viewControllers[0] {
@@ -36,6 +37,12 @@ class PlaylistTableViewController: UITableViewController {
     }
   }
 
+  func updateUI() {
+    setDataIfViewIsRecentlyPlayed()
+    setTitle()
+    djButton.setTitle("\(episode.dj) ›", forState: .Normal)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -45,20 +52,10 @@ class PlaylistTableViewController: UITableViewController {
                                           object: nil,
                                           queue: mainQueue)
     { _ in
-      self.setDataIfViewIsRecentlyPlayed()
-      self.setTitle()
+      self.updateUI()
     }
 
-    let bar = self.navigationController?.navigationBar
-    bar?.translucent = false
-    bar?.barTintColor = Colors.Dark.green
-    bar?.titleTextAttributes = [
-      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.whiteColor()
-    ]
-
-    setDataIfViewIsRecentlyPlayed()
-    setTitle()
+    updateUI()
 
     // cell height
     tableView.estimatedRowHeight = tableView.rowHeight
@@ -79,6 +76,25 @@ class PlaylistTableViewController: UITableViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     tableView.reloadData()
+  }
+
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    let bar = self.navigationController?.navigationBar
+    bar?.translucent = false
+    bar?.barTintColor = Colors.Dark.green
+    bar?.titleTextAttributes = [
+      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
+      NSForegroundColorAttributeName: UIColor.whiteColor()
+    ]
+  }
+
+
+  @IBAction func openDJ() {
+    let djVC = storyboard?.instantiateViewControllerWithIdentifier("DJ") as! DJViewController
+    djVC.dj_path = episode.dj_path
+    djVC.title = episode.dj
+    navigationController?.pushViewController(djVC, animated: true)
   }
 
   // MARK: - Table view data source
@@ -104,8 +120,18 @@ class PlaylistTableViewController: UITableViewController {
       return cell
     }
   }
-  
-  // Override to support editing the table view.
+
+  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return "Recent songs"
+  }
+
+  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    let header = view as! UITableViewHeaderFooterView
+    header.contentView.backgroundColor = Colors.Dark.green
+    header.textLabel?.textColor = UIColor.whiteColor()
+    header.textLabel?.font = UIFont(name: "Lato-Black", size: 14)!
+  }
+
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     // Necessary to enable the edit actions at all
   }

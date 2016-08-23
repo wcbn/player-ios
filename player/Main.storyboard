@@ -22,6 +22,9 @@
             <string>Lato-Black</string>
             <string>Lato-Black</string>
         </mutableArray>
+        <mutableArray key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </mutableArray>
         <mutableArray key="Lato-Italic.ttf">
             <string>Lato-Italic</string>
             <string>Lato-Italic</string>
@@ -33,6 +36,7 @@
             <string>Lato-Italic</string>
         </mutableArray>
         <mutableArray key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
             <string>Lato-Regular</string>
@@ -95,10 +99,10 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" layoutMarginsFollowReadableWidth="YES" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-6c-KLb">
+                            <stackView opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="iBm-6c-KLb">
                                 <rect key="frame" x="20" y="346" width="560" height="185"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X6O-uG-C84">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X6O-uG-C84">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="xkB-ey-1ao">
@@ -127,7 +131,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="271" height="41"/>
                                         </variation>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-oP-t4O">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0PP-oP-t4O">
                                         <rect key="frame" x="0.0" y="48" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-HD-KIr">
@@ -156,7 +160,7 @@
                                             <rect key="frame" x="0.0" y="48" width="271" height="41"/>
                                         </variation>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hsP-tF-2wg">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hsP-tF-2wg">
                                         <rect key="frame" x="0.0" y="96" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="fof-Qc-x4e">
@@ -185,7 +189,7 @@
                                             <rect key="frame" x="0.0" y="96" width="271" height="41"/>
                                         </variation>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-Ce-Z1j">
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-Ce-Z1j">
                                         <rect key="frame" x="0.0" y="144" width="560" height="41"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="600" text="Label (Year)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="khS-0f-RzB">
@@ -231,7 +235,7 @@
                             <view contentMode="scaleToFill" horizontalHuggingPriority="400" verticalHuggingPriority="800" verticalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="fKK-zb-lPf">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="104"/>
                                 <subviews>
-                                    <stackView contentMode="scaleToFill" verticalHuggingPriority="800" misplaced="YES" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MID-YN-qSM">
+                                    <stackView contentMode="scaleToFill" verticalHuggingPriority="800" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MID-YN-qSM">
                                         <rect key="frame" x="20" y="25" width="560" height="69"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="800" misplaced="YES" text="WCBN-FM Ann Arbor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaC-yN-JB7">
@@ -1061,9 +1065,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.6470588235294118" green="0.77647058823529413" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.55686274509803924" green="0.69019607843137254" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                        <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" id="vxl-Zk-xMF">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nG3-el-kE2">
+                                    <rect key="frame" x="0.0" y="0.0" width="211" height="44"/>
+                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tBh-ar-2lr">
+                                    <rect key="frame" x="211" y="0.0" width="178" height="44"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today’s host: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWO-9p-Jzf">
+                                            <rect key="frame" x="0.0" y="0.0" width="93" height="44"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhL-wI-8vE">
+                                            <rect key="frame" x="101" y="0.0" width="77" height="44"/>
+                                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                            <state key="normal" title="Cameron ›">
+                                                <color key="titleColor" red="0.32276347279548645" green="0.42037135362625122" blue="0.075826570391654968" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="openDJ" destination="UOg-8O-YLe" eventType="touchUpInside" id="O81-rF-9mo"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1AS-dL-NF5">
+                                    <rect key="frame" x="389" y="0.0" width="211" height="44"/>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="nG3-el-kE2" firstAttribute="width" secondItem="1AS-dL-NF5" secondAttribute="width" id="pmH-Wr-aUN"/>
+                            </constraints>
+                        </stackView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowNotes" rowHeight="71" id="nMA-wS-XWB" customClass="ShowNotesTableViewCell" customModule="player" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="71"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="nMA-wS-XWB" id="bc7-8P-8BW">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="70.5"/>
@@ -1114,7 +1154,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Recent" rowHeight="69" id="Sn3-Rx-Dbs" customClass="PlaylistTableViewCell" customModule="player" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="163" width="600" height="69"/>
+                                <rect key="frame" x="0.0" y="207" width="600" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" layoutMarginsFollowReadableWidth="YES" tableViewCell="Sn3-Rx-Dbs" id="g7S-Hr-pwt">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="68.5"/>
@@ -1222,6 +1262,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Recently Played" id="4T3-sy-Xbp"/>
                     <connections>
+                        <outlet property="djButton" destination="hhL-wI-8vE" id="boH-94-ksI"/>
                         <outlet property="navTitle" destination="4T3-sy-Xbp" id="S2t-8L-Jhu"/>
                     </connections>
                 </tableViewController>

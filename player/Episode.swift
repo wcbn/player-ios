@@ -12,6 +12,7 @@ import SwiftyJSON
 struct Episode {
   var name = ""
   var dj = ""
+  var dj_path = ""
   var beginning: NSDate? = nil
   var ending: NSDate? = nil
   var notes: String? = nil
@@ -54,6 +55,7 @@ struct Episode {
   init(fromJSON json: JSON) {
     name = json["name"].stringValue
     dj = json["dj"].stringValue
+    dj_path = json["dj_url"].stringValue
     beginning = json["beginning"].dateTime
     ending = json["ending"].dateTime
     notes = json["show_notes"].string
