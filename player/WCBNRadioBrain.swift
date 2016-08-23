@@ -235,9 +235,13 @@ class WCBNRadioBrain: NSObject{
   private func fetchImage() {
     guard let url = albumArtURL else {
       playlist.albumArt = defaultAlbum
+      self.playlist.setNowPlayingInfo()
       return
     }
-    fetch(dataFrom: url, onFailure: { self.playlist.albumArt = self.defaultAlbum })
+    fetch(dataFrom: url, onFailure: {
+      self.playlist.albumArt = self.defaultAlbum
+      self.playlist.setNowPlayingInfo()
+      })
     { imageData in
       self.playlist.albumArt = UIImage(data: imageData)
       NSNotificationCenter.defaultCenter()
