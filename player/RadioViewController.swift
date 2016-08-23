@@ -175,7 +175,7 @@ MFMessageComposeViewControllerDelegate
     if explainedThisSession {  return  }
     let defaults = NSUserDefaults.standardUserDefaults()
 
-    if (!defaults.boolForKey("interfaceExplained[RadialMenu]")) {
+    if (!defaults.boolForKey("interfaceExplained[radialMenu]")) {
       explainRadialMenu()
     }
 

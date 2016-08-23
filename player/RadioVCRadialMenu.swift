@@ -113,7 +113,7 @@ extension RadioViewController {
     }
 
     let defaults = NSUserDefaults.standardUserDefaults()
-    defaults.setBool(true, forKey: "interfaceExplained[RadialMenu]")
+    defaults.setBool(true, forKey: "interfaceExplained[radialMenu]")
   }
 
   func resetSubMenu(subMenu: RadialSubMenu) {
@@ -197,7 +197,7 @@ extension RadioViewController {
   func explainRadialMenu() {
     delay(1) {
       self.openRadialMenu(self.albumArt.center)
-      self.setRadialMenuHint("Tap and hold the album artwork to do more")
+      self.setRadialMenuHint("Tap and hold, then swipe to select")
 
       let tapRecog = UITapGestureRecognizer(target: self, action: #selector(self.endExplainRadialMenu))
       self.blurBehindRadialMenu.addGestureRecognizer(tapRecog)
