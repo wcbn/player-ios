@@ -8,8 +8,21 @@
 
 import UIKit
 import StoreKit
+import SwiftyJSON
 
 class TipJarTableViewController: UITableViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+
+  var uid: String {
+    get {
+      let defaults = NSUserDefaults.standardUserDefaults()
+      if let savedUID = defaults.stringForKey("UID") {
+        return savedUID
+      }
+      let newUID = UIDevice.currentDevice().identifierForVendor!.UUIDString
+      defaults.setObject(newUID, forKey: "UID")
+      return newUID
+    }
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -144,10 +157,7 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
       switch transaction.transactionState {
       case .Purchased:
         SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-        let alert = UIAlertController(title: "Payment Succeeded", message: transaction.transactionIdentifier, preferredStyle: .Alert)
-        let dismiss = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alert.addAction(dismiss)
-        presentViewController(alert, animated: true, completion: deselectSelectedRow)
+        askForName(transaction)
       case .Failed:
         SKPaymentQueue.defaultQueue().finishTransaction(transaction)
         deselectSelectedRow()
@@ -155,6 +165,46 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
         break
       }
     }
+  }
+
+  func askForName(transaction: SKPaymentTransaction) {
+    let alert = UIAlertController(title: "Thank you!", message: "We’re so pleased you like what we’re doing. If you would like to let the DJ know who tipped, please give your name below.", preferredStyle: .Alert)
+
+    let anonymize = UIAlertAction(title: "Keep it anonymous", style: .Cancel) { _ in
+      self.recordDonation(transaction)
+    }
+    alert.addAction(anonymize)
+
+    let shoutout = UIAlertAction(title: "Tell the DJ", style: .Default) { _ in
+      let nameField = alert.textFields![0]
+      let messageField = alert.textFields![1]
+      self.recordDonation(transaction, name: nameField.text, message: messageField.text)
+    }
+    shoutout.enabled = false
+    alert.addAction(shoutout)
+
+    alert.addTextFieldWithConfigurationHandler { textField in
+      textField.placeholder = "Name"
+      NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
+        shoutout.enabled = textField.text != ""
+      }
+    }
+    alert.addTextFieldWithConfigurationHandler { textField in
+      textField.placeholder = "Message"
+    }
+
+    presentViewController(alert, animated: true, completion: deselectSelectedRow)
+  }
+
+  func recordDonation(transaction: SKPaymentTransaction, name: String? = nil, message: String? = nil) {
+    let receiptURL = NSBundle.mainBundle().appStoreReceiptURL!
+    guard let receipt = NSData(contentsOfURL: receiptURL) else { return }
+    let body: JSON = ["receipt_data": receipt.base64EncodedStringWithOptions(.Encoding64CharacterLineLength),
+                      "product_id": transaction.payment.productIdentifier,
+                      "uid": uid,
+                      "name": name ?? "",
+                      "message": message ?? ""]
+    hit(NSURL(string: "https://app.wcbn.org/tips")!, containingBody: body, using: "POST") { _ in }
   }
 
   func deselectSelectedRow() {
