@@ -19,6 +19,7 @@ class PlaylistTableViewController: UITableViewController {
   }
 
   @IBOutlet weak var navTitle: UINavigationItem!
+  @IBOutlet weak var djLabel: UILabel!
   @IBOutlet weak var djButton: UIButton!
 
   func setDataIfViewIsRecentlyPlayed() {
@@ -37,10 +38,19 @@ class PlaylistTableViewController: UITableViewController {
     }
   }
 
+  func setDJInfo() {
+    djButton.setTitle("\(episode.dj) ›", forState: .Normal)
+    if self == navigationController?.viewControllers[0] {
+      djLabel.text = "Today’s host:"
+    } else {
+      djLabel.text = "Host:"
+    }
+  }
+
   func updateUI() {
     setDataIfViewIsRecentlyPlayed()
     setTitle()
-    djButton.setTitle("\(episode.dj) ›", forState: .Normal)
+    setDJInfo()
   }
 
   override func viewDidLoad() {
