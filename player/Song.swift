@@ -45,6 +45,18 @@ struct Song : Equatable {
     }
   }
 
+  var description: String {
+    // Song Name by Artist on Album (Label, 2016)
+    let nameStr  = name != ""    ?   "“\(name)” by "   : ""
+    let albumStr = album != ""   ?   " on \(album)"    : ""
+    let needsParens = label != "" || year != 0
+    let openParen = needsParens ? " (" : ""
+    let closeParen = needsParens ? ")" : ""
+    let comma = ((label != "" && year != 0) ? ", " : "" )
+    let labelAndYear = openParen + (label != "" ? label : "") + comma + (year != 0 ? "\(year!)" : "") + closeParen
+    return nameStr + artist + albumStr + labelAndYear
+  }
+
   init() {  }
 
   init(fromJSON json: JSON) {

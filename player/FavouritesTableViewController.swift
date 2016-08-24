@@ -71,7 +71,29 @@ class FavouritesTableViewController: UITableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! FavouriteTableViewCell
     cell.p = fav[indexPath.row]
     cell.backgroundColor = UIColor.clearColor()
+    
+    let selectionColor = UIView()
+    selectionColor.backgroundColor = UIColor.whiteColor()
+    cell.selectedBackgroundView = selectionColor
+    
     return cell
+  }
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let content = fav[indexPath.row].song.description
+
+    let shareSheet = UIActivityViewController(activityItems: [content as NSString], applicationActivities: nil)
+    shareSheet.modalPresentationStyle = .Popover
+    presentViewController(shareSheet, animated: true, completion: deselectSelectedRow)
+    let popoverController = shareSheet.popoverPresentationController
+    let cell = tableView.cellForRowAtIndexPath(indexPath)!
+    popoverController?.sourceView = cell
+    popoverController?.sourceRect = cell.bounds
+  }
+  func deselectSelectedRow() {
+    if let selected = self.tableView.indexPathForSelectedRow {
+      self.tableView.deselectRowAtIndexPath(selected, animated: true)
+    }
   }
 
   // Override to support conditional editing of the table view.

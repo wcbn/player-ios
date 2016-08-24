@@ -85,6 +85,7 @@ class PlaylistTableViewController: UITableViewController {
 
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     tableView.reloadData()
   }
 
@@ -92,6 +93,7 @@ class PlaylistTableViewController: UITableViewController {
     super.viewWillAppear(animated)
     let bar = self.navigationController?.navigationBar
     bar?.translucent = false
+    bar?.tintColor = UIColor.whiteColor()
     bar?.barTintColor = Colors.Dark.green
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
@@ -132,7 +134,12 @@ class PlaylistTableViewController: UITableViewController {
   }
 
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return "Recent songs"
+    if episode.notes != nil { return nil }
+    if self == navigationController?.viewControllers[0] {
+      return "Recent Songs"
+    } else {
+      return "All Songs"
+    }
   }
 
   override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

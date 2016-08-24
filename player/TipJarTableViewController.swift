@@ -184,12 +184,16 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
     alert.addAction(shoutout)
 
     alert.addTextFieldWithConfigurationHandler { textField in
+      textField.autocapitalizationType = .Words
+      textField.autocorrectionType = .Yes
       textField.placeholder = "Name"
       NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
         shoutout.enabled = textField.text != ""
       }
     }
     alert.addTextFieldWithConfigurationHandler { textField in
+      textField.autocapitalizationType = .Sentences
+      textField.autocorrectionType = .Yes
       textField.placeholder = "Message"
     }
 
