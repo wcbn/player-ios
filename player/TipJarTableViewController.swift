@@ -203,12 +203,14 @@ class TipJarTableViewController: UITableViewController, SKProductsRequestDelegat
   func recordDonation(transaction: SKPaymentTransaction, name: String? = nil, message: String? = nil) {
     let receiptURL = NSBundle.mainBundle().appStoreReceiptURL!
     guard let receipt = NSData(contentsOfURL: receiptURL) else { return }
-    let body: JSON = ["receipt_data": receipt.base64EncodedStringWithOptions(.Encoding64CharacterLineLength),
-                      "product_id": transaction.payment.productIdentifier,
-                      "uid": uid,
-                      "name": name ?? "",
-                      "message": message ?? ""]
-    hit(NSURL(string: "https://app.wcbn.org/tips")!, containingBody: body, using: "POST") { _ in }
+    let body: JSON = ["tip": [
+                        "receipt_data": receipt.base64EncodedStringWithOptions(.Encoding64CharacterLineLength),
+                        "product_id": transaction.payment.productIdentifier,
+                        "uid": uid,
+                        "name": name ?? "",
+                        "message": message ?? ""]]
+    let hdr = ["Content-Type": "application/json"]
+    hit(NSURL(string: "https://app.wcbn.org/tips")!, containingBody: body, withHeaders: hdr, using: "POST") { _ in }
   }
 
   func deselectSelectedRow() {
