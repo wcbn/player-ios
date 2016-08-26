@@ -149,7 +149,7 @@ UITableViewDelegate, UITableViewDataSource {
     let row = showsBySemester[indexPath.section].semesters[indexPath.row]
 
     cell.textLabel?.text = row.semesterName
-    cell.detailTextLabel?.text = row.show.times
+    cell.detailTextLabel?.text = row.show.timesWithWeekday
 
     return cell
   }

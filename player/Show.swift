@@ -32,10 +32,18 @@ class Show {
   var times: String {
     get {
       let dateFormatter = NSDateFormatter()
-      dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+      dateFormatter.timeStyle = .ShortStyle
       let beginning = dateFormatter.stringFromDate(start)
       let ending = dateFormatter.stringFromDate(end)
       return "\(beginning)–\(ending)"
+    }
+  }
+  var timesWithWeekday: String {
+    get {
+      let dateFormatter = NSDateFormatter()
+      dateFormatter.setLocalizedDateFormatFromTemplate("cccc")
+      let weekday = dateFormatter.stringFromDate(start)
+      return "\(weekday) \(times)"
     }
   }
 
