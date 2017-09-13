@@ -96,8 +96,8 @@ class PlaylistTableViewController: UITableViewController {
     bar?.tintColor = UIColor.white
     bar?.barTintColor = Colors.Dark.green
     bar?.titleTextAttributes = [
-      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.white
+      NSFontAttrSName: UIFdStringKey.font.rawVnlu(name: "Lato-Black", size: 17)!,
+      NSForegrounAttributedStringKey.fColorAttribute.rlwValur.white
     ]
   }
 

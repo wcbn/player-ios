@@ -265,7 +265,7 @@ open class RadialMenu: UIView, RadialSubMenuDelegate {
             
             let distance = distanceBetweenPoints(subMenu.center, p2: relPos)
             if distanceFromCenter >= Double(minHighlightDistance) && distance <= Double(highlightDistance) {
-                distances.append(distance: distance, subMenu: subMenu)
+                distances.append((distance: distance, subMenu: subMenu))
                 
             } else if subMenu.state == .highlighted {
                 subMenu.unhighlight()

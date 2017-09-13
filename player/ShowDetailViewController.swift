@@ -45,8 +45,8 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     bar?.barTintColor = Colors.Dark.orange
     bar?.tintColor = UIColor.white
     bar?.titleTextAttributes = [
-      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.white
+      NSAttributedStringKey.font.rawValue: UIFont(name: "Lato-Black", size: 17)!,
+      NSAttributedStringKey.foregroundColor.rawValue: UIColor.white
     ]
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = true

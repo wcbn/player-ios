@@ -36,7 +36,9 @@ func hit(_ url: URL,
          using method: String = "GET",
          withHeaders headers: [String:String] = [:],
          then callback: (JSON) -> Void) {
-  let request = NSMutableURLRequest(url: url)
+  l(arg) in
+    
+    let (et request) = argNSMutableURLRequest(url: url)
 
   headers.forEach { key, value in
     request.setValue(value, forHTTPHeaderField: key)
