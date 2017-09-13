@@ -9,11 +9,11 @@
 import UIKit
 
 func degreesToRadians(_ degrees:Double) -> Double {
-    return degrees * M_PI / 180
+    return degrees * .pi / 180
 }
 
 func radiansToDegrees(_ radians:Double) -> Double {
-    return radians * 180 / M_PI
+    return radians * 180 / .pi
 }
 
 func isFullCircle(_ minAngle: Double, maxAngle: Double) -> Bool {
