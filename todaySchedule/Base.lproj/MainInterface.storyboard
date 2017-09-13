@@ -1,18 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="VCx-HO-5fc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="VCx-HO-5fc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Lato-Black.ttf">
+        <array key="Lato-Black.ttf">
             <string>Lato-Black</string>
-            <string>Lato-Black</string>
-        </mutableArray>
-        <mutableArray key="Lato-Italic.ttf">
+        </array>
+        <array key="Lato-Italic.ttf">
             <string>Lato-Italic</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Today View Controller-->
@@ -30,27 +33,27 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="TUi-io-jMA">
                                 <rect key="frame" x="16" y="8" width="288" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="270" verticalCompressionResistancePriority="780" misplaced="YES" text="Artist: “Song Name”" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2H-l2-kXz">
-                                        <rect key="frame" x="0.0" y="0.0" width="145" height="19"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="270" verticalCompressionResistancePriority="780" text="Artist: “Song Name”" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2H-l2-kXz">
+                                        <rect key="frame" x="0.0" y="0.0" width="145" height="19.5"/>
                                         <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="16"/>
-                                        <color key="highlightedColor" red="0.78823529410000004" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="highlightedColor" red="0.78823529410000004" green="0.2470588235" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Show Name with WCBN DJ" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-Tm-bEp">
-                                        <rect key="frame" x="0.0" y="19" width="199" height="15"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Show Name with WCBN DJ" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-Tm-bEp">
+                                        <rect key="frame" x="0.0" y="19.5" width="180" height="14.5"/>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="16"/>
-                                        <color key="highlightedColor" red="0.78823529410000004" green="0.2470588235" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="highlightedColor" red="0.78823529410000004" green="0.2470588235" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="800" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BX-OW-KEX">
-                                        <rect key="frame" x="0.0" y="34" width="72" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BX-OW-KEX">
+                                        <rect key="frame" x="0.0" y="34" width="73" height="30"/>
                                         <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="15"/>
                                         <state key="normal" title="Listen Live">
-                                            <color key="titleColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.1058823529" green="0.3294117647" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="openWCBNApp" destination="VCx-HO-5fc" eventType="touchUpInside" id="5c3-3H-f0f"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="200" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wTn-Lg-nGF">
+                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="200" translatesAutoresizingMaskIntoConstraints="NO" id="wTn-Lg-nGF">
                                         <rect key="frame" x="0.0" y="64" width="50" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="250" constant="50" id="3N3-M7-gy2"/>

@@ -90,7 +90,7 @@ class SpotifyService: SongSearchService {
                                             using method: String = "GET",
                                             then callback: @escaping (JSON) -> Void) {
     let session = SPTAuth.defaultInstance().session
-    let authenticationHeader = ["Authorization": "Bearer \(session?.accessToken!)"]
+    let authenticationHeader = ["Authorization": "Bearer \(session!.accessToken!)"]
     let url = URL(string: "https://api.spotify.com/v1\(endpointURL)")!
     hit(url, containingBody: body, using: method, withHeaders: authenticationHeader, then: callback)
   }
@@ -124,7 +124,7 @@ class SpotifyService: SongSearchService {
 
       if let i = wcbnPlaylist_i {
         self.wcbnPlaylistID = r["items"][i]["id"].stringValue
-        print("Spotify: Found playlist \(self.wcbnPlaylistID)")
+        print("Spotify: Found playlist \(self.wcbnPlaylistID!)")
         callback(self.wcbnPlaylistID!)
       }
       else {  self.createWCBNPlaylist(callback)  }
@@ -133,11 +133,11 @@ class SpotifyService: SongSearchService {
 
   fileprivate func createWCBNPlaylist(_ callback: @escaping (_ playlistID: String) -> ()) {
     let session = SPTAuth.defaultInstance().session
-    let endpoint = "/users/\(session?.canonicalUsername!)/playlists"
+    let endpoint = "/users/\(session!.canonicalUsername!)/playlists"
     let params: JSON = ["name": "WCBN", "public":false]
     hitSpotifyAPIWithSession(atEndpoint: endpoint, containingBody: params, using: "POST") { r in
       self.wcbnPlaylistID = r["id"].stringValue
-      print("Spotify: Created playlist \(self.wcbnPlaylistID)")
+      print("Spotify: Created playlist \(self.wcbnPlaylistID!)")
       callback(self.wcbnPlaylistID!)
     }
   }
@@ -145,7 +145,7 @@ class SpotifyService: SongSearchService {
   // MARK: Add Song to Playlist
   fileprivate func addTrackToPlaylist(_ playlistID: String, trackURI: String, then: @escaping () -> ()) {
     let session = SPTAuth.defaultInstance().session
-    let endpoint = "/users/\(session?.canonicalUsername!)/playlists/\(playlistID)/tracks?uris=\(trackURI)"
+    let endpoint = "/users/\(session!.canonicalUsername!)/playlists/\(playlistID)/tracks?uris=\(trackURI)"
     hitSpotifyAPIWithSession(atEndpoint: endpoint, using: "POST") { r in
       print("Spotify: Added track \(trackURI) to playlist \(playlistID)")
       then()
@@ -163,7 +163,6 @@ class SpotifyService: SongSearchService {
   }
 
   fileprivate func searchSpotify(_ song: Song, then callback: @escaping () -> ()) {
-    racing = true
     currentSong = song
 
     guard !song.blank else {
@@ -173,8 +172,8 @@ class SpotifyService: SongSearchService {
       return
     }
 
-    guard let url = queryURL(song) else { return }
-    fetch(jsonFrom: url) { response in
+    racing = true
+    hitSpotifyAPIWithSession(atEndpoint: "/search?type=track&q=\(queryString(song))") { response in
       let results = response["tracks"]["items"]
       if results.count > 0 {
         print("Spotify: Track found at \(results[0]["uri"])")
@@ -188,12 +187,6 @@ class SpotifyService: SongSearchService {
       self.racing = false
       callback()
     }
-  }
-
-  fileprivate func queryURL(_ song: Song) -> URL? {
-    guard let token = SPTAuth.defaultInstance().session.accessToken  else { return nil }
-    return URL(string: "https://api.spotify.com/v1/search?token=\(token)&type=track&q=\(queryString(song))")!
-
   }
 
   fileprivate func queryString(_ song: Song) -> String {

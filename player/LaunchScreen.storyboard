@@ -49,8 +49,8 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tqD-cf-zAg">
-                                <rect key="frame" x="40" y="346" width="303" height="185"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tqD-cf-zAg">
+                                <rect key="frame" x="36" y="411" width="303" height="185"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2WY-2N-vxb">
                                         <rect key="frame" x="0.0" y="0.0" width="303" height="41"/>
@@ -162,11 +162,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHA-p2-ik4">
                                 <rect key="frame" x="-4" y="-30" width="383" height="98"/>
                                 <subviews>
-                                    <stackView contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="87W-37-i2U">
-                                        <rect key="frame" x="206" y="25" width="9.5" height="63"/>
+                                    <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="87W-37-i2U">
+                                        <rect key="frame" x="187" y="25" width="9.5" height="63"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="501" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wF8-a0-Exk">
-                                                <rect key="frame" x="3" y="0.0" width="3" height="17"/>
+                                                <rect key="frame" x="3.5" y="0.0" width="3" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -186,7 +186,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="501" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVx-gX-99j">
-                                                <rect key="frame" x="3" y="46" width="3" height="17"/>
+                                                <rect key="frame" x="3.5" y="46" width="3" height="17"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>

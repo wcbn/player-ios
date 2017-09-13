@@ -54,5 +54,5 @@ func hit(_ url: URL,
       let json = JSON(data: data!)
       callback(json)
     }
-  }) .resume()
+  }).resume()
 }

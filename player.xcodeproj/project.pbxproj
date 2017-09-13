@@ -118,7 +118,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		05ECA1C66EB1117EAF4F60C8 /* Pods-player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-player.release.xcconfig"; path = "Pods/Target Support Files/Pods-player/Pods-player.release.xcconfig"; sourceTree = "<group>"; };
 		430B85E21CA8939A0047A944 /* SettingsActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsActions.swift; sourceTree = "<group>"; };
 		430B85E41CA8981C0047A944 /* LightStatusBarNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightStatusBarNavigationController.swift; sourceTree = "<group>"; };
 		430B85E61CA8ED200047A944 /* WCBNStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCBNStream.swift; sourceTree = "<group>"; };
@@ -189,9 +188,6 @@
 		43E7F1DC1D10A10A0052AFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43F03CA31CAE047D005E5D4E /* ShowDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailViewController.swift; sourceTree = "<group>"; };
 		43FF27BE1CE6D60000D7226B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		45B965A454596E0FC32CA836 /* Pods-todaySchedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todaySchedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-todaySchedule/Pods-todaySchedule.release.xcconfig"; sourceTree = "<group>"; };
-		526DEE2BF622F6EEFAF1B404 /* Pods-player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-player/Pods-player.debug.xcconfig"; sourceTree = "<group>"; };
-		AA61892F09ACB97FF17EEA6F /* Pods-todaySchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todaySchedule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-todaySchedule/Pods-todaySchedule.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,7 +241,6 @@
 				43E7F1D61D10A10A0052AFF6 /* todaySchedule */,
 				430E3ED31C488B7200476F48 /* Products */,
 				4ADDA6D75A4D8B4E23799FB0 /* Frameworks */,
-				CAAB5C6D0D6DEF0130DE8E6D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -462,17 +457,6 @@
 				43E7F1D41D10A10A0052AFF6 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CAAB5C6D0D6DEF0130DE8E6D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				526DEE2BF622F6EEFAF1B404 /* Pods-player.debug.xcconfig */,
-				05ECA1C66EB1117EAF4F60C8 /* Pods-player.release.xcconfig */,
-				AA61892F09ACB97FF17EEA6F /* Pods-todaySchedule.debug.xcconfig */,
-				45B965A454596E0FC32CA836 /* Pods-todaySchedule.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -989,7 +973,6 @@
 		};
 		430E3EFD1C488B7200476F48 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 526DEE2BF622F6EEFAF1B404 /* Pods-player.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1020,7 +1003,6 @@
 		};
 		430E3EFE1C488B7200476F48 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05ECA1C66EB1117EAF4F60C8 /* Pods-player.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1115,7 +1097,6 @@
 		};
 		43E7F1E01D10A10A0052AFF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA61892F09ACB97FF17EEA6F /* Pods-todaySchedule.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1139,7 +1120,6 @@
 		};
 		43E7F1E11D10A10A0052AFF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45B965A454596E0FC32CA836 /* Pods-todaySchedule.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
