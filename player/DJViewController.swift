@@ -59,8 +59,8 @@ UITableViewDelegate, UITableViewDataSource {
     bar?.barTintColor = UIColor(rgba: "#EBEBF1FF")
     bar?.tintColor = UIColor.black
     bar?.titleTextAttributes = [
-      NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.black
+      .font: UIFont(name: "Lato-Black", size: 17)!,
+      .foregroundColor: UIColor.black
     ]
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = false
@@ -103,8 +103,7 @@ UITableViewDelegate, UITableViewDataSource {
   }
 
   fileprivate func fetchDJProfile() {
-    let background_qos = Int(DispatchQoS.QoSClass.background.rawValue)
-    DispatchQueue.global(priority: background_qos).async {
+    DispatchQueue.global(qos: .background).async {
       let playlist_api_url = URL( string: "http://app.wcbn.org\(self.dj_path).json")!
       if let data = try? Data(contentsOf: playlist_api_url) {
         DispatchQueue.main.async {
@@ -112,12 +111,12 @@ UITableViewDelegate, UITableViewDataSource {
 
           let dj = self.dj
           dj.id = json["id"].intValue
-          self.profileImageURL = json["image_url"].URL
+          self.profileImageURL = json["image_url"].url
           dj.dj_name = json["dj_name"].stringValue
           dj.real_name = json["real_name"].string
           dj.website = URL(string: json["website"].stringValue)
           dj.about = json["about"].stringValue
-          self.djBio.attributedText = NSAttributedString(string: dj.about, attributes: [NSFontAttributeName: UIFont(name: "Lato-Regular", size: 14)!])
+          self.djBio.attributedText = NSAttributedString(string: dj.about, attributes: [.font: UIFont(name: "Lato-Regular", size: 14)!])
 
           self.showsBySemester = json["shows"].arrayValue.map { show in
             let showName = show["name"].stringValue

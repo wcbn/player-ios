@@ -39,8 +39,8 @@ class ScheduleTableViewController: UITableViewController {
     bar?.tintColor = UIColor.white
     bar?.barTintColor = Colors.Dark.orange
     bar?.titleTextAttributes = [
-      NSAttributedStringKey.font.rawValue: UIFont(name: "Lato-Black", size: 17)!,
-      NSAttributedStringKey.foregroundColor.rawValue: UIColor.white
+      .font: UIFont(name: "Lato-Black", size: 17)!,
+      .foregroundColor: UIColor.white
     ]
 
     // cell height
@@ -60,8 +60,8 @@ class ScheduleTableViewController: UITableViewController {
     bar?.barTintColor = Colors.Dark.orange
     bar?.tintColor = UIColor.white
     bar?.titleTextAttributes = [
-      NSAttributedStringKey.font.rawValue: UIFont(name: "Lato-Black", size: 17)!,
-      NSAttributedStringKey.foregroundColor.rawValue: UIColor.white
+      .font: UIFont(name: "Lato-Black", size: 17)!,
+      .foregroundColor: UIColor.white
     ]
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = true
@@ -122,9 +122,9 @@ class ScheduleTableViewController: UITableViewController {
 
   override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
     let dF = DateFormatter()
-    let weekdays = dF.veryShortWeekdaySymbols
-    var weekdaysWithMondayStart = weekdays?[1..<7]
-    weekdaysWithMondayStart += weekdays?[0..<1]
+    let weekdays = dF.veryShortStandaloneWeekdaySymbols!
+    var weekdaysWithMondayStart = weekdays[1..<7]
+    weekdaysWithMondayStart += weekdays[0..<1]
     return Array(weekdaysWithMondayStart)
   }
 

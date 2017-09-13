@@ -105,13 +105,13 @@ class TipJar: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver 
     let receiptURL = Bundle.main.appStoreReceiptURL!
     guard let receipt = try? Data(contentsOf: receiptURL) else { return }
     let body: JSON = ["tip": [
-                        "receipt_data": receipt.base64EncodedStringWithOptions(.Encoding64CharacterLineLength),
-                        "product_id": transaction.payment.productIdentifier,
-                        "uid": uid,
-                        "name": name ?? "",
-                        "message": message ?? ""]]
+      "receipt_data": receipt.base64EncodedString(options: .lineLength64Characters),
+      "product_id": transaction.payment.productIdentifier,
+      "uid": uid,
+      "name": name ?? "",
+      "message": message ?? ""]]
     let hdr = ["Content-Type": "application/json"]
-    hit(URL(string: "https://app.wcbn.org/tips")!, containingBody: body, withHeaders: hdr, using: "POST") { _ in }
+    hit(URL(string: "https://app.wcbn.org/tips")!, containingBody: body, using: "POST", withHeaders: hdr) { _ in }
   }
 
 }

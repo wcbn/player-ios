@@ -43,7 +43,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   func fetchOnAndUpcoming() {
     let playlistEndpointURL = URL( string: "https://app.wcbn.org/playlist.json")!
-    fetch(dataFrom: playlistEndpointURL) { json in
+    fetch(jsonFrom: playlistEndpointURL) { json in
       let on = json["on_air"]
       let song = on["songs"][0]
       self.onAir = TodayViewInfo(showName: on["name"].stringValue,

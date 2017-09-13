@@ -317,7 +317,7 @@ open class RadialMenu: UIView, RadialSubMenuDelegate {
     
     func scaleBackgroundView(_ size: CGFloat) {
         
-        var anim = backgroundView.pop_animationForKey("scale") as? POPSpringAnimation
+      var anim = backgroundView.pop_animation(forKey: "scale") as? POPSpringAnimation
         let toValue = NSValue(cgPoint: CGPoint(x: size, y: size))
         
         if ((anim) != nil) {
@@ -325,7 +325,7 @@ open class RadialMenu: UIView, RadialSubMenuDelegate {
         } else {
             anim = POPSpringAnimation(propertyNamed: kPOPViewScaleXY)
             anim!.toValue = toValue
-            backgroundView.pop_addAnimation(anim, forKey: "scale")
+          backgroundView.pop_add(anim, forKey: "scale")
         }
     }
     
@@ -350,7 +350,7 @@ open class RadialMenu: UIView, RadialSubMenuDelegate {
     
     func moveSubMenuToPosition(_ subMenu: RadialSubMenu, pos: CGPoint) {
         
-        var anim = subMenu.pop_animationForKey("expand") as? POPSpringAnimation
+      var anim = subMenu.pop_animation(forKey: "expand") as? POPSpringAnimation
         let toValue = NSValue(cgPoint: pos)
         
         if ((anim) != nil) {
@@ -358,7 +358,7 @@ open class RadialMenu: UIView, RadialSubMenuDelegate {
         } else {
             anim = POPSpringAnimation(propertyNamed: kPOPViewCenter)
             anim!.toValue = toValue
-            subMenu.pop_addAnimation(anim, forKey: "expand")
+          subMenu.pop_add(anim, forKey: "expand")
         }
     }
     

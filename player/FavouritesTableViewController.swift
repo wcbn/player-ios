@@ -23,8 +23,8 @@ class FavouritesTableViewController: UITableViewController {
     bar?.isTranslucent = false
     bar?.barTintColor = Colors.Dark.pink
     bar?.titleTextAttributes = [
-      NSAttributedStringKey.font.rawValue: UIFont(name: "Lato-Black", size: 17)!,
-      NSAttributedStringKey.foregroundColor.rawValue: UIColor.white
+      .font: UIFont(name: "Lato-Black", size: 17)!,
+      .foregroundColor: UIColor.white
     ]
 
     // cell height
@@ -121,7 +121,7 @@ class FavouritesTableViewController: UITableViewController {
 //      actions.append(searchButton)
 //    }
 //
-    let deleteButton = UITableViewRowAction(style: UITableViewRowActionStyle(), title: "Delete") { _, inxPth in
+    let deleteButton = UITableViewRowAction(style: .default, title: "Delete") { _, inxPth in
       self.fav.removeAtIndex(inxPth.row)
       tableView.deleteRows(at: [inxPth], with: .bottom)
     }

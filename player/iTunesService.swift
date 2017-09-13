@@ -38,7 +38,7 @@ class iTunesService : SongSearchService {
     return currentAlbumURL != nil
   } }
 
-  func enplaylist(_ then: () -> ()) {
+  func enplaylist(_ then: @escaping () -> ()) {
     guard let url = currentAlbumURL else {  return  }
     UIApplication.shared.openURL(url)
     then()
@@ -58,11 +58,11 @@ class iTunesService : SongSearchService {
       return
     }
 
-    fetch(dataFrom: queryURL(song)) { response in
+    fetch(jsonFrom: queryURL(song)) { response in
       let results = response["results"]
       if results.count > 0 {
         self.currentAlbumArtURL = self.largeAlbumArtURL(fromSmallArtworkURL: results[0]["artworkUrl100"].stringValue)
-        self.currentAlbumURL = NSURL(string: results[0]["collectionViewUrl"].stringValue)
+        self.currentAlbumURL = URL(string: results[0]["collectionViewUrl"].stringValue)
         print("iTunes: Track found at \(self.currentAlbumURL!)")
       } else {
         self.currentAlbumArtURL = nil

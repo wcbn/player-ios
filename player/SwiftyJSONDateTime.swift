@@ -13,22 +13,22 @@ import SwiftyJSON
 
 extension JSON {
 
-  public var date: NSDate? {
+  public var date: Date? {
     get {
       switch self.type {
-      case .String:
-        return Formatter.jsonDateFormatter.dateFromString(self.object as! String)
+      case .string:
+        return Formatter.jsonDateFormatter.date(from: self.object as! String)
       default:
         return nil
       }
     }
   }
 
-  public var dateTime: NSDate? {
+  public var dateTime: Date? {
     get {
       switch self.type {
-      case .String:
-        return Formatter.jsonDateTimeFormatter.dateFromString(self.object as! String)
+      case .string:
+        return Formatter.jsonDateTimeFormatter.date(from: self.object as! String)
       default:
         return nil
       }

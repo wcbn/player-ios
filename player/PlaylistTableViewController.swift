@@ -39,7 +39,7 @@ class PlaylistTableViewController: UITableViewController {
   }
 
   func setDJInfo() {
-    djButton.setTitle("\(episode.dj) ›", for: .Normal)
+    djButton.setTitle("\(episode.dj) ›", for: .normal)
     if self == navigationController?.viewControllers[0] {
       djLabel.text = "Today’s host:"
     } else {
@@ -96,8 +96,8 @@ class PlaylistTableViewController: UITableViewController {
     bar?.tintColor = UIColor.white
     bar?.barTintColor = Colors.Dark.green
     bar?.titleTextAttributes = [
-      NSFontAttrSName: UIFdStringKey.font.rawVnlu(name: "Lato-Black", size: 17)!,
-      NSForegrounAttributedStringKey.fColorAttribute.rlwValur.white
+      .font: UIFont(name: "Lato-Black", size: 17)!,
+      .foregroundColor: UIColor.white
     ]
   }
 

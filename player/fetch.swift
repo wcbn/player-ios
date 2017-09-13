@@ -14,8 +14,7 @@ func fetch(
      onFailure fallback: @escaping () -> Void = {},
      then callback: @escaping (Data) -> Void
   ) {
-  let backgroundQOS = Int(DispatchQoS.QoSClass.background.rawValue)
-  DispatchQueue.global(priority: backgroundQOS).async {
+  DispatchQueue.global(qos: .background).async {
     if let response = try? Data(contentsOf: endpointURL) {
       DispatchQueue.main.async {
         callback(response)
@@ -24,7 +23,7 @@ func fetch(
   }
 }
 
-func fetch(jsonFrom endpointURL: URL, then callback: (JSON) -> Void) {
+func fetch(jsonFrom endpointURL: URL, then callback: @escaping (JSON) -> Void) {
   fetch(dataFrom: endpointURL) { r in
     let json = JSON(data: r)
     callback(json)
@@ -32,22 +31,22 @@ func fetch(jsonFrom endpointURL: URL, then callback: (JSON) -> Void) {
 }
 
 func hit(_ url: URL,
-         containingBody body: JSON = nil,
+         containingBody body: JSON = JSON.null,
          using method: String = "GET",
          withHeaders headers: [String:String] = [:],
-         then callback: (JSON) -> Void) {
-  l(arg) in
-    
-    let (et request) = argNSMutableURLRequest(url: url)
+         then callback: @escaping (JSON) -> Void) {
+  var request = URLRequest(url: url)
 
-  headers.forEach { key, value in
+  headers.forEach { (arg) in
+
+    let (key, value) = arg
     request.setValue(value, forHTTPHeaderField: key)
   }
 
   request.httpMethod = method
 
   do {
-    try request.HTTPBody = body.rawData()
+    try request.httpBody = body.rawData()
   } catch {}
 
   URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in

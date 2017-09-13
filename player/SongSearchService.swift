@@ -13,8 +13,8 @@ protocol SongSearchService {
   var message: String { get }
   var color: String { get }
   
-  func lookup(_ song: Song, then: () -> ())
-  func enplaylist(_ then: () -> ())
+  func lookup(_ song: Song, then: @escaping () -> ())
+  func enplaylist(_ then: @escaping () -> ())
 
   var canEnplaylist: Bool { get }
   var albumArtURL: URL? { get }

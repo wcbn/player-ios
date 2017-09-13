@@ -45,8 +45,8 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     bar?.barTintColor = Colors.Dark.orange
     bar?.tintColor = UIColor.white
     bar?.titleTextAttributes = [
-      NSAttributedStringKey.font.rawValue: UIFont(name: "Lato-Black", size: 17)!,
-      NSAttributedStringKey.foregroundColor.rawValue: UIColor.white
+      .font: UIFont(name: "Lato-Black", size: 17)!,
+      .foregroundColor: UIColor.white
     ]
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = true
@@ -111,7 +111,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     cell.withString?.text = conditionalDJName
 
     let detailText: String
-    if episode.beginning?.compare(Date()) == .OrderedDescending {
+    if episode.beginning?.compare(Date()) == .orderedDescending {
       detailText = "—"
     } else {
       detailText = "\(episode.songs?.count ?? 0) song\(episode.songs?.count != 1 ? "s" : "")"
@@ -150,7 +150,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
   func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
     let e = show.episodes![indexPath.row]
-    if e.beginning?.compare(Date()) == .OrderedDescending { return nil }
+    if e.beginning?.compare(Date()) == .orderedDescending { return nil }
     return indexPath
   }
 
@@ -163,7 +163,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
   // MARK: - Networking
 
   fileprivate func fetchShowInfo() {
-    fetch(dataFrom: show.url) { json in
+    fetch(jsonFrom: show.url) { json in
       self.show.episodes = json["episodes"].arrayValue.map { episode in
         return Episode(fromJSON: episode)
       }

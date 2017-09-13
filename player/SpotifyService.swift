@@ -66,7 +66,7 @@ class SpotifyService: SongSearchService {
     // Opening a URL in Safari close to application launch may trigger
     // an iOS bug, so we wait a bit before doing so.
     delay(0.1) {
-      UIApplication.shared.openURL(auth.loginURL)
+      UIApplication.shared.openURL(auth!.loginURL)
       return
     }
   }
@@ -77,7 +77,7 @@ class SpotifyService: SongSearchService {
       auth?.session = session
 
       if ((error) != nil) {
-        print("Error renewing session: \(error)")
+        print("Error renewing session: \(error!)")
         self.openLoginPage()
       } else {
         then()
@@ -85,7 +85,10 @@ class SpotifyService: SongSearchService {
     }
   }
 
-  fileprivate func hitSpotifyAPIWithSession(atEndpoint endpointURL: String, containingBody body: JSON = nil, using method: String = "GET", then callback: (JSON) -> Void) {
+  fileprivate func hitSpotifyAPIWithSession(atEndpoint endpointURL: String,
+                                            containingBody body: JSON = JSON.null,
+                                            using method: String = "GET",
+                                            then callback: @escaping (JSON) -> Void) {
     let session = SPTAuth.defaultInstance().session
     let authenticationHeader = ["Authorization": "Bearer \(session?.accessToken!)"]
     let url = URL(string: "https://api.spotify.com/v1\(endpointURL)")!
@@ -103,9 +106,7 @@ class SpotifyService: SongSearchService {
     
     ensureAuthenticated {
       self.getWCBNPlaylistID { id in
-        self.addTrackToPlaylist(id, trackURI: track) { error in
-          then()
-        }
+        self.addTrackToPlaylist(id, trackURI: track, then: then)
       }
     }
   }
@@ -117,14 +118,14 @@ class SpotifyService: SongSearchService {
     hitSpotifyAPIWithSession(atEndpoint: "/me/playlists") { r in
       let playlists = r["items"]
 
-      let wcbnPlaylist_i = playlists.arrayValue.indexOf { playlist in
+      let wcbnPlaylist_i = playlists.arrayValue.index { playlist in
         return playlist["name"].string == "WCBN"
       }
 
       if let i = wcbnPlaylist_i {
         self.wcbnPlaylistID = r["items"][i]["id"].stringValue
         print("Spotify: Found playlist \(self.wcbnPlaylistID)")
-        callback(playlistID: self.wcbnPlaylistID!)
+        callback(self.wcbnPlaylistID!)
       }
       else {  self.createWCBNPlaylist(callback)  }
     }
@@ -137,7 +138,7 @@ class SpotifyService: SongSearchService {
     hitSpotifyAPIWithSession(atEndpoint: endpoint, containingBody: params, using: "POST") { r in
       self.wcbnPlaylistID = r["id"].stringValue
       print("Spotify: Created playlist \(self.wcbnPlaylistID)")
-      callback(playlistID: self.wcbnPlaylistID!)
+      callback(self.wcbnPlaylistID!)
     }
   }
 
@@ -172,11 +173,12 @@ class SpotifyService: SongSearchService {
       return
     }
 
-    fetch(dataFrom: queryURL(song)) { response in
+    guard let url = queryURL(song) else { return }
+    fetch(jsonFrom: url) { response in
       let results = response["tracks"]["items"]
       if results.count > 0 {
         print("Spotify: Track found at \(results[0]["uri"])")
-        self.currentAlbumArtURL = results[0]["album"]["images"][0]["url"].URL
+        self.currentAlbumArtURL = results[0]["album"]["images"][0]["url"].url
         self.currentTrackURI = results[0]["uri"].string
       } else {
         print("Spotify: Track not found")
@@ -188,8 +190,8 @@ class SpotifyService: SongSearchService {
     }
   }
 
-  fileprivate func queryURL(_ song: Song) -> URL {
-    guard let token = SPTAuth.defaultInstance().session.accessToken  else { return URL() }
+  fileprivate func queryURL(_ song: Song) -> URL? {
+    guard let token = SPTAuth.defaultInstance().session.accessToken  else { return nil }
     return URL(string: "https://api.spotify.com/v1/search?token=\(token)&type=track&q=\(queryString(song))")!
 
   }

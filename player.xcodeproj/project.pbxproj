@@ -170,7 +170,6 @@
 		4393E6981CA5D3B7000B2D6F /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		4393E69A1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONDateTime.swift; sourceTree = "<group>"; };
 		4393E69C1CA62B8D000B2D6F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		439EB4D31D15951400739134 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../../Library/Developer/Xcode/DerivedData/player-atienlauyldelsczzfhvlajoszut/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		439EB4D81D1596A100739134 /* fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fetch.swift; sourceTree = "<group>"; };
 		43AB82461CAC8A76003A5CC4 /* InstructionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsTableViewCell.swift; sourceTree = "<group>"; };
 		43B70CCC1CAB1F1500C50170 /* FavouriteSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteSong.swift; sourceTree = "<group>"; };
@@ -192,9 +191,7 @@
 		43FF27BE1CE6D60000D7226B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		45B965A454596E0FC32CA836 /* Pods-todaySchedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todaySchedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-todaySchedule/Pods-todaySchedule.release.xcconfig"; sourceTree = "<group>"; };
 		526DEE2BF622F6EEFAF1B404 /* Pods-player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-player/Pods-player.debug.xcconfig"; sourceTree = "<group>"; };
-		534E37A56C1C564EF5A0BC81 /* Pods_todaySchedule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_todaySchedule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA61892F09ACB97FF17EEA6F /* Pods-todaySchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todaySchedule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-todaySchedule/Pods-todaySchedule.debug.xcconfig"; sourceTree = "<group>"; };
-		F3888216FE7737B84F2F6628 /* Pods_player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,10 +459,7 @@
 				43CAC3F81D40E78C00A5BA1B /* Spotify.framework */,
 				432C6B911D19A5BD0077531E /* SystemConfiguration.framework */,
 				432C6B8F1D19A5B50077531E /* AVFoundation.framework */,
-				439EB4D31D15951400739134 /* SwiftyJSON.framework */,
 				43E7F1D41D10A10A0052AFF6 /* NotificationCenter.framework */,
-				F3888216FE7737B84F2F6628 /* Pods_player.framework */,
-				534E37A56C1C564EF5A0BC81 /* Pods_todaySchedule.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1019,7 +1013,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "./player/player-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -1050,7 +1044,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "./player/player-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -1138,7 +1132,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.arbormoon.WCBN.todaySchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -1162,7 +1156,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.arbormoon.WCBN.todaySchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

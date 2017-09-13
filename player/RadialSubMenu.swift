@@ -133,28 +133,28 @@ open class RadialSubMenu: UIView, POPAnimationDelegate {
     // MARK - Animations
     
     func openAnimation() {
-        if pop_animationForKey(RadialSubMenuOpenAnimation) as? POPAnimation == nil {
+      if pop_animation(forKey: RadialSubMenuOpenAnimation) as? POPAnimation == nil {
             let anim = POPSpringAnimation(propertyNamed:kPOPViewCenter)
-            anim.name = RadialSubMenuOpenAnimation
-            anim.toValue = NSValue(CGPoint: currPosition)
-            anim.beginTime = CACurrentMediaTime() + openDelay
-            anim.springBounciness = CGFloat(openSpringBounciness)
-            anim.springSpeed = CGFloat(openSpringSpeed)
-            anim.delegate = self
-            pop_addAnimation(anim, forKey:RadialSubMenuOpenAnimation)
+            anim?.name = RadialSubMenuOpenAnimation
+            anim?.toValue = NSValue(cgPoint: currPosition)
+            anim?.beginTime = CACurrentMediaTime() + openDelay
+            anim?.springBounciness = CGFloat(openSpringBounciness)
+            anim?.springSpeed = CGFloat(openSpringSpeed)
+            anim?.delegate = self
+        pop_add(anim, forKey:RadialSubMenuOpenAnimation)
         }
         
     }
     
     func closeAnimation() {
-        if pop_animationForKey(RadialSubMenuCloseAnimation) as? POPAnimation == nil {
+      if pop_animation(forKey: RadialSubMenuCloseAnimation) as? POPAnimation == nil {
             let anim = POPBasicAnimation(propertyNamed:kPOPViewCenter)
-            anim.name = RadialSubMenuCloseAnimation
-            anim.toValue = NSValue(CGPoint: origPosition)
-            anim.duration = closeDuration
-            anim.beginTime = CACurrentMediaTime() + closeDelay
-            anim.delegate = self
-            pop_addAnimation(anim, forKey:RadialSubMenuCloseAnimation)
+            anim?.name = RadialSubMenuCloseAnimation
+            anim?.toValue = NSValue(cgPoint: origPosition)
+            anim?.duration = closeDuration
+            anim?.beginTime = CACurrentMediaTime() + closeDelay
+            anim?.delegate = self
+            pop_add(anim, forKey:RadialSubMenuCloseAnimation)
         }
         
     }
@@ -163,16 +163,16 @@ open class RadialSubMenu: UIView, POPAnimationDelegate {
         
         let toValue = NSNumber(value: 1.0 as Float)
         
-        if let existingAnim = pop_animationForKey(RadialSubMenuFadeInAnimation) as? POPSpringAnimation {
+      if let existingAnim = pop_animation(forKey: RadialSubMenuFadeInAnimation) as? POPSpringAnimation {
             existingAnim.toValue = toValue
         } else {
             let anim = POPSpringAnimation(propertyNamed:kPOPViewAlpha)
-            anim.name = RadialSubMenuFadeInAnimation
-            anim.toValue = toValue
-            anim.springBounciness = CGFloat(openSpringBounciness)
-            anim.springSpeed = CGFloat(openSpringSpeed)
-            anim.delegate = self
-            pop_addAnimation(anim, forKey:RadialSubMenuFadeInAnimation)
+            anim?.name = RadialSubMenuFadeInAnimation
+            anim?.toValue = toValue
+            anim?.springBounciness = CGFloat(openSpringBounciness)
+            anim?.springSpeed = CGFloat(openSpringSpeed)
+            anim?.delegate = self
+            pop_add(anim, forKey:RadialSubMenuFadeInAnimation)
         }
     }
     
@@ -180,16 +180,16 @@ open class RadialSubMenu: UIView, POPAnimationDelegate {
         
         let toValue = NSNumber(value: 0.0 as Float)
         
-        if let existingAnim = pop_animationForKey(RadialSubMenuFadeOutAnimation) as? POPBasicAnimation {
+      if let existingAnim = pop_animation(forKey: RadialSubMenuFadeOutAnimation) as? POPBasicAnimation {
             existingAnim.toValue = toValue
         } else {
             let anim = POPBasicAnimation(propertyNamed:kPOPViewAlpha)
-            anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            anim.name = RadialSubMenuFadeOutAnimation
-            anim.toValue = toValue
-            anim.duration = closeDuration
-            anim.delegate = self
-            pop_addAnimation(anim, forKey:RadialSubMenuFadeOutAnimation)
+            anim?.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            anim?.name = RadialSubMenuFadeOutAnimation
+            anim?.toValue = toValue
+            anim?.duration = closeDuration
+            anim?.delegate = self
+            pop_add(anim, forKey:RadialSubMenuFadeOutAnimation)
         }
     }
     
@@ -199,13 +199,13 @@ open class RadialSubMenu: UIView, POPAnimationDelegate {
     }
     
     func removeCloseAnimations() {
-        pop_removeAnimationForKey(RadialSubMenuCloseAnimation)
-        pop_removeAnimationForKey(RadialSubMenuFadeOutAnimation)
+        pop_removeAnimation(forKey: RadialSubMenuCloseAnimation)
+        pop_removeAnimation(forKey: RadialSubMenuFadeOutAnimation)
     }
     
     func removeOpenAnimations() {
-        pop_removeAnimationForKey(RadialSubMenuOpenAnimation)
-        pop_removeAnimationForKey(RadialSubMenuFadeInAnimation)
+        pop_removeAnimation(forKey: RadialSubMenuOpenAnimation)
+        pop_removeAnimation(forKey: RadialSubMenuFadeInAnimation)
     }
     
     
@@ -233,9 +233,9 @@ open class RadialSubMenu: UIView, POPAnimationDelegate {
             case (RadialSubMenuCloseAnimation, _):
                 state = .closed
                 removeOpenAnimations()
-            case (RadialSubMenuOpenAnimation, .Closing):
+            case (RadialSubMenuOpenAnimation, .closing):
                 closeAnimation()
-            case (RadialSubMenuCloseAnimation, .Opening):
+            case (RadialSubMenuCloseAnimation, .opening):
                 openAnimation()
             default:
                 break

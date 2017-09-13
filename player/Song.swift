@@ -87,7 +87,7 @@ struct Song : Equatable {
       "label": label as AnyObject,
       "year": year as AnyObject? ?? 0 as AnyObject,
       "request": request as AnyObject,
-      "timestamp": timestamp ?? Date()
+      "timestamp": (timestamp ?? Date()) as AnyObject
     ]
   } }
   

@@ -204,7 +204,7 @@ extension RadioViewController {
     }
   }
 
-  func endExplain@objc RadialMenu() {
+  @objc func endExplainRadialMenu() {
     closeRadialMenu()
     if let recogs = blurBehindRadialMenu.gestureRecognizers {
       for recog in recogs {

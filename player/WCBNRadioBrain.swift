@@ -186,7 +186,7 @@ class WCBNRadioBrain: NSObject{
 
   fileprivate func fetchSongInfo() {
     let playlistEndpointURL = URL( string: "https://app.wcbn.org/playlist.json")!
-    fetch(dataFrom: playlistEndpointURL) { json in
+    fetch(jsonFrom: playlistEndpointURL) { json in
       self.playlist.semesterID = json["on_air"]["semester_id"].int
       
       let episode = Episode(fromJSON: json["on_air"])
@@ -210,7 +210,7 @@ class WCBNRadioBrain: NSObject{
     guard let semesterID = self.playlist.semesterID else { return }
     let semesterEndpointURL = URL( string: "https://app.wcbn.org/semesters/\(semesterID).json")!
 
-    fetch(dataFrom: semesterEndpointURL) { json in
+    fetch(jsonFrom: semesterEndpointURL) { json in
       var weekdays: [Weekday] = []
       for (weekday, shows) : (String, JSON) in json["shows"] {
         let w = Int(weekday)!
@@ -218,17 +218,16 @@ class WCBNRadioBrain: NSObject{
         for (i, show) : (String, JSON) in shows {
           let s = Show(fromJSON: show)
           if (s.onAir) {
-            let iP = NSIndexPath(forRow: Int(i)!, inSection: w - 1)
+            let iP = IndexPath(row: Int(i)!, section: w - 1)
             self.playlist.showOnAir = iP
           }
           ss.append(s)
         }
-        ss.sortInPlace { a, b in  a.start.compare(b.start) == .OrderedAscending}
+        ss.sort { a, b in  a.start.compare(b.start) == .orderedAscending}
         weekdays.append(Weekday(index: w, name: WCBNRadioBrain.Weekdays[w], shows: ss))
       }
-      self.playlist.schedule = weekdays.sort { a, b in return a.index < b.index }
-      NSNotificationCenter.defaultCenter()
-        .postNotificationName("PlaylistDataReceived", object: nil)
+      self.playlist.schedule = weekdays.sorted { a, b in return a.index < b.index }
+      NotificationCenter.default.post(name: Notification.Name("PlaylistDataReceived"), object: nil)
     }
   }
 

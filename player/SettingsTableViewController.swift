@@ -122,8 +122,8 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     let bar = self.navigationController?.navigationBar
     bar?.isTranslucent = false
     bar?.titleTextAttributes = [
-      NSAttributedStringKey.font.rawValue: UIFont(name: "Lato-Black", size: 17)!,
-      NSAttributedStringKey.foregroundColor.rawValue: UIColor.black
+      .font: UIFont(name: "Lato-Black", size: 17)!,
+      .foregroundColor: UIColor.black
     ]
 
     navTitle.title = settingsGroup
