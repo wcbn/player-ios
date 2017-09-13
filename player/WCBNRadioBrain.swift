@@ -39,7 +39,7 @@ class WCBNRadioBrain: NSObject{
       }
     }
     var schedule: [Weekday] = []
-    var showOnAir: NSIndexPath? = nil
+    var showOnAir: IndexPath? = nil
 
     var titleForMPNowPlayingInfoCenter: String {
       get {
@@ -78,20 +78,20 @@ class WCBNRadioBrain: NSObject{
     }
 
     func setNowPlayingInfo() {
-      NSNotificationCenter.defaultCenter().postNotificationName("SongDataReceived", object: nil)
+      NotificationCenter.default.post(name: Notification.Name(rawValue: "SongDataReceived"), object: nil)
       
-      MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+      MPNowPlayingInfoCenter.default().nowPlayingInfo = [
         MPMediaItemPropertyTitle: titleForMPNowPlayingInfoCenter,
         MPMediaItemPropertyArtist: artistForMPNowPlayingInfoCenter,
         MPMediaItemPropertyArtwork: MPMediaItemArtwork.init(image: albumArt!),
         MPMediaItemPropertyAlbumTitle: albumTitleForMPNowPlayingInfoCenter,
-        MPNowPlayingInfoPropertyPlaybackRate: NSNumber(float: 1.0)
+        MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 1.0 as Float)
       ]
     }
   }
 
   // MARK: - Instance Variables
-  let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+  let delegate = UIApplication.shared.delegate as? AppDelegate
 
   var playerItem: AVPlayerItem
   var radio: AVPlayer
@@ -110,7 +110,7 @@ class WCBNRadioBrain: NSObject{
 
   var playlist = Playlist()
 
-  var albumArtURL: NSURL? {
+  var albumArtURL: URL? {
     didSet {
       fetchImage()
     }
@@ -146,7 +146,7 @@ class WCBNRadioBrain: NSObject{
     } else {
       streamURL = WCBNStream.URL.medium
     }
-    playerItem = AVPlayerItem(URL: NSURL(string: streamURL)!)
+    playerItem = AVPlayerItem(url: URL(string: streamURL)!)
     radio = AVPlayer(playerItem: playerItem)
 
     let audioSession = AVAudioSession.sharedInstance()
@@ -156,37 +156,37 @@ class WCBNRadioBrain: NSObject{
 
     super.init()
 
-    playerItem.addObserver(self, forKeyPath: "timedMetadata", options: .Old, context: nil)
+    playerItem.addObserver(self, forKeyPath: "timedMetadata", options: .old, context: nil)
 
-    UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+    UIApplication.shared.beginReceivingRemoteControlEvents()
 
-    let remoteCC = MPRemoteCommandCenter.sharedCommandCenter()
-    remoteCC.pauseCommand.addTargetWithHandler{ _ in self.stop() }
-    remoteCC.playCommand.addTargetWithHandler{ _ in self.play() }
-    remoteCC.nextTrackCommand.enabled = false
-    remoteCC.previousTrackCommand.enabled = false
+    let remoteCC = MPRemoteCommandCenter.shared()
+    remoteCC.pauseCommand.addTarget(handler: { _ in self.stop() })
+    remoteCC.playCommand.addTarget(handler: { _ in self.play() })
+    remoteCC.nextTrackCommand.isEnabled = false
+    remoteCC.previousTrackCommand.isEnabled = false
 
-    let notificationCenter = NSNotificationCenter.defaultCenter()
-    let mainQueue = NSOperationQueue.mainQueue()
-    notificationCenter.addObserverForName("SpotifySessionUpdated", object: nil, queue: mainQueue) { _ in
+    let notificationCenter = NotificationCenter.default
+    let mainQueue = OperationQueue.main
+    notificationCenter.addObserver(forName: NSNotification.Name(rawValue: "SpotifySessionUpdated"), object: nil, queue: mainQueue) { _ in
       self.fetchSongInfo()
     }
-    notificationCenter.addObserverForName("songSearchServiceChoiceSet", object: nil, queue: mainQueue) { _ in
+    notificationCenter.addObserver(forName: NSNotification.Name(rawValue: "songSearchServiceChoiceSet"), object: nil, queue: mainQueue) { _ in
       self.fetchAlbumArtURL()
     }
 
     self.fetchSongInfo()
   }
 
-  override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == "timedMetadata"  { fetchSongInfo() }
   }
 
   // MARK: - Networking
 
-  private func fetchSongInfo() {
-    let playlistEndpointURL = NSURL( string: "https://app.wcbn.org/playlist.json")!
-    fetch(jsonFrom: playlistEndpointURL) { json in
+  fileprivate func fetchSongInfo() {
+    let playlistEndpointURL = URL( string: "https://app.wcbn.org/playlist.json")!
+    fetch(dataFrom: playlistEndpointURL) { json in
       self.playlist.semesterID = json["on_air"]["semester_id"].int
       
       let episode = Episode(fromJSON: json["on_air"])
@@ -199,18 +199,18 @@ class WCBNRadioBrain: NSObject{
     }
   }
 
-  private func fetchAlbumArtURL() {
+  fileprivate func fetchAlbumArtURL() {
       self.delegate!.songSearchService.lookup(self.playlist.song) {
         self.albumArtURL = self.delegate!.songSearchService.albumArtURL
       }
   }
 
 
-  private func fetchSchedule() {
+  fileprivate func fetchSchedule() {
     guard let semesterID = self.playlist.semesterID else { return }
-    let semesterEndpointURL = NSURL( string: "https://app.wcbn.org/semesters/\(semesterID).json")!
+    let semesterEndpointURL = URL( string: "https://app.wcbn.org/semesters/\(semesterID).json")!
 
-    fetch(jsonFrom: semesterEndpointURL) { json in
+    fetch(dataFrom: semesterEndpointURL) { json in
       var weekdays: [Weekday] = []
       for (weekday, shows) : (String, JSON) in json["shows"] {
         let w = Int(weekday)!
@@ -232,7 +232,7 @@ class WCBNRadioBrain: NSObject{
     }
   }
 
-  private func fetchImage() {
+  fileprivate func fetchImage() {
     guard let url = albumArtURL else {
       playlist.albumArt = defaultAlbum
       self.playlist.setNowPlayingInfo()
@@ -244,8 +244,8 @@ class WCBNRadioBrain: NSObject{
       })
     { imageData in
       self.playlist.albumArt = UIImage(data: imageData)
-      NSNotificationCenter.defaultCenter()
-        .postNotificationName("SongDataReceived", object: nil)
+      NotificationCenter.default
+        .post(name: Notification.Name(rawValue: "SongDataReceived"), object: nil)
       self.playlist.setNowPlayingInfo()
     }
   }
@@ -254,24 +254,24 @@ class WCBNRadioBrain: NSObject{
 
   func play() -> MPRemoteCommandHandlerStatus {
     isPlaying = true
-    radio.replaceCurrentItemWithPlayerItem(playerItem)
+    radio.replaceCurrentItem(with: playerItem)
     radio.play()
-    return .Success
+    return .success
   }
 
   func stop() -> MPRemoteCommandHandlerStatus {
     isPlaying = false
     radio.pause()
     playlist.albumArt = self.defaultAlbum
-    radio.replaceCurrentItemWithPlayerItem(nil)
-    MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+    radio.replaceCurrentItem(with: nil)
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = [
       MPMediaItemPropertyTitle: "WCBN-FM Ann Arbor",
       MPMediaItemPropertyArtist: "",
       MPMediaItemPropertyArtwork: MPMediaItemArtwork.init(image: self.defaultAlbum),
       MPMediaItemPropertyAlbumTitle: "",
-      MPNowPlayingInfoPropertyPlaybackRate: NSNumber(float: 0.0)
+      MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 0.0 as Float)
     ]
-    return .Success
+    return .success
   }
 
   func playOrPause() {
@@ -288,7 +288,7 @@ class WCBNRadioBrain: NSObject{
     } else {
       favourites.appendCurrentSong(playlist)
     }
-    return .Success
+    return .success
   }
 
   deinit {

@@ -22,7 +22,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     var songInfo: String {
       get {
-        guard let artist = artistName, song = songName else {
+        guard let artist = artistName, let song = songName else {
           return "—"
         }
         return "\(artist): “\(song)”"
@@ -42,8 +42,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   }
 
   func fetchOnAndUpcoming() {
-    let playlistEndpointURL = NSURL( string: "https://app.wcbn.org/playlist.json")!
-    fetch(jsonFrom: playlistEndpointURL) { json in
+    let playlistEndpointURL = URL( string: "https://app.wcbn.org/playlist.json")!
+    fetch(dataFrom: playlistEndpointURL) { json in
       let on = json["on_air"]
       let song = on["songs"][0]
       self.onAir = TodayViewInfo(showName: on["name"].stringValue,
@@ -54,8 +54,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   }
 
   @IBAction func openWCBNApp() {
-    let wcbn = NSURL(string: "wcbn://")
-    extensionContext?.openURL(wcbn!, completionHandler: nil)
+    let wcbn = URL(string: "wcbn://")
+    extensionContext?.open(wcbn!, completionHandler: nil)
   }
 
   func updateUI() {
@@ -65,16 +65,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.preferredContentSize = CGSizeMake(0, 100)
+    self.preferredContentSize = CGSize(width: 0, height: 100)
     
-    let os = NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 10, minorVersion: 0, patchVersion: 0))
+    let os = ProcessInfo().isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 10, minorVersion: 0, patchVersion: 0))
     if !os {
-      onAirSongInfo.textColor = .whiteColor()
-      onAirShowInfo.textColor = .whiteColor()
+      onAirSongInfo.textColor = .white
+      onAirShowInfo.textColor = .white
     }
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     fetchOnAndUpcoming()
   }
@@ -84,7 +84,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     // Dispose of any resources that can be recreated.
   }
 
-  func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
+  func widgetMarginInsets(forProposedMarginInsets defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
     return UIEdgeInsets(
       top: defaultMarginInsets.top,
       left: defaultMarginInsets.left,
@@ -92,7 +92,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
       right: defaultMarginInsets.right)
   }
 
-  func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+  func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
     // Perform any setup necessary in order to update the view.
     
     // If an error is encountered, use NCUpdateResult.Failed
@@ -100,7 +100,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     // If there's an update, use NCUpdateResult.NewData
 
     fetchOnAndUpcoming()
-    completionHandler(NCUpdateResult.NewData)
+    completionHandler(NCUpdateResult.newData)
   }
 
 }

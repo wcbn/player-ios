@@ -18,22 +18,22 @@ let RadialSubMenuFadeOutAnimation = "fadeOutAnimation"
 // Using @objc here because we want to specify @optional methods which
 // you can only do on classes, which you specify with the @objc modifier
 @objc public protocol RadialSubMenuDelegate {
-    optional func subMenuDidOpen(subMenu: RadialSubMenu)
-    optional func subMenuDidHighlight(subMenu: RadialSubMenu)
-    optional func subMenuDidActivate(subMenu: RadialSubMenu)
-    optional func subMenuDidUnhighlight(subMenu: RadialSubMenu)
-    optional func subMenuDidClose(subMenu: RadialSubMenu)
+    @objc optional func subMenuDidOpen(_ subMenu: RadialSubMenu)
+    @objc optional func subMenuDidHighlight(_ subMenu: RadialSubMenu)
+    @objc optional func subMenuDidActivate(_ subMenu: RadialSubMenu)
+    @objc optional func subMenuDidUnhighlight(_ subMenu: RadialSubMenu)
+    @objc optional func subMenuDidClose(_ subMenu: RadialSubMenu)
 }
 
-public class RadialSubMenu: UIView, POPAnimationDelegate {
+open class RadialSubMenu: UIView, POPAnimationDelegate {
     
     enum State {
-        case Closed, Opening, Opened, Highlighted, Unhighlighted, Activated, Closing
+        case closed, opening, opened, highlighted, unhighlighted, activated, closing
     }
 
-    public var delegate: RadialSubMenuDelegate?
-    var origPosition         = CGPointZero
-    var currPosition         = CGPointZero
+    open var delegate: RadialSubMenuDelegate?
+    var origPosition         = CGPoint.zero
+    var currPosition         = CGPoint.zero
     
     var openDelay            = 0.0
     var closeDelay           = 0.0
@@ -42,20 +42,20 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
     var openSpringSpeed      = 12.0
     var openSpringBounciness = 6.0
     
-    var state: State = .Closed {
+    var state: State = .closed {
         didSet {
             if oldValue == state { return }
             switch state {
-                case .Unhighlighted:
+                case .unhighlighted:
                     delegate?.subMenuDidUnhighlight?(self)
-                    state = .Opened
-                case .Opened:
+                    state = .opened
+                case .opened:
                     delegate?.subMenuDidOpen?(self)
-                case .Highlighted:
+                case .highlighted:
                     delegate?.subMenuDidHighlight?(self)
-                case .Activated:
+                case .activated:
                     delegate?.subMenuDidActivate?(self)
-                case .Closed:
+                case .closed:
                     delegate?.subMenuDidClose?(self)
                 default:
                     break
@@ -74,7 +74,7 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
     
     convenience public init(imageView: UIImageView) {
         self.init(frame: imageView.frame)
-        imageView.userInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true
         addSubview(imageView)
     }
 
@@ -85,9 +85,9 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
     
     // MARK - Main interface
     
-    func openAt(position: CGPoint, fromPosition: CGPoint, delay: Double) {
+    func openAt(_ position: CGPoint, fromPosition: CGPoint, delay: Double) {
         
-        state = .Opening
+        state = .opening
         openDelay = delay
         currPosition = position
         origPosition = fromPosition
@@ -97,13 +97,13 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
         openAnimation()
     }
     
-    func openAt(position: CGPoint, fromPosition: CGPoint) {
+    func openAt(_ position: CGPoint, fromPosition: CGPoint) {
         openAt(position, fromPosition: fromPosition, delay: 0)
     }
     
-    func close(delay: Double) {
+    func close(_ delay: Double) {
         
-        state = .Closing
+        state = .closing
         closeDelay = delay
         closeAnimation()
     }
@@ -113,16 +113,16 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
     }
     
     func highlight() {
-        state = .Highlighted
+        state = .highlighted
     }
     
     func unhighlight() {
-        state = .Unhighlighted
+        state = .unhighlighted
     }
     
-    func activate(delay: Double) {
+    func activate(_ delay: Double) {
         closeDelay = delay
-        state = .Activated
+        state = .activated
         closeAnimation()
     }
     
@@ -161,7 +161,7 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
     
     func fadeInAnimation() {
         
-        let toValue = NSNumber(float: 1.0)
+        let toValue = NSNumber(value: 1.0 as Float)
         
         if let existingAnim = pop_animationForKey(RadialSubMenuFadeInAnimation) as? POPSpringAnimation {
             existingAnim.toValue = toValue
@@ -178,7 +178,7 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
     
     func fadeOutAnimation() {
         
-        let toValue = NSNumber(float: 0.0)
+        let toValue = NSNumber(value: 0.0 as Float)
         
         if let existingAnim = pop_animationForKey(RadialSubMenuFadeOutAnimation) as? POPBasicAnimation {
             existingAnim.toValue = toValue
@@ -211,7 +211,7 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
     
     // MARK - POP animation delegates
     
-    public func pop_animationDidStart(anim: POPAnimation!) {
+    open func pop_animationDidStart(_ anim: POPAnimation!) {
         switch anim.name {
             case RadialSubMenuOpenAnimation:
                 fadeInAnimation()
@@ -223,15 +223,15 @@ public class RadialSubMenu: UIView, POPAnimationDelegate {
         
     }
     
-    public func pop_animationDidStop(anim: POPAnimation!, finished: Bool) {
+    open func pop_animationDidStop(_ anim: POPAnimation!, finished: Bool) {
         
         if !finished { return }
         
         switch (anim.name!, state) {
             case (RadialSubMenuOpenAnimation, _):
-                state = .Opened
+                state = .opened
             case (RadialSubMenuCloseAnimation, _):
-                state = .Closed
+                state = .closed
                 removeOpenAnimations()
             case (RadialSubMenuOpenAnimation, .Closing):
                 closeAnimation()

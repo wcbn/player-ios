@@ -18,14 +18,14 @@ class iTunesService : SongSearchService {
   var racing: Bool = false
 
   var currentSong: Song?
-  var currentAlbumArtURL: NSURL?
-  var currentAlbumURL: NSURL?
+  var currentAlbumArtURL: URL?
+  var currentAlbumURL: URL?
 
   init() {
     print("Initializing iTunesService shared instance now.")
   }
 
-  func lookup(song: Song, then: () -> ()) {
+  func lookup(_ song: Song, then: @escaping () -> ()) {
     if currentSong != nil && currentSong! == song {
       then()
     } else {
@@ -38,27 +38,27 @@ class iTunesService : SongSearchService {
     return currentAlbumURL != nil
   } }
 
-  func enplaylist(then: () -> ()) {
+  func enplaylist(_ then: () -> ()) {
     guard let url = currentAlbumURL else {  return  }
-    UIApplication.sharedApplication().openURL(url)
+    UIApplication.shared.openURL(url)
     then()
   }
 
-  var albumArtURL: NSURL? { get {
+  var albumArtURL: URL? { get {
     return !racing ? currentAlbumArtURL : nil
   } }
 
 
 
-  private func queryiTunes(then: () -> ()) {
-    guard let song = currentSong where !(song.blank) else {
+  fileprivate func queryiTunes(_ then: @escaping () -> ()) {
+    guard let song = currentSong, !(song.blank) else {
       self.currentAlbumArtURL = nil
       self.currentAlbumURL = nil
       then()
       return
     }
 
-    fetch(jsonFrom: queryURL(song)) { response in
+    fetch(dataFrom: queryURL(song)) { response in
       let results = response["results"]
       if results.count > 0 {
         self.currentAlbumArtURL = self.largeAlbumArtURL(fromSmallArtworkURL: results[0]["artworkUrl100"].stringValue)
@@ -74,24 +74,24 @@ class iTunesService : SongSearchService {
     }
   }
 
-  private func queryURL(song: Song) -> NSURL {
-    return NSURL(string: "https://itunes.apple.com/search?limit=1&version=2&entity=album&term=\(queryString(song))")!
+  fileprivate func queryURL(_ song: Song) -> URL {
+    return URL(string: "https://itunes.apple.com/search?limit=1&version=2&entity=album&term=\(queryString(song))")!
   }
 
-  private func queryString(song: Song) -> String {
+  fileprivate func queryString(_ song: Song) -> String {
     let rawQuery: String
-    if song.album.lowercaseString.rangeOfString("single") != nil || song.album.isEmpty {
+    if song.album.lowercased().range(of: "single") != nil || song.album.isEmpty {
       rawQuery = "\(song.artist) \(song.name)"
     } else {
       rawQuery = "\(song.artist) \(song.album)"
     }
 
-    return rawQuery.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) ?? ""
+    return rawQuery.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? ""
   }
 
-  private func largeAlbumArtURL(fromSmallArtworkURL small: String) -> NSURL? {
-    let regex = try! NSRegularExpression(pattern: "100x100", options: .CaseInsensitive)
-    let bigArtworkURL = regex.stringByReplacingMatchesInString(small, options: [], range: NSRange(0..<small.utf16.count), withTemplate: "1000x1000")
-    return NSURL(string: bigArtworkURL)
+  fileprivate func largeAlbumArtURL(fromSmallArtworkURL small: String) -> URL? {
+    let regex = try! NSRegularExpression(pattern: "100x100", options: .caseInsensitive)
+    let bigArtworkURL = regex.stringByReplacingMatches(in: small, options: [], range: NSRange(0..<small.utf16.count), withTemplate: "1000x1000")
+    return URL(string: bigArtworkURL)
   }
 }

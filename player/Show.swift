@@ -21,28 +21,28 @@ class Show {
   var description = ""
   var djs: [DJ] = []
   var with = ""
-  var start = NSDate()
-  var end = NSDate()
+  var start = Date()
+  var end = Date()
   var onAir = false
   var episodes: [Episode]? = nil
 
-  var url: NSURL {
-    get { return NSURL(string: "http://app.wcbn.org\(url_for).json")! }
+  var url: URL {
+    get { return URL(string: "http://app.wcbn.org\(url_for).json")! }
   }
   var times: String {
     get {
-      let dateFormatter = NSDateFormatter()
-      dateFormatter.timeStyle = .ShortStyle
-      let beginning = dateFormatter.stringFromDate(start)
-      let ending = dateFormatter.stringFromDate(end)
+      let dateFormatter = DateFormatter()
+      dateFormatter.timeStyle = .short
+      let beginning = dateFormatter.string(from: start)
+      let ending = dateFormatter.string(from: end)
       return "\(beginning)–\(ending)"
     }
   }
   var timesWithWeekday: String {
     get {
-      let dateFormatter = NSDateFormatter()
+      let dateFormatter = DateFormatter()
       dateFormatter.setLocalizedDateFormatFromTemplate("cccc")
-      let weekday = dateFormatter.stringFromDate(start)
+      let weekday = dateFormatter.string(from: start)
       return "\(weekday) \(times)"
     }
   }

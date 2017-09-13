@@ -39,14 +39,14 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     recentEpisodes.rowHeight = UITableViewAutomaticDimension
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     let bar = self.navigationController?.navigationBar
     bar?.barTintColor = Colors.Dark.orange
-    bar?.tintColor = UIColor.whiteColor()
+    bar?.tintColor = UIColor.white
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.whiteColor()
+      NSForegroundColorAttributeName: UIColor.white
     ]
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = true
@@ -55,7 +55,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     recentEpisodes.reloadData()
   }
 
-  override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+  override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
     djsHeight.constant = djs.contentSize.height
     recentEpisodesHeight.constant = recentEpisodes.contentSize.height
   }
@@ -65,12 +65,12 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
   }
 
   // MARK: - DJs
-  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return show.djs.count
   }
 
-  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DJ", forIndexPath: indexPath) as! DJCollectionViewCell
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DJ", for: indexPath) as! DJCollectionViewCell
     let djName = show.djs[indexPath.row].name
     cell.nameLabel.text = djName
 
@@ -78,16 +78,16 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     return cell
   }
 
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let label = UILabel()
     label.text = show.djs[indexPath.row].name
     label.font = UIFont(name: "Lato-Black", size: 15.0)
-    let size = label.intrinsicContentSize()
-    return CGSizeMake(size.width + 32, size.height + 24)
+    let size = label.intrinsicContentSize
+    return CGSize(width: size.width + 32, height: size.height + 24)
   }
 
-  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    let djVC = storyboard?.instantiateViewControllerWithIdentifier("DJ") as! DJViewController
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let djVC = storyboard?.instantiateViewController(withIdentifier: "DJ") as! DJViewController
     djVC.dj_path = show.djs[indexPath.row].path
     djVC.title = show.djs[indexPath.row].name
     navigationController?.pushViewController(djVC, animated: true)
@@ -95,12 +95,12 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
   // MARK: - Recent Episodes
 
-  func shouldDisplayDJName(inCellForRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  func shouldDisplayDJName(inCellForRowAtIndexPath indexPath: IndexPath) -> Bool {
     return show.djs.count > 1 || show.episodes![indexPath.row].dj != show.djs.first?.name
   }
 
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("RecentEpisode", forIndexPath: indexPath) as! RecentEpisodeTableViewCell
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "RecentEpisode", for: indexPath) as! RecentEpisodeTableViewCell
     let episode = show.episodes![indexPath.row]
     cell.at.text = episode.at
 
@@ -111,17 +111,17 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     cell.withString?.text = conditionalDJName
 
     let detailText: String
-    if episode.beginning?.compare(NSDate()) == .OrderedDescending {
+    if episode.beginning?.compare(Date()) == .OrderedDescending {
       detailText = "—"
     } else {
       detailText = "\(episode.songs?.count ?? 0) song\(episode.songs?.count != 1 ? "s" : "")"
     }
     cell.songsCount?.text = detailText
 
-    cell.backgroundColor = UIColor.clearColor()
+    cell.backgroundColor = UIColor.clear
 
     let selectionColor = UIView()
-    selectionColor.backgroundColor = UIColor.whiteColor()
+    selectionColor.backgroundColor = UIColor.white
     cell.selectedBackgroundView = selectionColor
 
     recentEpisodesHeight.constant = recentEpisodes.contentSize.height
@@ -129,41 +129,41 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     return cell
   }
 
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
 
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return "Recent Episodes"
   }
 
-  func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+  func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
     let header = view as! UITableViewHeaderFooterView
     header.contentView.backgroundColor = Colors.Dark.orange
-    header.textLabel?.textColor = UIColor.whiteColor()
+    header.textLabel?.textColor = UIColor.white
     header.textLabel?.font = UIFont(name: "Lato-Black", size: 14)!
   }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return show.episodes?.count ?? 0
   }
 
-  func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+  func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
     let e = show.episodes![indexPath.row]
-    if e.beginning?.compare(NSDate()) == .OrderedDescending { return nil }
+    if e.beginning?.compare(Date()) == .OrderedDescending { return nil }
     return indexPath
   }
 
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let vc = storyboard?.instantiateViewControllerWithIdentifier("Playlist") as! PlaylistTableViewController
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let vc = storyboard?.instantiateViewController(withIdentifier: "Playlist") as! PlaylistTableViewController
     vc.episode = show.episodes![indexPath.row]
     navigationController?.pushViewController(vc, animated: true)
   }
 
   // MARK: - Networking
 
-  private func fetchShowInfo() {
-    fetch(jsonFrom: show.url) { json in
+  fileprivate func fetchShowInfo() {
+    fetch(dataFrom: show.url) { json in
       self.show.episodes = json["episodes"].arrayValue.map { episode in
         return Episode(fromJSON: episode)
       }

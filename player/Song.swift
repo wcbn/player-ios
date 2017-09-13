@@ -16,7 +16,7 @@ struct Song : Equatable {
   var label = "—"
   var year: Int? = nil
   var request = false
-  var timestamp: NSDate? = nil
+  var timestamp: Date? = nil
 
   var blank: Bool {
     get {
@@ -27,9 +27,9 @@ struct Song : Equatable {
   var at : String {
     get {
       if let t = timestamp {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        return dateFormatter.stringFromDate(t)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        return dateFormatter.string(from: t)
       }
       else { return "" }
     }
@@ -37,10 +37,10 @@ struct Song : Equatable {
   var longAt: String {
     get {
       if let t = timestamp {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .ShortStyle
-        dateFormatter.timeStyle = .ShortStyle
-        return dateFormatter.stringFromDate(t)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        return dateFormatter.string(from: t)
       } else { return "" }
     }
   }
@@ -76,18 +76,18 @@ struct Song : Equatable {
     label = plist["label"] as! String
     year = plist["year"] as? Int
     request = plist["request"] as! Bool
-    timestamp = plist["timestamp"] as? NSDate
+    timestamp = plist["timestamp"] as? Date
   }
 
   var dictionary: [String: AnyObject] { get {
     return [
-      "artist": artist,
-      "name": name,
-      "album": album,
-      "label": label,
-      "year": year ?? 0,
-      "request": request,
-      "timestamp": timestamp ?? NSDate()
+      "artist": artist as AnyObject,
+      "name": name as AnyObject,
+      "album": album as AnyObject,
+      "label": label as AnyObject,
+      "year": year as AnyObject? ?? 0 as AnyObject,
+      "request": request as AnyObject,
+      "timestamp": timestamp ?? Date()
     ]
   } }
   

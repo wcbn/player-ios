@@ -13,6 +13,6 @@ class DJ {
   var dj_name: String = ""
   var real_name: String? = nil
   var public_email: String? = nil
-  var website: NSURL? = nil
+  var website: URL? = nil
   var about: String = ""
 }

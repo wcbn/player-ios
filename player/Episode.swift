@@ -13,8 +13,8 @@ struct Episode {
   var name = ""
   var dj = ""
   var dj_path = ""
-  var beginning: NSDate? = nil
-  var ending: NSDate? = nil
+  var beginning: Date? = nil
+  var ending: Date? = nil
   var notes: String? = nil
   var songs: [Song]? = nil
 
@@ -22,9 +22,9 @@ struct Episode {
   var at : String {
     get {
       if let t = beginning {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-        return dateFormatter.stringFromDate(t)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        return dateFormatter.string(from: t)
       }
       else { return "" }
     }
@@ -68,6 +68,6 @@ struct Episode {
   }
 
   var dictionary: [String: AnyObject] { get {
-    return ["name": name, "dj": dj]
+    return ["name": name as AnyObject, "dj": dj as AnyObject]
   } }
 }

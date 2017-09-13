@@ -10,37 +10,37 @@ import UIKit
 
 class ScheduleTableViewController: UITableViewController {
 
-  let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+  let delegate = UIApplication.shared.delegate as! AppDelegate
   var semesterDuration = ""
   var shouldScrollToCurrentShow = true
 
-  private struct Storyboard {
+  fileprivate struct Storyboard {
     static let CellReuseIdentifier = "Show"
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let notificationCenter = NSNotificationCenter.defaultCenter()
-    let mainQueue = NSOperationQueue.mainQueue()
-    notificationCenter.addObserverForName("PlaylistDataReceived",
+    let notificationCenter = NotificationCenter.default
+    let mainQueue = OperationQueue.main
+    notificationCenter.addObserver(forName: NSNotification.Name(rawValue: "PlaylistDataReceived"),
                                           object: nil,
                                           queue: mainQueue)
     { _ in
       self.tableView.reloadData()
       self.shouldScrollToCurrentShow = true
       if let onAir = self.delegate.radio!.playlist.showOnAir {
-        self.tableView.selectRowAtIndexPath(onAir, animated: true, scrollPosition: .Top)
+        self.tableView.selectRow(at: onAir as IndexPath, animated: true, scrollPosition: .top)
       }
     }
 
     let bar = self.navigationController?.navigationBar
-    bar?.translucent = false
-    bar?.tintColor = UIColor.whiteColor()
+    bar?.isTranslucent = false
+    bar?.tintColor = UIColor.white
     bar?.barTintColor = Colors.Dark.orange
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.whiteColor()
+      NSForegroundColorAttributeName: UIColor.white
     ]
 
     // cell height
@@ -54,27 +54,27 @@ class ScheduleTableViewController: UITableViewController {
     // self.navigationItem.rightBarButtonItem = self.editButtonItem()
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     let bar = self.navigationController?.navigationBar
     bar?.barTintColor = Colors.Dark.orange
-    bar?.tintColor = UIColor.whiteColor()
+    bar?.tintColor = UIColor.white
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.whiteColor()
+      NSForegroundColorAttributeName: UIColor.white
     ]
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = true
     }
   }
 
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     if let onAir = delegate.radio!.playlist.showOnAir {
       if shouldScrollToCurrentShow {
-        tableView.selectRowAtIndexPath(onAir, animated: true, scrollPosition: .Top)
+        tableView.selectRow(at: onAir as IndexPath, animated: true, scrollPosition: .top)
       } else {
-        tableView.selectRowAtIndexPath(onAir, animated: true, scrollPosition: .None)
+        tableView.selectRow(at: onAir as IndexPath, animated: true, scrollPosition: .none)
       }
     }
   }
@@ -86,55 +86,55 @@ class ScheduleTableViewController: UITableViewController {
 
   // MARK: - Table view data source
 
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return delegate.radio!.playlist.schedule.count
   }
 
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return delegate.radio!.playlist.schedule[section].shows.count
   }
 
-  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    let dF = NSDateFormatter()
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    let dF = DateFormatter()
     return dF.standaloneWeekdaySymbols[delegate.radio!.playlist.schedule[section].index % 7]
   }
 
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! ScheduleTableViewCell
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellReuseIdentifier, for: indexPath) as! ScheduleTableViewCell
 
     cell.show = delegate.radio!.playlist.schedule[indexPath.section].shows[indexPath.row]
 
-    cell.backgroundColor = UIColor.clearColor()
+    cell.backgroundColor = UIColor.clear
 
     let selectionColor = UIView()
-    selectionColor.backgroundColor = UIColor.whiteColor()
+    selectionColor.backgroundColor = UIColor.white
     cell.selectedBackgroundView = selectionColor
 
     return cell
   }
 
-  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+  override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
     let header = view as! UITableViewHeaderFooterView
     header.contentView.backgroundColor = Colors.Dark.orange
-    header.textLabel?.textColor = UIColor.whiteColor()
+    header.textLabel?.textColor = UIColor.white
     header.textLabel?.font = UIFont(name: "Lato-Black", size: 14)!
   }
 
-  override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-    let dF = NSDateFormatter()
+  override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+    let dF = DateFormatter()
     let weekdays = dF.veryShortWeekdaySymbols
-    var weekdaysWithMondayStart = weekdays[1..<7]
-    weekdaysWithMondayStart += weekdays[0..<1]
+    var weekdaysWithMondayStart = weekdays?[1..<7]
+    weekdaysWithMondayStart += weekdays?[0..<1]
     return Array(weekdaysWithMondayStart)
   }
 
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
     shouldScrollToCurrentShow = false
     let show = delegate.radio!.playlist.schedule[indexPath.section].shows[indexPath.row]
 
     let showVC = self.storyboard?
-      .instantiateViewControllerWithIdentifier("ShowDetails") as! ShowDetailViewController
+      .instantiateViewController(withIdentifier: "ShowDetails") as! ShowDetailViewController
     showVC.show = show
     showVC.title = show.name
 

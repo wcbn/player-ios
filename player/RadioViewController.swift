@@ -23,7 +23,7 @@ MFMessageComposeViewControllerDelegate
   @IBOutlet weak var albumArt: UIImageView!
   @IBOutlet weak var playButton: UIImageView!
 
-  let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+  let delegate = UIApplication.shared.delegate as! AppDelegate
 
   let favs = Favourites()
   var resizingLabels: [UILabel] = []
@@ -44,8 +44,8 @@ MFMessageComposeViewControllerDelegate
     ]
 
   @IBAction func playOrPauseMusic(_: UITapGestureRecognizer) {
-    let defaults = NSUserDefaults.standardUserDefaults()
-    defaults.setBool(true, forKey: "LaunchedBefore")
+    let defaults = UserDefaults.standard
+    defaults.set(true, forKey: "LaunchedBefore")
 
     delegate.radio!.playOrPause()
     updateUI()
@@ -57,23 +57,23 @@ MFMessageComposeViewControllerDelegate
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    let notificationCenter = NSNotificationCenter.defaultCenter()
-    let mainQueue = NSOperationQueue.mainQueue()
-    notificationCenter.addObserverForName("SongDataReceived", object: nil, queue: mainQueue) { _ in
+    let notificationCenter = NotificationCenter.default
+    let mainQueue = OperationQueue.main
+    notificationCenter.addObserver(forName: NSNotification.Name(rawValue: "SongDataReceived"), object: nil, queue: mainQueue) { _ in
       if (self.delegate.radio?.isPlaying ?? false) {
         self.explainInterface()
       }
       self.updateUI()
     }
-    notificationCenter.addObserverForName("songSearchServiceChoiceSet", object: nil, queue: mainQueue) { _ in
+    notificationCenter.addObserver(forName: NSNotification.Name(rawValue: "songSearchServiceChoiceSet"), object: nil, queue: mainQueue) { _ in
       self.loadRadialMenu()
     }
 
 
     self.setNeedsStatusBarAppearanceUpdate()
 
-    let defaults = NSUserDefaults.standardUserDefaults()
-    if (defaults.boolForKey("LaunchedBefore")) {
+    let defaults = UserDefaults.standard
+    if (defaults.bool(forKey: "LaunchedBefore")) {
       delegate.radio!.playOrPause()
     }
 
@@ -81,13 +81,13 @@ MFMessageComposeViewControllerDelegate
     
     let l = albumArt.layer
     // White border
-    l.borderColor = UIColor.whiteColor().CGColor
+    l.borderColor = UIColor.white.cgColor
     l.borderWidth = 2.0
     // Drop shadow
-    l.shadowPath = UIBezierPath(rect: l.bounds).CGPath
-    l.shadowColor = UIColor.blackColor().CGColor
+    l.shadowPath = UIBezierPath(rect: l.bounds).cgPath
+    l.shadowColor = UIColor.black.cgColor
     l.shadowOpacity = 0.5
-    l.shadowOffset = CGSizeMake(0, 16)
+    l.shadowOffset = CGSize(width: 0, height: 16)
     l.shadowRadius = 40
 
     loadRadialMenu()
@@ -98,11 +98,11 @@ MFMessageComposeViewControllerDelegate
     updateUI()
   }
 
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return UIStatusBarStyle.LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return UIStatusBarStyle.lightContent
   }
 
-  func stringOrDash(s : String) -> String {
+  func stringOrDash(_ s : String) -> String {
     if s == "" {
       return "—"
     } else {
@@ -110,8 +110,8 @@ MFMessageComposeViewControllerDelegate
     }
   }
 
-  let albumArtEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-  let blurBehindRadialMenu = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+  let albumArtEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+  let blurBehindRadialMenu = UIVisualEffectView(effect: UIBlurEffect(style: .light))
   let radialMenuHint = UILabel()
 
   func updateLabels() {
@@ -138,25 +138,25 @@ MFMessageComposeViewControllerDelegate
     let l = albumArt.layer
     if delegate.radio!.isPlaying {
       l.borderWidth = 2.0
-      l.shadowPath = UIBezierPath(rect: l.bounds).CGPath
-      l.shadowColor = UIColor.blackColor().CGColor
+      l.shadowPath = UIBezierPath(rect: l.bounds).cgPath
+      l.shadowColor = UIColor.black.cgColor
 
-      UIView.transitionWithView(albumArt, duration: 0.2, options: .TransitionCrossDissolve,
+      UIView.transition(with: albumArt, duration: 0.2, options: .transitionCrossDissolve,
                                 animations: { self.albumArtEffectView.removeFromSuperview() },
                                 completion: nil)
-      UIView.transitionWithView(playButton, duration: 0.2, options: .TransitionCrossDissolve,
-                                animations: { self.playButton.hidden = true },
+      UIView.transition(with: playButton, duration: 0.2, options: .transitionCrossDissolve,
+                                animations: { self.playButton.isHidden = true },
                                 completion: nil)
     } else {
       l.borderWidth = 0
-      l.shadowColor = UIColor.whiteColor().CGColor
+      l.shadowColor = UIColor.white.cgColor
 
       albumArtEffectView.frame = l.bounds
-      UIView.transitionWithView(albumArt, duration: 0.2, options: .TransitionCrossDissolve,
+      UIView.transition(with: albumArt, duration: 0.2, options: .transitionCrossDissolve,
                                 animations: { self.albumArt.addSubview(self.albumArtEffectView) },
                                 completion: nil)
-      UIView.transitionWithView(playButton, duration: 0.2, options: .TransitionCrossDissolve,
-                                animations: { self.playButton.hidden = false },
+      UIView.transition(with: playButton, duration: 0.2, options: .transitionCrossDissolve,
+                                animations: { self.playButton.isHidden = false },
                                 completion: nil)
     }
   }
@@ -173,9 +173,9 @@ MFMessageComposeViewControllerDelegate
 
   func explainInterface() {
     if explainedThisSession {  return  }
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
 
-    if (!defaults.boolForKey("interfaceExplained[radialMenu]")) {
+    if (!defaults.bool(forKey: "interfaceExplained[radialMenu]")) {
       explainRadialMenu()
     }
 

@@ -13,11 +13,11 @@ protocol SongSearchService {
   var message: String { get }
   var color: String { get }
   
-  func lookup(song: Song, then: () -> ())
-  func enplaylist(then: () -> ())
+  func lookup(_ song: Song, then: () -> ())
+  func enplaylist(_ then: () -> ())
 
   var canEnplaylist: Bool { get }
-  var albumArtURL: NSURL? { get }
+  var albumArtURL: URL? { get }
 }
 
 enum SongSearchServiceChoice: String {

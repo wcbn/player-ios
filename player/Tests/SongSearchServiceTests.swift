@@ -22,9 +22,9 @@ class SongSearchServiceTests: XCTestCase {
   }
   
   func testLookup() {
-    let expectation = expectationWithDescription("fetches album art url")
+    let expectation = self.expectation(description: "fetches album art url")
 
-    let song = Song(artist: "The Decemberists", name: "Sons and Daughters", album: "The Crane Wife", label: "Capitol", year: 2006, request: false, timestamp: NSDate())
+    let song = Song(artist: "The Decemberists", name: "Sons and Daughters", album: "The Crane Wife", label: "Capitol", year: 2006, request: false, timestamp: Date())
 
     service.lookup(song) {
       print(self.service.albumArtURL())
@@ -32,7 +32,7 @@ class SongSearchServiceTests: XCTestCase {
       expectation.fulfill()
     }
 
-    waitForExpectationsWithTimeout(10) { error in
+    waitForExpectations(timeout: 10) { error in
       if error != nil {
         print("Timeout Error: \(error)")
       }

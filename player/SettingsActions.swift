@@ -11,7 +11,7 @@ import MessageUI
 
 extension SettingsTableViewController {
 
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let action = STVC.settings[settingsGroup]![indexPath.section].settings[indexPath.row]
 
     switch action.key {
@@ -22,25 +22,25 @@ extension SettingsTableViewController {
          WCBNStream.URL.medium,
          WCBNStream.URL.low:
       delegate.streamURL = action.key
-      navigationController?.popViewControllerAnimated(true)
+      navigationController?.popViewController(animated: true)
 
     case let value where SongSearchServiceChoice.rawValues.contains(value):
       let choice = SongSearchServiceChoice(rawValue: action.key)
       let svc = getSongSearchService(byChoice: choice ?? .iTunes)
       delegate.songSearchService = svc
-      navigationController?.popViewControllerAnimated(true)
+      navigationController?.popViewController(animated: true)
 
     case "review":
-      let reviewURL = NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=600658964&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")
-      UIApplication.sharedApplication().openURL(reviewURL!)
+      let reviewURL = URL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=600658964&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")
+      UIApplication.shared.openURL(reviewURL!)
       deselectSelectedRow()
 
     case "give":
-      let tipJar = self.storyboard?.instantiateViewControllerWithIdentifier("TipJarTableView") as! TipJarTableViewController
+      let tipJar = self.storyboard?.instantiateViewController(withIdentifier: "TipJarTableView") as! TipJarTableViewController
       self.navigationController?.pushViewController(tipJar, animated: true)
 
     default:
-      let nextSettingsVC = self.storyboard?.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsTableViewController
+      let nextSettingsVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsTableViewController
       nextSettingsVC.settingsGroup = action.key
       self.navigationController?.pushViewController(nextSettingsVC, animated: true)
 
@@ -48,24 +48,24 @@ extension SettingsTableViewController {
   }
 
   func callWCBN() {
-    let alert = UIAlertController(title: "Call WCBN", message: "Hit call to give us a ring. Unfortunately, the music will have to be paused and long-distance charges may ensue.", preferredStyle: .Alert)
-    let call = UIAlertAction(title: "Call", style: .Default) { action in
-      let studioPhone = NSURL(string: "tel://+1-734-763-3500")!
-      UIApplication.sharedApplication().openURL(studioPhone)
+    let alert = UIAlertController(title: "Call WCBN", message: "Hit call to give us a ring. Unfortunately, the music will have to be paused and long-distance charges may ensue.", preferredStyle: .alert)
+    let call = UIAlertAction(title: "Call", style: .default) { action in
+      let studioPhone = URL(string: "tel://+1-734-763-3500")!
+      UIApplication.shared.openURL(studioPhone)
     }
     alert.addAction(call)
-    let dismiss = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    let dismiss = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     alert.addAction(dismiss)
-    presentViewController(alert, animated: true, completion: deselectSelectedRow)
+    present(alert, animated: true, completion: deselectSelectedRow)
   }
 
   func textWCBN() {
 
     if !MFMessageComposeViewController.canSendText() {
-      let alert = UIAlertController(title: "Cannot send", message: "This device does not support sending iMessages.", preferredStyle: .Alert)
-      let dismiss = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      let alert = UIAlertController(title: "Cannot send", message: "This device does not support sending iMessages.", preferredStyle: .alert)
+      let dismiss = UIAlertAction(title: "OK", style: .default, handler: nil)
       alert.addAction(dismiss)
-      presentViewController(alert, animated: true, completion: deselectSelectedRow)
+      present(alert, animated: true, completion: deselectSelectedRow)
       return
     }
 
@@ -73,16 +73,16 @@ extension SettingsTableViewController {
     composeView.messageComposeDelegate = self
 
     composeView.recipients = ["radio@wcbn.org"]
-    presentViewController(composeView, animated: true, completion: nil)
+    present(composeView, animated: true, completion: nil)
   }
 
-  func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-    controller.dismissViewControllerAnimated(true, completion: nil)
+  func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+    controller.dismiss(animated: true, completion: nil)
   }
 
   func deselectSelectedRow() {
     if let selected = self.tableView.indexPathForSelectedRow {
-      self.tableView.deselectRowAtIndexPath(selected, animated: true)
+      self.tableView.deselectRow(at: selected, animated: true)
     }
   }
 }

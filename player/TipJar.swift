@@ -16,12 +16,12 @@ class TipJar: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver 
 
   var uid: String {
     get {
-      let defaults = NSUserDefaults.standardUserDefaults()
-      if let savedUID = defaults.stringForKey("UID") {
+      let defaults = UserDefaults.standard
+      if let savedUID = defaults.string(forKey: "UID") {
         return savedUID
       }
-      let newUID = UIDevice.currentDevice().identifierForVendor!.UUIDString
-      defaults.setObject(newUID, forKey: "UID")
+      let newUID = UIDevice.current.identifierForVendor!.uuidString
+      defaults.set(newUID, forKey: "UID")
       return newUID
     }
   }
@@ -33,7 +33,7 @@ class TipJar: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver 
     request.delegate = self
     request.start()
 
-    SKPaymentQueue.defaultQueue().addTransactionObserver(self)
+    SKPaymentQueue.default().add(self)
   }
 
   // MARK: - SKProductRequestDelegate
@@ -46,64 +46,64 @@ class TipJar: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver 
     "org.wcbn.tip5"
   ])
 
-  @objc func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
-    products = response.products.sort { a, b in a.price.compare(b.price) == .OrderedAscending }
+  @objc func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+    products = response.products.sorted { a, b in a.price.compare(b.price) == .orderedAscending }
   }
 
   // MARK: - SKProductsRequestDelegate
 
-  @objc func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+  @objc func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
     for transaction in transactions {
       switch transaction.transactionState {
-      case .Purchased:
-        SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+      case .purchased:
+        SKPaymentQueue.default().finishTransaction(transaction)
         askForName(transaction)
-      case .Failed:
-        SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+      case .failed:
+        SKPaymentQueue.default().finishTransaction(transaction)
       default:
         break
       }
     }
   }
 
-  func askForName(transaction: SKPaymentTransaction) {
-    let alert = UIAlertController(title: "Thank you!", message: "We’re so pleased you like what we’re doing. If you would like to let the DJ know who tipped, please give your name below.", preferredStyle: .Alert)
+  func askForName(_ transaction: SKPaymentTransaction) {
+    let alert = UIAlertController(title: "Thank you!", message: "We’re so pleased you like what we’re doing. If you would like to let the DJ know who tipped, please give your name below.", preferredStyle: .alert)
 
-    let anonymize = UIAlertAction(title: "Keep it anonymous", style: .Cancel) { _ in
+    let anonymize = UIAlertAction(title: "Keep it anonymous", style: .cancel) { _ in
       self.recordDonation(transaction)
     }
     alert.addAction(anonymize)
 
-    let shoutout = UIAlertAction(title: "Tell the DJ", style: .Default) { _ in
+    let shoutout = UIAlertAction(title: "Tell the DJ", style: .default) { _ in
       let nameField = alert.textFields![0]
       let messageField = alert.textFields![1]
       self.recordDonation(transaction, name: nameField.text, message: messageField.text)
     }
-    shoutout.enabled = false
+    shoutout.isEnabled = false
     alert.addAction(shoutout)
 
-    alert.addTextFieldWithConfigurationHandler { textField in
-      textField.autocapitalizationType = .Words
-      textField.autocorrectionType = .Yes
+    alert.addTextField { textField in
+      textField.autocapitalizationType = .words
+      textField.autocorrectionType = .yes
       textField.placeholder = "Name"
-      NSNotificationCenter.defaultCenter().addObserverForName(UITextFieldTextDidChangeNotification, object: textField, queue: NSOperationQueue.mainQueue()) { (notification) in
-        shoutout.enabled = textField.text != ""
+      NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
+        shoutout.isEnabled = textField.text != ""
       }
     }
-    alert.addTextFieldWithConfigurationHandler { textField in
-      textField.autocapitalizationType = .Sentences
-      textField.autocorrectionType = .Yes
+    alert.addTextField { textField in
+      textField.autocapitalizationType = .sentences
+      textField.autocorrectionType = .yes
       textField.placeholder = "Message"
     }
 
-    let delegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    let delegate = UIApplication.shared.delegate as? AppDelegate
     let rVC = delegate?.window?.rootViewController
-    rVC?.presentViewController(alert, animated: true, completion: nil)
+    rVC?.present(alert, animated: true, completion: nil)
   }
 
-  func recordDonation(transaction: SKPaymentTransaction, name: String? = nil, message: String? = nil) {
-    let receiptURL = NSBundle.mainBundle().appStoreReceiptURL!
-    guard let receipt = NSData(contentsOfURL: receiptURL) else { return }
+  func recordDonation(_ transaction: SKPaymentTransaction, name: String? = nil, message: String? = nil) {
+    let receiptURL = Bundle.main.appStoreReceiptURL!
+    guard let receipt = try? Data(contentsOf: receiptURL) else { return }
     let body: JSON = ["tip": [
                         "receipt_data": receipt.base64EncodedStringWithOptions(.Encoding64CharacterLineLength),
                         "product_id": transaction.payment.productIdentifier,
@@ -111,7 +111,7 @@ class TipJar: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver 
                         "name": name ?? "",
                         "message": message ?? ""]]
     let hdr = ["Content-Type": "application/json"]
-    hit(NSURL(string: "https://app.wcbn.org/tips")!, containingBody: body, withHeaders: hdr, using: "POST") { _ in }
+    hit(URL(string: "https://app.wcbn.org/tips")!, containingBody: body, withHeaders: hdr, using: "POST") { _ in }
   }
 
 }

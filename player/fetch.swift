@@ -10,48 +10,48 @@ import Foundation
 import SwiftyJSON
 
 func fetch(
-     dataFrom endpointURL: NSURL,
-     onFailure fallback: () -> Void = {},
-     then callback: (NSData) -> Void
+     dataFrom endpointURL: URL,
+     onFailure fallback: @escaping () -> Void = {},
+     then callback: @escaping (Data) -> Void
   ) {
-  let backgroundQOS = Int(QOS_CLASS_BACKGROUND.rawValue)
-  dispatch_async(dispatch_get_global_queue(backgroundQOS, 0)) {
-    if let response = NSData(contentsOfURL: endpointURL) {
-      dispatch_async(dispatch_get_main_queue()) {
+  let backgroundQOS = Int(DispatchQoS.QoSClass.background.rawValue)
+  DispatchQueue.global(priority: backgroundQOS).async {
+    if let response = try? Data(contentsOf: endpointURL) {
+      DispatchQueue.main.async {
         callback(response)
       }
     } else { fallback() }
   }
 }
 
-func fetch(jsonFrom endpointURL: NSURL, then callback: (JSON) -> Void) {
+func fetch(jsonFrom endpointURL: URL, then callback: (JSON) -> Void) {
   fetch(dataFrom: endpointURL) { r in
     let json = JSON(data: r)
     callback(json)
   }
 }
 
-func hit(url: NSURL,
+func hit(_ url: URL,
          containingBody body: JSON = nil,
          using method: String = "GET",
          withHeaders headers: [String:String] = [:],
          then callback: (JSON) -> Void) {
-  let request = NSMutableURLRequest(URL: url)
+  let request = NSMutableURLRequest(url: url)
 
   headers.forEach { key, value in
     request.setValue(value, forHTTPHeaderField: key)
   }
 
-  request.HTTPMethod = method
+  request.httpMethod = method
 
   do {
     try request.HTTPBody = body.rawData()
   } catch {}
 
-  NSURLSession.sharedSession().dataTaskWithRequest(request) { data, _, error in
-    if data != nil && data!.length > 0 && error == nil {
+  URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+    if data != nil && data!.count > 0 && error == nil {
       let json = JSON(data: data!)
       callback(json)
     }
-  }.resume()
+  }) .resume()
 }

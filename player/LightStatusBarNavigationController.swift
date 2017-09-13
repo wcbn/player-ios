@@ -16,23 +16,23 @@ class LightStatusBarNavigationController: UINavigationController {
     }
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.setNeedsStatusBarAppearanceUpdate()
   }
 
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+  override var preferredStatusBarStyle : UIStatusBarStyle {
     if light {
-      return .LightContent
+      return .lightContent
     } else {
-      return .Default
+      return .default
     }
   }
 
 }
 
 extension UINavigationController {
-  public override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return UIStatusBarStyle.Default
+  open override var preferredStatusBarStyle : UIStatusBarStyle {
+    return UIStatusBarStyle.default
   }
 }

@@ -39,20 +39,20 @@ extension JSON {
 
 class Formatter {
 
-  private static var internalJsonDateFormatter: NSDateFormatter?
-  private static var internalJsonDateTimeFormatter: NSDateFormatter?
+  fileprivate static var internalJsonDateFormatter: DateFormatter?
+  fileprivate static var internalJsonDateTimeFormatter: DateFormatter?
 
-  static var jsonDateFormatter: NSDateFormatter {
+  static var jsonDateFormatter: DateFormatter {
     if (internalJsonDateFormatter == nil) {
-      internalJsonDateFormatter = NSDateFormatter()
+      internalJsonDateFormatter = DateFormatter()
       internalJsonDateFormatter!.dateFormat = "yyyy-MM-dd"
     }
     return internalJsonDateFormatter!
   }
 
-  static var jsonDateTimeFormatter: NSDateFormatter {
+  static var jsonDateTimeFormatter: DateFormatter {
     if (internalJsonDateTimeFormatter == nil) {
-      internalJsonDateTimeFormatter = NSDateFormatter()
+      internalJsonDateTimeFormatter = DateFormatter()
       internalJsonDateTimeFormatter!.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSSZZ"
     }
     return internalJsonDateTimeFormatter!

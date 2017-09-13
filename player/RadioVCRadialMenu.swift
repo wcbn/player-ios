@@ -37,44 +37,44 @@ extension RadioViewController {
     radialMenu.onUnhighlight = { subMenu in self.resetSubMenu(subMenu) }
     radialMenu.onActivate = { subMenu in self.activateSubMenu(subMenu)}
 
-    blurBehindRadialMenu.hidden = true
+    blurBehindRadialMenu.isHidden = true
     tabBarController?.view.addSubview(blurBehindRadialMenu)
     blurBehindRadialMenu.contentView.addSubview(radialMenu)
 
     radialMenuHint.font = UIFont(name: "Lato-Bold", size: 16)
-    radialMenuHint.textColor = UIColor.whiteColor()
+    radialMenuHint.textColor = UIColor.white
     radialMenuHint.text = ""
     blurBehindRadialMenu.contentView.addSubview(radialMenuHint)
 
 
   }
 
-  func setRadialMenuHint(text: String) {
+  func setRadialMenuHint(_ text: String) {
     let r = radialMenuHint
     r.text = text
     r.sizeToFit()
     r.center = CGPoint(x: albumArt.center.x, y: albumArt.center.y - 60 - albumArt.frame.height / 2)
   }
 
-  @IBAction func longPressed(gesture:UIGestureRecognizer) {
+  @IBAction func longPressed(_ gesture:UIGestureRecognizer) {
     if !delegate.radio!.isPlaying { return }
-    let loc = gesture.locationInView(blurBehindRadialMenu)
+    let loc = gesture.location(in: blurBehindRadialMenu)
     switch(gesture.state) {
-    case .Began:
+    case .began:
       openRadialMenu(loc)
-    case .Ended:
+    case .ended:
       closeRadialMenu()
-    case .Changed:
+    case .changed:
       radialMenu.moveAtPosition(loc)
     default:
       break
     }
   }
 
-  func openRadialMenu(location: CGPoint) {
+  func openRadialMenu(_ location: CGPoint) {
     blurBehindRadialMenu.frame = view.bounds
-    UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
-                              animations: { self.blurBehindRadialMenu.hidden = false },
+    UIView.transition(with: blurBehindRadialMenu, duration: 0.1, options: .transitionCrossDissolve,
+                              animations: { self.blurBehindRadialMenu.isHidden = false },
                               completion: nil)
     
     setRadialMenuHint("Tap once to stop streaming")
@@ -83,47 +83,47 @@ extension RadioViewController {
   }
 
   func closeRadialMenu() {
-    UIView.transitionWithView(blurBehindRadialMenu, duration: 0.1, options: .TransitionCrossDissolve,
-                              animations: { self.blurBehindRadialMenu.hidden = true },
+    UIView.transition(with: blurBehindRadialMenu, duration: 0.1, options: .transitionCrossDissolve,
+                              animations: { self.blurBehindRadialMenu.isHidden = true },
                               completion: nil)
     radialMenu.close()
   }
 
-  func createSubMenu(i: Int) -> RadialSubMenu {
+  func createSubMenu(_ i: Int) -> RadialSubMenu {
     let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 160))
     image.image = UIImage(named: options[i].name)!
     let subMenu = RadialSubMenu(imageView: image)
     subMenu.layer.cornerRadius = 80
-    subMenu.userInteractionEnabled = true
+    subMenu.isUserInteractionEnabled = true
     subMenu.tag = i
     resetSubMenu(subMenu)
     return subMenu
   }
   
-  func highlightSubMenu(subMenu: RadialSubMenu) {
+  func highlightSubMenu(_ subMenu: RadialSubMenu) {
     let opt = options[subMenu.tag]
     let svc = delegate.songSearchService
     if opt.name == "act-\(svc.name)" && !svc.canEnplaylist {
       setRadialMenuHint("Song cannot be found in \(svc.name)")
     } else {
       setRadialMenuHint(opt.message)
-      UIView.animateWithDuration(0.1) {
-        subMenu.transform = CGAffineTransformMakeScale(1.25, 1.25)
-      }
+      UIView.animate(withDuration: 0.1, animations: {
+        subMenu.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
+      }) 
     }
 
-    let defaults = NSUserDefaults.standardUserDefaults()
-    defaults.setBool(true, forKey: "interfaceExplained[radialMenu]")
+    let defaults = UserDefaults.standard
+    defaults.set(true, forKey: "interfaceExplained[radialMenu]")
   }
 
-  func resetSubMenu(subMenu: RadialSubMenu) {
+  func resetSubMenu(_ subMenu: RadialSubMenu) {
     setRadialMenuHint("Tap once to stop streaming")
-    UIView.animateWithDuration(0.1) {
-      subMenu.transform = CGAffineTransformMakeScale(0.8, 0.8)  // = 1 / 1.25
-    }
+    UIView.animate(withDuration: 0.1, animations: {
+      subMenu.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)  // = 1 / 1.25
+    }) 
   }
 
-  func activateSubMenu(subMenu: RadialSubMenu) {
+  func activateSubMenu(_ subMenu: RadialSubMenu) {
     let svc = delegate.songSearchService
     let option = options[subMenu.tag]
     switch option.name {
@@ -135,10 +135,10 @@ extension RadioViewController {
         svc.enplaylist() { }
         flash(UIColor(rgba: option.color))
       } else {
-        let alert = UIAlertController(title: "Cannot Save Song", message: "This song cannot be found in the \(svc.name) library.", preferredStyle: .Alert)
-        let dismiss = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let alert = UIAlertController(title: "Cannot Save Song", message: "This song cannot be found in the \(svc.name) library.", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(dismiss)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
       }
     case "act-message":
       flash(UIColor(rgba: option.color))
@@ -156,8 +156,8 @@ extension RadioViewController {
     let content = "I’m listening to \(description ?? "")\(on)WCBN-FM. Tune in at wcbn.org!"
 
     let shareSheet = UIActivityViewController(activityItems: [content as NSString], applicationActivities: nil)
-    shareSheet.modalPresentationStyle = .Popover
-    presentViewController(shareSheet, animated: true, completion: nil)
+    shareSheet.modalPresentationStyle = .popover
+    present(shareSheet, animated: true, completion: nil)
     let popoverController = shareSheet.popoverPresentationController
     popoverController?.sourceView = albumArt
     popoverController?.sourceRect = albumArt.bounds
@@ -165,10 +165,10 @@ extension RadioViewController {
 
   func textWCBN() {
     if !MFMessageComposeViewController.canSendText() {
-      let alert = UIAlertController(title: "Cannot send", message: "This device does not support sending iMessages.", preferredStyle: .Alert)
-      let dismiss = UIAlertAction(title: "OK", style: .Default, handler: nil)
+      let alert = UIAlertController(title: "Cannot send", message: "This device does not support sending iMessages.", preferredStyle: .alert)
+      let dismiss = UIAlertAction(title: "OK", style: .default, handler: nil)
       alert.addAction(dismiss)
-      presentViewController(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
       return
     }
 
@@ -176,18 +176,18 @@ extension RadioViewController {
     composeView.messageComposeDelegate = self
 
     composeView.recipients = ["radio@wcbn.org"]
-    presentViewController(composeView, animated: true, completion: nil)
+    present(composeView, animated: true, completion: nil)
   }
 
-  func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-    controller.dismissViewControllerAnimated(true, completion: nil)
+  func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+    controller.dismiss(animated: true, completion: nil)
   }
 
-  func flash(color: UIColor) {
-    UIView.animateWithDuration(0.3, animations: {
+  func flash(_ color: UIColor) {
+    UIView.animate(withDuration: 0.3, animations: {
       self.view.backgroundColor = color
     }, completion: { _ in
-      UIView.animateWithDuration(0.3) { self.view.backgroundColor = Colors.Light.blue }
+      UIView.animate(withDuration: 0.3, animations: { self.view.backgroundColor = Colors.Light.blue }) 
     })
   }
 

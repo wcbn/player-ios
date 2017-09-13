@@ -15,7 +15,7 @@ UITableViewDelegate, UITableViewDataSource {
   var dj_path = ""
   var dj = DJ()
 
-  var profileImageURL: NSURL? {
+  var profileImageURL: URL? {
     didSet {
       if profileImageURL != nil {
         fetch(dataFrom: profileImageURL!) { r in
@@ -42,25 +42,25 @@ UITableViewDelegate, UITableViewDataSource {
     
     let guide = view.readableContentGuide
     djBio.translatesAutoresizingMaskIntoConstraints = false
-    guide.leftAnchor.constraintEqualToAnchor(djBio.leftAnchor).active = true
-    guide.rightAnchor.constraintEqualToAnchor(djBio.rightAnchor).active = true
+    guide.leftAnchor.constraint(equalTo: djBio.leftAnchor).isActive = true
+    guide.rightAnchor.constraint(equalTo: djBio.rightAnchor).isActive = true
 
-    tableView.scrollEnabled = false
-    tableView.backgroundColor = UIColor.clearColor()
+    tableView.isScrollEnabled = false
+    tableView.backgroundColor = UIColor.clear
 
     fetchDJProfile()
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
     let bar = self.navigationController?.navigationBar
-    bar?.translucent = false
+    bar?.isTranslucent = false
     bar?.barTintColor = UIColor(rgba: "#EBEBF1FF")
-    bar?.tintColor = UIColor.blackColor()
+    bar?.tintColor = UIColor.black
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.blackColor()
+      NSForegroundColorAttributeName: UIColor.black
     ]
     if let navController = self.navigationController as? LightStatusBarNavigationController {
       navController.light = false
@@ -68,7 +68,7 @@ UITableViewDelegate, UITableViewDataSource {
   }
 
   override func viewDidLayoutSubviews() {
-    djBio.setContentOffset(CGPointZero, animated: false)
+    djBio.setContentOffset(CGPoint.zero, animated: false)
   }
 
   override func didReceiveMemoryWarning() {
@@ -93,21 +93,21 @@ UITableViewDelegate, UITableViewDataSource {
 
   struct DJShowsRow {
     let show: Show
-    let semesterStart: NSDate
+    let semesterStart: Date
 
     var semesterName: String { get {
-      let dateFormatter = NSDateFormatter()
-      dateFormatter.dateFormat = NSDateFormatter.dateFormatFromTemplate("yyyyMMMM", options: 0, locale: NSLocale.currentLocale())
-      return dateFormatter.stringFromDate(semesterStart)
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMMM", options: 0, locale: Locale.current)
+      return dateFormatter.string(from: semesterStart)
     } }
   }
 
-  private func fetchDJProfile() {
-    let background_qos = Int(QOS_CLASS_BACKGROUND.rawValue)
-    dispatch_async(dispatch_get_global_queue(background_qos, 0)) {
-      let playlist_api_url = NSURL( string: "http://app.wcbn.org\(self.dj_path).json")!
-      if let data = NSData(contentsOfURL: playlist_api_url) {
-        dispatch_async(dispatch_get_main_queue()) {
+  fileprivate func fetchDJProfile() {
+    let background_qos = Int(DispatchQoS.QoSClass.background.rawValue)
+    DispatchQueue.global(priority: background_qos).async {
+      let playlist_api_url = URL( string: "http://app.wcbn.org\(self.dj_path).json")!
+      if let data = try? Data(contentsOf: playlist_api_url) {
+        DispatchQueue.main.async {
           let json = JSON(data: data)
 
           let dj = self.dj
@@ -115,7 +115,7 @@ UITableViewDelegate, UITableViewDataSource {
           self.profileImageURL = json["image_url"].URL
           dj.dj_name = json["dj_name"].stringValue
           dj.real_name = json["real_name"].string
-          dj.website = NSURL(string: json["website"].stringValue)
+          dj.website = URL(string: json["website"].stringValue)
           dj.about = json["about"].stringValue
           self.djBio.attributedText = NSAttributedString(string: dj.about, attributes: [NSFontAttributeName: UIFont(name: "Lato-Regular", size: 14)!])
 
@@ -132,20 +132,20 @@ UITableViewDelegate, UITableViewDataSource {
     }
   }
 
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return showsBySemester.count
   }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return showsBySemester[section].semesters.count
   }
 
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return showsBySemester[section].showName
   }
 
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("ShowBySemesterCell", forIndexPath: indexPath)
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "ShowBySemesterCell", for: indexPath)
     let row = showsBySemester[indexPath.section].semesters[indexPath.row]
 
     cell.textLabel?.text = row.semesterName
@@ -154,8 +154,8 @@ UITableViewDelegate, UITableViewDataSource {
     return cell
   }
 
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let showVC = self.storyboard?.instantiateViewControllerWithIdentifier("ShowDetails") as! ShowDetailViewController
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let showVC = self.storyboard?.instantiateViewController(withIdentifier: "ShowDetails") as! ShowDetailViewController
     let row = showsBySemester[indexPath.section].semesters[indexPath.row]
     showVC.show = row.show
     showVC.title = row.show.name
@@ -170,6 +170,6 @@ UITableViewDelegate, UITableViewDataSource {
   func resizeTableView() {
     tableView.layoutIfNeeded()
     let size = tableView.contentSize
-    tableView.heightAnchor.constraintEqualToConstant(size.height).active = true
+    tableView.heightAnchor.constraint(equalToConstant: size.height).isActive = true
   }
 }

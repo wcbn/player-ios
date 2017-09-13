@@ -25,8 +25,8 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
   static let settings: [String: [SettingsGroup]] = [
     "Settings": [
       SettingsGroup(settings: [
-        Setting(message: "Stream Quality", accessoryType: .DisclosureIndicator),
-        Setting(message: "“Save Song” Service", accessoryType: .DisclosureIndicator)
+        Setting(message: "Stream Quality", accessoryType: .disclosureIndicator),
+        Setting(message: "“Save Song” Service", accessoryType: .disclosureIndicator)
         ]),
       SettingsGroup(settings: [
         Setting(key: "call", message: "Call the studio"),
@@ -63,9 +63,9 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
 
   @IBOutlet weak var navTitle: UINavigationItem!
 
-  let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+  let delegate = UIApplication.shared.delegate as! AppDelegate
 
-  private struct Storyboard {
+  fileprivate struct Storyboard {
     static let CellReuseIdentifier = "Setting"
   }
 
@@ -81,18 +81,18 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
   }
 
   struct Setting {
-    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let delegate = UIApplication.shared.delegate as! AppDelegate
     var key: String
     var message: String
     var realAccessoryType: UITableViewCellAccessoryType
     var description: String?
     var accessoryType: UITableViewCellAccessoryType {
       get {
-        if (realAccessoryType == .None) && (
+        if (realAccessoryType == .none) && (
             (key == delegate.streamURL) ||
             (key == delegate.songSearchService.name)
         ) {
-          return .Checkmark
+          return .checkmark
         } else {
           return realAccessoryType
         }
@@ -102,14 +102,14 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
       }
     }
 
-    init(key: String, message: String, accessoryType: UITableViewCellAccessoryType = .None, description: String? = nil) {
+    init(key: String, message: String, accessoryType: UITableViewCellAccessoryType = .none, description: String? = nil) {
       self.key = key
       self.message = message
       self.realAccessoryType = accessoryType
       self.description = description
     }
 
-    init(message: String, accessoryType: UITableViewCellAccessoryType = .None) {
+    init(message: String, accessoryType: UITableViewCellAccessoryType = .none) {
       self.init(key: message, message: message, accessoryType: accessoryType)
     }
   }
@@ -120,10 +120,10 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     super.viewDidLoad()
 
     let bar = self.navigationController?.navigationBar
-    bar?.translucent = false
+    bar?.isTranslucent = false
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.blackColor()
+      NSForegroundColorAttributeName: UIColor.black
     ]
 
     navTitle.title = settingsGroup
@@ -133,23 +133,23 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
 
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tableView.reloadData()
     view.setNeedsLayout()
   }
 
 
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return STVC.settings[settingsGroup]!.count
   }
 
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return STVC.settings[settingsGroup]![section].settings.count
   }
 
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath)
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellReuseIdentifier, for: indexPath)
 
     let setting = STVC.settings[settingsGroup]![indexPath.section].settings[indexPath.row]
 
@@ -175,33 +175,33 @@ class SettingsTableViewController: UITableViewController, MFMessageComposeViewCo
     return cell
   }
 
-  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return STVC.settings[settingsGroup]![section].title
   }
 
-  override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+  override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     let label = labelForFooter(section)
     let v = UIView()
     v.preservesSuperviewLayoutMargins = true
     v.addSubview(label)
 
-    label.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: 8).active = true
-    label.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 0).active = true
+    label.topAnchor.constraint(equalTo: v.topAnchor, constant: 8).isActive = true
+    label.bottomAnchor.constraint(equalTo: v.bottomAnchor, constant: 0).isActive = true
 
     let guide = v.readableContentGuide
     label.translatesAutoresizingMaskIntoConstraints = false
-    guide.leftAnchor.constraintEqualToAnchor(label.leftAnchor).active = true
-    guide.rightAnchor.constraintEqualToAnchor(label.rightAnchor).active = true
+    guide.leftAnchor.constraint(equalTo: label.leftAnchor).isActive = true
+    guide.rightAnchor.constraint(equalTo: label.rightAnchor).isActive = true
 
     return v
   }
 
-  func labelForFooter(section: Int) -> UILabel {
+  func labelForFooter(_ section: Int) -> UILabel {
     let label = UILabel()
     label.text = STVC.settings[settingsGroup]![section].instructions
-    if tableView.numberOfRowsInSection(section) > 0 {
+    if tableView.numberOfRows(inSection: section) > 0 {
       label.font = UIFont(name: "Lato-Regular", size: 14)
-      label.textColor = UIColor.grayColor()
+      label.textColor = UIColor.gray
     } else {
       label.font = UIFont(name: "Lato-Regular", size: 16)
     }

@@ -12,7 +12,7 @@ class FavouritesTableViewController: UITableViewController {
   
   var fav = Favourites()
   
-  private struct Storyboard {
+  fileprivate struct Storyboard {
     static let CellReuseIdentifier = "Favourite"
   }
   
@@ -20,11 +20,11 @@ class FavouritesTableViewController: UITableViewController {
     super.viewDidLoad()
     // navigation bar color
     let bar = self.navigationController?.navigationBar
-    bar?.translucent = false
+    bar?.isTranslucent = false
     bar?.barTintColor = Colors.Dark.pink
     bar?.titleTextAttributes = [
       NSFontAttributeName: UIFont(name: "Lato-Black", size: 17)!,
-      NSForegroundColorAttributeName: UIColor.whiteColor()
+      NSForegroundColorAttributeName: UIColor.white
     ]
 
     // cell height
@@ -43,71 +43,71 @@ class FavouritesTableViewController: UITableViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     tableView.reloadData()
   }
 
   // MARK: - UITableViewDataSource
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if fav.needsInstructions() { return 1 }
 
     return fav.count
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if fav.needsInstructions() {
-      let cell = tableView.dequeueReusableCellWithIdentifier("Instructions") as! InstructionsTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: "Instructions") as! InstructionsTableViewCell
       cell.backgroundColor = Colors.Dark.pink
       return cell
     }
 
-    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! FavouriteTableViewCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellReuseIdentifier, for: indexPath) as! FavouriteTableViewCell
     cell.p = fav[indexPath.row]
-    cell.backgroundColor = UIColor.clearColor()
+    cell.backgroundColor = UIColor.clear
     
     let selectionColor = UIView()
-    selectionColor.backgroundColor = UIColor.whiteColor()
+    selectionColor.backgroundColor = UIColor.white
     cell.selectedBackgroundView = selectionColor
     
     return cell
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let content = fav[indexPath.row].song.description
 
     let shareSheet = UIActivityViewController(activityItems: [content as NSString], applicationActivities: nil)
-    shareSheet.modalPresentationStyle = .Popover
-    presentViewController(shareSheet, animated: true, completion: deselectSelectedRow)
+    shareSheet.modalPresentationStyle = .popover
+    present(shareSheet, animated: true, completion: deselectSelectedRow)
     let popoverController = shareSheet.popoverPresentationController
-    let cell = tableView.cellForRowAtIndexPath(indexPath)!
+    let cell = tableView.cellForRow(at: indexPath)!
     popoverController?.sourceView = cell
     popoverController?.sourceRect = cell.bounds
   }
   func deselectSelectedRow() {
     if let selected = self.tableView.indexPathForSelectedRow {
-      self.tableView.deselectRowAtIndexPath(selected, animated: true)
+      self.tableView.deselectRow(at: selected, animated: true)
     }
   }
 
   // Override to support conditional editing of the table view.
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     if fav.needsInstructions() { return false }
     return true
   }
 
   // Override to support editing the table view.
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     // Necessary to enable the edit actions at all
   }
 
-  override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+  override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
     var actions: [UITableViewRowAction] = []
 
@@ -121,14 +121,14 @@ class FavouritesTableViewController: UITableViewController {
 //      actions.append(searchButton)
 //    }
 //
-    let deleteButton = UITableViewRowAction(style: .Destructive, title: "Delete") { _, inxPth in
+    let deleteButton = UITableViewRowAction(style: UITableViewRowActionStyle(), title: "Delete") { _, inxPth in
       self.fav.removeAtIndex(inxPth.row)
-      tableView.deleteRowsAtIndexPaths([inxPth], withRowAnimation: .Bottom)
+      tableView.deleteRows(at: [inxPth], with: .bottom)
     }
     deleteButton.backgroundColor = Colors.Dark.red
     actions.append(deleteButton)
 
-    return actions.reverse()
+    return actions.reversed()
   }
 
   /*

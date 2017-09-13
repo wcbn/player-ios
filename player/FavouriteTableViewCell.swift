@@ -29,7 +29,7 @@ class FavouriteTableViewCell: UITableViewCell {
       songLabel?.text = "“\(p.song.name)”"
       if (p.song.album != "") { albumLabel?.text = p.song.album}
       if p.song.label != "" {
-        if let year = p.song.year where year != 0 {
+        if let year = p.song.year, year != 0 {
           copyrightLabel?.text = "(\(p.song.label), \(year))"
         } else {
           copyrightLabel?.text = "(\(p.song.label))"

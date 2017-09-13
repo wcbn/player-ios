@@ -11,12 +11,12 @@ import Foundation
 class Favourites {
   let defaultsKey = "Favourites"
 
-  private let defaults = NSUserDefaults.standardUserDefaults()
+  fileprivate let defaults = UserDefaults.standard
 
   var songs: [Favourite] {
 
     get {
-      if let plist = defaults.objectForKey(defaultsKey) as? [[String:AnyObject]] {
+      if let plist = defaults.object(forKey: defaultsKey) as? [[String:AnyObject]] {
         var songs: [Favourite] = []
         for s in plist {
           let e = s as! [String: [String: AnyObject]]
@@ -35,9 +35,9 @@ class Favourites {
 
     set {
       let arr: [[String:AnyObject]] = newValue.map{ e in
-        return [ "song": e.song.dictionary, "episode": e.episode.dictionary]
+        return [ "song": e.song.dictionary as AnyObject, "episode": e.episode.dictionary as AnyObject]
       }
-      defaults.setObject(arr, forKey: defaultsKey)
+      defaults.set(arr, forKey: defaultsKey)
     }
   }
 
@@ -48,27 +48,27 @@ class Favourites {
   }
 
   func needsInstructions() -> Bool {
-    switch defaults.objectForKey(defaultsKey) {
-    case .None:
+    switch defaults.object(forKey: defaultsKey) {
+    case .none:
       return true
-    case .Some:
+    case .some:
       return false
     }
   }
 
-  func removeAtIndex(index: Int) {
-    songs.removeAtIndex(songs.count - 1 - index)
+  func removeAtIndex(_ index: Int) {
+    songs.remove(at: songs.count - 1 - index)
   }
 
   var count: Int {
     return songs.count
   }
 
-  func append(song: Favourite) {
+  func append(_ song: Favourite) {
     songs.append(song)
   }
 
-  func appendCurrentSong(p: WCBNRadioBrain.Playlist) {
+  func appendCurrentSong(_ p: WCBNRadioBrain.Playlist) {
     append(Favourite(playlist: p))
   }
 
@@ -76,11 +76,11 @@ class Favourites {
     songs.removeLast()
   }
 
-  func isLast(s: Favourite) -> Bool {
+  func isLast(_ s: Favourite) -> Bool {
     return (count > 0) && (songs.last! == s)
   }
 
-  func includeCurrentSong(p: WCBNRadioBrain.Playlist) -> Bool {
+  func includeCurrentSong(_ p: WCBNRadioBrain.Playlist) -> Bool {
     return isLast(Favourite(playlist: p))
   }
 }

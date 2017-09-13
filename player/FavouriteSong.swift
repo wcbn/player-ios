@@ -24,6 +24,6 @@ struct Favourite {
 }
 
 
-@warn_unused_result func == (lhs: Favourite, rhs: Favourite) -> Bool {
+func == (lhs: Favourite, rhs: Favourite) -> Bool {
   return (lhs.song.timestamp == rhs.song.timestamp)
 }
