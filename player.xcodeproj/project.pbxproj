@@ -43,9 +43,7 @@
 		436226231D3C5E1500F689B6 /* SongSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436335581D21CBF900CBACBC /* SongSearchService.swift */; };
 		436335591D21CBF900CBACBC /* SongSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436335581D21CBF900CBACBC /* SongSearchService.swift */; };
 		4363355C1D21CE6500CBACBC /* iTunesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4363355B1D21CE6500CBACBC /* iTunesService.swift */; };
-		437595991F68D86B000D6D7D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437595971F68D86A000D6D7D /* SwiftyJSON.framework */; };
 		4375959A1F68D86B000D6D7D /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437595981F68D86B000D6D7D /* pop.framework */; };
-		4375959C1F68D992000D6D7D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437595971F68D86A000D6D7D /* SwiftyJSON.framework */; };
 		438106751CA83230009547CD /* ShowNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438106741CA83230009547CD /* ShowNotesTableViewCell.swift */; };
 		438106771CA832B6009547CD /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438106761CA832B6009547CD /* ScheduleTableViewCell.swift */; };
 		4392061C1CE58083009C3BFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4392061B1CE58083009C3BFF /* Main.storyboard */; };
@@ -60,6 +58,8 @@
 		439EB4DA1D1596A100739134 /* fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439EB4D81D1596A100739134 /* fetch.swift */; };
 		439EB4DB1D15A16F00739134 /* SwiftyJSONDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393E69A1CA5DE75000B2D6F /* SwiftyJSONDateTime.swift */; };
 		43AB82471CAC8A76003A5CC4 /* InstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AB82461CAC8A76003A5CC4 /* InstructionsTableViewCell.swift */; };
+		43ACC32620D31FAB00F174D8 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ACC32520D31FAB00F174D8 /* SwiftyJSON.framework */; };
+		43ACC32720D31FAB00F174D8 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ACC32520D31FAB00F174D8 /* SwiftyJSON.framework */; };
 		43B70CCD1CAB1F1500C50170 /* FavouriteSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B70CCC1CAB1F1500C50170 /* FavouriteSong.swift */; };
 		43BBC9131D3C6E2F00A70F37 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BBC9121D3C6E2F00A70F37 /* SpotifyService.swift */; };
 		43C94BC81CBB1F1B007D8797 /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C94BC71CBB1F1B007D8797 /* Show.swift */; };
@@ -158,7 +158,6 @@
 		436335581D21CBF900CBACBC /* SongSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongSearchService.swift; sourceTree = "<group>"; };
 		4363355B1D21CE6500CBACBC /* iTunesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iTunesService.swift; sourceTree = "<group>"; };
 		437595961F68D600000D6D7D /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
-		437595971F68D86A000D6D7D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		437595981F68D86B000D6D7D /* pop.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = pop.framework; path = Carthage/Build/iOS/pop.framework; sourceTree = "<group>"; };
 		438106741CA83230009547CD /* ShowNotesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowNotesTableViewCell.swift; sourceTree = "<group>"; };
 		438106761CA832B6009547CD /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
@@ -171,6 +170,7 @@
 		4393E69C1CA62B8D000B2D6F /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		439EB4D81D1596A100739134 /* fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fetch.swift; sourceTree = "<group>"; };
 		43AB82461CAC8A76003A5CC4 /* InstructionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsTableViewCell.swift; sourceTree = "<group>"; };
+		43ACC32520D31FAB00F174D8 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		43B70CCC1CAB1F1500C50170 /* FavouriteSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteSong.swift; sourceTree = "<group>"; };
 		43BBC9121D3C6E2F00A70F37 /* SpotifyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		43C94BC71CBB1F1B007D8797 /* Show.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
@@ -197,9 +197,9 @@
 			files = (
 				432C6B921D19A5BD0077531E /* SystemConfiguration.framework in Frameworks */,
 				432C6B901D19A5B50077531E /* AVFoundation.framework in Frameworks */,
+				43ACC32620D31FAB00F174D8 /* SwiftyJSON.framework in Frameworks */,
 				4392A1641D68ED5F009C69AF /* StoreKit.framework in Frameworks */,
 				43CAC3F91D40E78C00A5BA1B /* Spotify.framework in Frameworks */,
-				437595991F68D86B000D6D7D /* SwiftyJSON.framework in Frameworks */,
 				4375959A1F68D86B000D6D7D /* pop.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,8 +223,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43ACC32720D31FAB00F174D8 /* SwiftyJSON.framework in Frameworks */,
 				439EB4D71D15954E00739134 /* NotificationCenter.framework in Frameworks */,
-				4375959C1F68D992000D6D7D /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,8 +447,8 @@
 		4ADDA6D75A4D8B4E23799FB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43ACC32520D31FAB00F174D8 /* SwiftyJSON.framework */,
 				437595981F68D86B000D6D7D /* pop.framework */,
-				437595971F68D86A000D6D7D /* SwiftyJSON.framework */,
 				4392A1631D68ED5F009C69AF /* StoreKit.framework */,
 				43CAC3FA1D40E7B400A5BA1B /* player-Bridging-Header.h */,
 				43CAC3F81D40E78C00A5BA1B /* Spotify.framework */,
@@ -548,7 +548,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Cameron Bothner";
 				TargetAttributes = {
 					430E3ED11C488B7200476F48 = {
@@ -885,12 +885,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -937,12 +939,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

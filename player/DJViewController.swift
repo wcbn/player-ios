@@ -107,7 +107,7 @@ UITableViewDelegate, UITableViewDataSource {
       let playlist_api_url = URL( string: "http://app.wcbn.org\(self.dj_path).json")!
       if let data = try? Data(contentsOf: playlist_api_url) {
         DispatchQueue.main.async {
-          let json = JSON(data: data)
+          guard let json = try? JSON(data: data) else { return }
 
           let dj = self.dj
           dj.id = json["id"].intValue

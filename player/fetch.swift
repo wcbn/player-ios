@@ -25,7 +25,7 @@ func fetch(
 
 func fetch(jsonFrom endpointURL: URL, then callback: @escaping (JSON) -> Void) {
   fetch(dataFrom: endpointURL) { r in
-    let json = JSON(data: r)
+    guard let json = try? JSON(data: r) else { return }
     callback(json)
   }
 }
@@ -51,7 +51,7 @@ func hit(_ url: URL,
 
   URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
     if data != nil && data!.count > 0 && error == nil {
-      let json = JSON(data: data!)
+      guard let json = try? JSON(data: data!) else { return }
       callback(json)
     }
   }).resume()
