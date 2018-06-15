@@ -223,7 +223,12 @@ class WCBNRadioBrain: NSObject{
           }
           ss.append(s)
         }
-        ss.sort { a, b in  a.start.compare(b.start) == .orderedAscending}
+        ss.sort { a, b in
+          guard let aStart = a.start, let bStart = b.start else {
+            return true
+          }
+          return aStart.compare(bStart) == .orderedAscending
+        }
         weekdays.append(Weekday(index: w, name: WCBNRadioBrain.Weekdays[w], shows: ss))
       }
       self.playlist.schedule = weekdays.sorted { a, b in return a.index < b.index }

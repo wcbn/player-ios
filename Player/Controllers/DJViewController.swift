@@ -62,32 +62,6 @@ UITableViewDelegate, UITableViewDataSource {
     djBio.setContentOffset(CGPoint.zero, animated: false)
   }
 
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
-
-  struct DJShowsGroup {
-    let showName: String
-    let semesters: [DJShowsRow]
-  }
-
-  struct DJShowsRow {
-    let show: Show
-    let semesterStart: Date
-
-    var semesterName: String { get {
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMMM", options: 0, locale: Locale.current)
-      return dateFormatter.string(from: semesterStart)
-    } }
-  }
-
   fileprivate func fetchDJProfile() {
     DispatchQueue.global(qos: .background).async {
       let playlist_api_url = URL( string: "http://app.wcbn.org\(self.dj_path).json")!
@@ -164,4 +138,21 @@ extension DJViewController: ColoredTitleBar {
   override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
   var titleBarColor: UIColor { return Colors.Light.black }
   var titleBarDark: Bool { return true }
+}
+
+
+struct DJShowsGroup {
+  let showName: String
+  let semesters: [DJShowsRow]
+}
+
+struct DJShowsRow {
+  let show: Show
+  let semesterStart: Date
+
+  var semesterName: String { get {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMMM", options: 0, locale: Locale.current)
+    return dateFormatter.string(from: semesterStart)
+    } }
 }

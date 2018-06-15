@@ -21,8 +21,8 @@ class Show {
   var description = ""
   var djs: [DJ] = []
   var with = ""
-  var start = Date()
-  var end = Date()
+  var start: Date? = nil
+  var end: Date? = nil
   var onAir = false
   var episodes: [Episode]? = nil
 
@@ -31,18 +31,20 @@ class Show {
   }
   var times: String {
     get {
+      guard let _ = start, let _ = end else { return "Cancelled" }
       let dateFormatter = DateFormatter()
       dateFormatter.timeStyle = .short
-      let beginning = dateFormatter.string(from: start)
-      let ending = dateFormatter.string(from: end)
+      let beginning = dateFormatter.string(from: start!)
+      let ending = dateFormatter.string(from: end!)
       return "\(beginning)–\(ending)"
     }
   }
   var timesWithWeekday: String {
     get {
+      guard let _ = start else { return "Cancelled" }
       let dateFormatter = DateFormatter()
       dateFormatter.setLocalizedDateFormatFromTemplate("cccc")
-      let weekday = dateFormatter.string(from: start)
+      let weekday = dateFormatter.string(from: start!)
       return "\(weekday) \(times)"
     }
   }
@@ -54,8 +56,8 @@ class Show {
     name = json["name"].stringValue
     description = json["description"].stringValue
     with = json["with"].stringValue
-    start = json["beginning"].dateTime!
-    end = json["ending"].dateTime!
+    start = json["beginning"].dateTime
+    end = json["ending"].dateTime
     onAir = json["on_air"].boolValue
     episodes = nil
 
