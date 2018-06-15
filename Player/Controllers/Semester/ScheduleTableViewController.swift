@@ -18,6 +18,8 @@ class ScheduleTableViewController: UITableViewController {
     static let CellReuseIdentifier = "Show"
   }
 
+  // MARK: View Lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -34,15 +36,6 @@ class ScheduleTableViewController: UITableViewController {
       }
     }
 
-    let bar = self.navigationController?.navigationBar
-    bar?.isTranslucent = false
-    bar?.tintColor = UIColor.white
-    bar?.barTintColor = Colors.Dark.orange
-    bar?.titleTextAttributes = [
-      .font: UIFont(name: "Lato-Black", size: 17)!,
-      .foregroundColor: UIColor.white
-    ]
-
     // cell height
     tableView.estimatedRowHeight = tableView.rowHeight
     tableView.rowHeight = UITableViewAutomaticDimension
@@ -56,16 +49,7 @@ class ScheduleTableViewController: UITableViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    let bar = self.navigationController?.navigationBar
-    bar?.barTintColor = Colors.Dark.orange
-    bar?.tintColor = UIColor.white
-    bar?.titleTextAttributes = [
-      .font: UIFont(name: "Lato-Black", size: 17)!,
-      .foregroundColor: UIColor.white
-    ]
-    if let navController = self.navigationController as? LightStatusBarNavigationController {
-      navController.light = true
-    }
+    setTitleBarColor()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -144,4 +128,14 @@ class ScheduleTableViewController: UITableViewController {
 
     self.navigationController?.pushViewController(showVC, animated: true)
   }
+}
+
+// MARK: - ColoredTitleBar
+extension ScheduleTableViewController: ColoredTitleBar {
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+
+  }
+  var titleBarColor: UIColor { return Colors.Dark.orange }
+  var titleBarDark: Bool { return true }
 }

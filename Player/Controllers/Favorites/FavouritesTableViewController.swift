@@ -15,37 +15,24 @@ class FavouritesTableViewController: UITableViewController {
   fileprivate struct Storyboard {
     static let CellReuseIdentifier = "Favourite"
   }
+
+  // MARK: View Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // navigation bar color
-    let bar = self.navigationController?.navigationBar
-    bar?.isTranslucent = false
-    bar?.barTintColor = Colors.Dark.pink
-    bar?.titleTextAttributes = [
-      .font: UIFont(name: "Lato-Black", size: 17)!,
-      .foregroundColor: UIColor.white
-    ]
 
     // cell height
     tableView.estimatedRowHeight = tableView.rowHeight
     tableView.rowHeight = UITableViewAutomaticDimension
-
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    setTitleBarColor()
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     tableView.reloadData()
   }
 
@@ -111,16 +98,6 @@ class FavouritesTableViewController: UITableViewController {
 
     var actions: [UITableViewRowAction] = []
 
-//    if fav[indexPath.row].url != nil {
-//      let searchButton = UITableViewRowAction(style: .Default, title: "iTunes") {
-//        _, inxPth in
-//        let url = self.fav[inxPth.row].url!
-//        UIApplication.sharedApplication().openURL(url)
-//      }
-//      searchButton.backgroundColor = Colors.Light.green
-//      actions.append(searchButton)
-//    }
-//
     let deleteButton = UITableViewRowAction(style: .default, title: "Delete") { _, inxPth in
       self.fav.removeAtIndex(inxPth.row)
       tableView.deleteRows(at: [inxPth], with: .bottom)
@@ -130,30 +107,14 @@ class FavouritesTableViewController: UITableViewController {
 
     return actions.reversed()
   }
+}
 
-  /*
-  // Override to support rearranging the table view.
-  override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-  
+// MARK: - ColoredTitleBar
+extension FavouritesTableViewController: ColoredTitleBar {
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+
   }
-  */
-  
-  /*
-  // Override to support conditional rearranging of the table view.
-  override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-  // Return NO if you do not want the item to be re-orderable.
-  return true
-  }
-  */
-  
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using [segue destinationViewController].
-  // Pass the selected object to the new view controller.
-  }
-  */
-  
+  var titleBarColor: UIColor { return Colors.Dark.pink }
+  var titleBarDark: Bool { return true }
 }

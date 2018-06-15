@@ -36,7 +36,9 @@ UITableViewDelegate, UITableViewDataSource {
   @IBOutlet weak var djBio: UITextView!
 
   @IBOutlet weak var tableView: UITableView!
-  
+
+  // MARK: View Lifecycle
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -53,29 +55,13 @@ UITableViewDelegate, UITableViewDataSource {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-
-    let bar = self.navigationController?.navigationBar
-    bar?.isTranslucent = false
-    bar?.barTintColor = UIColor(rgba: "#EBEBF1FF")
-    bar?.tintColor = UIColor.black
-    bar?.titleTextAttributes = [
-      .font: UIFont(name: "Lato-Black", size: 17)!,
-      .foregroundColor: UIColor.black
-    ]
-    if let navController = self.navigationController as? LightStatusBarNavigationController {
-      navController.light = false
-    }
+    setTitleBarColor()
   }
 
   override func viewDidLayoutSubviews() {
     djBio.setContentOffset(CGPoint.zero, animated: false)
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
   /*
    // MARK: - Navigation
    
@@ -171,4 +157,11 @@ UITableViewDelegate, UITableViewDataSource {
     let size = tableView.contentSize
     tableView.heightAnchor.constraint(equalToConstant: size.height).isActive = true
   }
+}
+
+// MARK: - Colored Title Bar
+extension DJViewController: ColoredTitleBar {
+  override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
+  var titleBarColor: UIColor { return Colors.Light.black }
+  var titleBarDark: Bool { return true }
 }

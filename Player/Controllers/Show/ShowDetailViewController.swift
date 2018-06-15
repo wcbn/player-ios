@@ -22,6 +22,8 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
   @IBOutlet var recentEpisodes: UITableView!
   @IBOutlet weak var recentEpisodesHeight: NSLayoutConstraint!
 
+  // MARK: View Lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -41,16 +43,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    let bar = self.navigationController?.navigationBar
-    bar?.barTintColor = Colors.Dark.orange
-    bar?.tintColor = UIColor.white
-    bar?.titleTextAttributes = [
-      .font: UIFont(name: "Lato-Black", size: 17)!,
-      .foregroundColor: UIColor.white
-    ]
-    if let navController = self.navigationController as? LightStatusBarNavigationController {
-      navController.light = true
-    }
+    setTitleBarColor()
     djs.reloadData()
     recentEpisodes.reloadData()
   }
@@ -170,4 +163,14 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
       self.recentEpisodes.reloadData()
     }
   }
+}
+
+// MARK: - ColoredTitleBar
+extension ShowDetailViewController: ColoredTitleBar {
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+
+  }
+  var titleBarColor: UIColor { return Colors.Dark.orange }
+  var titleBarDark: Bool { return true }
 }

@@ -53,6 +53,8 @@ class PlaylistTableViewController: UITableViewController {
     setDJInfo()
   }
 
+  // MARK: View Lifecycle
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -71,36 +73,18 @@ class PlaylistTableViewController: UITableViewController {
     tableView.estimatedRowHeight = tableView.rowHeight
     tableView.rowHeight = UITableViewAutomaticDimension
 
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-    tableView.reloadData()
+    setTitleBarColor()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    let bar = self.navigationController?.navigationBar
-    bar?.isTranslucent = false
-    bar?.tintColor = UIColor.white
-    bar?.barTintColor = Colors.Dark.green
-    bar?.titleTextAttributes = [
-      .font: UIFont(name: "Lato-Black", size: 17)!,
-      .foregroundColor: UIColor.white
-    ]
+    setTitleBarColor()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    tableView.reloadData()
+  }
 
   @IBAction func openDJ() {
     let djVC = storyboard?.instantiateViewController(withIdentifier: "DJ") as! DJViewController
@@ -164,4 +148,14 @@ class PlaylistTableViewController: UITableViewController {
 
     return [favButton]
   }
+}
+
+// MARK: - ColoredTitleBar
+extension PlaylistTableViewController: ColoredTitleBar {
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+
+  }
+  var titleBarColor: UIColor { return Colors.Dark.green }
+  var titleBarDark: Bool { return true }
 }
