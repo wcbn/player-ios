@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		430B85E31CA8939A0047A944 /* SettingsActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430B85E21CA8939A0047A944 /* SettingsActions.swift */; };
-		430B85E51CA8981C0047A944 /* LightStatusBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430B85E41CA8981C0047A944 /* LightStatusBarNavigationController.swift */; };
 		430B85E71CA8ED200047A944 /* WCBNStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430B85E61CA8ED200047A944 /* WCBNStream.swift */; };
 		430E3ED61C488B7200476F48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3ED51C488B7200476F48 /* AppDelegate.swift */; };
 		430E3EED1C488B7200476F48 /* playerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E3EEC1C488B7200476F48 /* playerTests.swift */; };
@@ -26,6 +25,8 @@
 		43207AA01C4C3F5200DE6C62 /* PlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43207A9F1C4C3F5200DE6C62 /* PlaylistTableViewController.swift */; };
 		43207AA31C502FC600DE6C62 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43207AA21C502FC600DE6C62 /* delay.swift */; };
 		4322A5FC1D7F102F003C124F /* TipJar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4322A5FB1D7F102F003C124F /* TipJar.swift */; };
+		43270DA120D4401F00B5CD93 /* ColoredTitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43270DA020D4401F00B5CD93 /* ColoredTitleBar.swift */; };
+		43270DA420D4502C00B5CD93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43FF27BE1CE6D60000D7226B /* Images.xcassets */; };
 		432C6B901D19A5B50077531E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432C6B8F1D19A5B50077531E /* AVFoundation.framework */; };
 		432C6B921D19A5BD0077531E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432C6B911D19A5BD0077531E /* SystemConfiguration.framework */; };
 		432DD3891D48D4E200483911 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CAC3F81D40E78C00A5BA1B /* Spotify.framework */; };
@@ -74,7 +75,6 @@
 		43E7F1E51D10A2410052AFF6 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9B1C4C3AEB00DE6C62 /* Lato-Italic.ttf */; };
 		43E7F1E61D10A2410052AFF6 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */; };
 		43F03CA41CAE047D005E5D4E /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F03CA31CAE047D005E5D4E /* ShowDetailViewController.swift */; };
-		43FF27BF1CE6D60000D7226B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43FF27BE1CE6D60000D7226B /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,7 +117,6 @@
 
 /* Begin PBXFileReference section */
 		430B85E21CA8939A0047A944 /* SettingsActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsActions.swift; sourceTree = "<group>"; };
-		430B85E41CA8981C0047A944 /* LightStatusBarNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightStatusBarNavigationController.swift; sourceTree = "<group>"; };
 		430B85E61CA8ED200047A944 /* WCBNStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCBNStream.swift; sourceTree = "<group>"; };
 		430E3ED21C488B7200476F48 /* player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		430E3ED51C488B7200476F48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +140,7 @@
 		43207A9F1C4C3F5200DE6C62 /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
 		43207AA21C502FC600DE6C62 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		4322A5FB1D7F102F003C124F /* TipJar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipJar.swift; sourceTree = "<group>"; };
+		43270DA020D4401F00B5CD93 /* ColoredTitleBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColoredTitleBar.swift; path = ../Concerns/ColoredTitleBar.swift; sourceTree = "<group>"; };
 		432C6B8F1D19A5B50077531E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		432C6B911D19A5BD0077531E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43357FEB1C4B5E4C0085EA57 /* Favourites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
@@ -285,6 +285,15 @@
 			path = playerUITests;
 			sourceTree = "<group>";
 		};
+		43270DA220D4403A00B5CD93 /* Concerns */ = {
+			isa = PBXGroup;
+			children = (
+				43270DA020D4401F00B5CD93 /* ColoredTitleBar.swift */,
+			);
+			name = Concerns;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		435C3ADD20D3EE270017BEAE /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,9 +340,9 @@
 		435C3AE020D3F1260017BEAE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				43270DA220D4403A00B5CD93 /* Concerns */,
 				43C94BD01CBB6131007D8797 /* DJViewController.swift */,
 				435C3AEB20D3F24F0017BEAE /* Favorites */,
-				430B85E41CA8981C0047A944 /* LightStatusBarNavigationController.swift */,
 				435C3AED20D3F2770017BEAE /* Radio */,
 				435C3AE920D3F2250017BEAE /* Recent */,
 				435C3AE720D3F2070017BEAE /* Semester */,
@@ -660,9 +669,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43270DA420D4502C00B5CD93 /* Images.xcassets in Resources */,
 				4392061C1CE58083009C3BFF /* Main.storyboard in Resources */,
 				430E3F201C495ABE00476F48 /* Lato-Black.ttf in Resources */,
-				43FF27BF1CE6D60000D7226B /* Images.xcassets in Resources */,
 				430E3F211C495ABE00476F48 /* Lato-Bold.ttf in Resources */,
 				4392061E1CE580B4009C3BFF /* LaunchScreen.storyboard in Resources */,
 				43207A9E1C4C3AEB00DE6C62 /* Lato-Regular.ttf in Resources */,
@@ -816,7 +825,6 @@
 			files = (
 				430B85E31CA8939A0047A944 /* SettingsActions.swift in Sources */,
 				430B85E71CA8ED200047A944 /* WCBNStream.swift in Sources */,
-				430B85E51CA8981C0047A944 /* LightStatusBarNavigationController.swift in Sources */,
 				435C3AE320D3F1800017BEAE /* TipJarTableViewController.swift in Sources */,
 				43CD432E1CA5C5A60031B20A /* ScheduleTableViewController.swift in Sources */,
 				43BBC9131D3C6E2F00A70F37 /* SpotifyService.swift in Sources */,
@@ -829,6 +837,7 @@
 				43C94BD11CBB6131007D8797 /* DJViewController.swift in Sources */,
 				433987761CE682AA00F01E29 /* UIColor.swift in Sources */,
 				433987721CE681CF00F01E29 /* RadialMenu.swift in Sources */,
+				43270DA120D4401F00B5CD93 /* ColoredTitleBar.swift in Sources */,
 				438106751CA83230009547CD /* ShowNotesTableViewCell.swift in Sources */,
 				439EB4D91D1596A100739134 /* fetch.swift in Sources */,
 				43207AA01C4C3F5200DE6C62 /* PlaylistTableViewController.swift in Sources */,
@@ -1024,7 +1033,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Player/Player.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Player/Support/Player.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1057,7 +1066,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Player/Player.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Player/Support/Player.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

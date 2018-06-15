@@ -30,7 +30,7 @@ class WCBNRadioBrain: NSObject{
 
     var semesterID: Int? = nil
 
-    var albumArt = UIImage(named: "AlbumDefault")
+    var albumArt = UIImage(named: "defaultAlbumArt.jpg")
 
     var song: Song {
       get {
@@ -106,7 +106,7 @@ class WCBNRadioBrain: NSObject{
     }
   }
 
-  let defaultAlbum = UIImage(named: "AlbumDefault")!
+  let defaultAlbum = UIImage(named: "defaultAlbumArt.jpg")!
 
   var playlist = Playlist()
 
