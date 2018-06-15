@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if (auth?.canHandle(url))! {
       auth?.handleAuthCallback(withTriggeredAuthURL: url) { error, session in
         guard (error == nil)  else {
-          print("Auth error: \(error)")
+          print("Auth error: \(error!)")
           return
         }
 

@@ -256,6 +256,7 @@ class WCBNRadioBrain: NSObject{
 
   // MARK: - Actions
 
+  @discardableResult
   func play() -> MPRemoteCommandHandlerStatus {
     isPlaying = true
     radio.replaceCurrentItem(with: playerItem)
@@ -263,6 +264,7 @@ class WCBNRadioBrain: NSObject{
     return .success
   }
 
+  @discardableResult
   func stop() -> MPRemoteCommandHandlerStatus {
     isPlaying = false
     radio.pause()
@@ -286,6 +288,7 @@ class WCBNRadioBrain: NSObject{
     }
   }
 
+  @discardableResult
   func addToOrRemoveCurrentSongFromFavourites() -> MPRemoteCommandHandlerStatus {
     if (favourites.includeCurrentSong(playlist)) {
       favourites.deleteLast()
