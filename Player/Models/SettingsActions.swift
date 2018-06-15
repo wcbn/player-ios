@@ -31,7 +31,7 @@ extension SettingsTableViewController {
       navigationController?.popViewController(animated: true)
 
     case "review":
-      let reviewURL = URL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=600658964&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")
+      let reviewURL = URL(string: "https://itunes.apple.com/us/app/wcbn/id600658964?action=write-review")
       UIApplication.shared.openURL(reviewURL!)
       deselectSelectedRow()
 

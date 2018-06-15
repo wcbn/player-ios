@@ -140,7 +140,7 @@
 		43207A9F1C4C3F5200DE6C62 /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
 		43207AA21C502FC600DE6C62 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		4322A5FB1D7F102F003C124F /* TipJar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipJar.swift; sourceTree = "<group>"; };
-		43270DA020D4401F00B5CD93 /* ColoredTitleBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColoredTitleBar.swift; path = ../Concerns/ColoredTitleBar.swift; sourceTree = "<group>"; };
+		43270DA020D4401F00B5CD93 /* ColoredTitleBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredTitleBar.swift; sourceTree = "<group>"; };
 		432C6B8F1D19A5B50077531E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		432C6B911D19A5BD0077531E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43357FEB1C4B5E4C0085EA57 /* Favourites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
@@ -290,8 +290,7 @@
 			children = (
 				43270DA020D4401F00B5CD93 /* ColoredTitleBar.swift */,
 			);
-			name = Concerns;
-			path = "New Group";
+			path = Concerns;
 			sourceTree = "<group>";
 		};
 		435C3ADD20D3EE270017BEAE /* Models */ = {
