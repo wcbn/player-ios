@@ -73,6 +73,7 @@
 		43E7F1E41D10A2410052AFF6 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 430E3F1C1C495ABE00476F48 /* Lato-Black.ttf */; };
 		43E7F1E51D10A2410052AFF6 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9B1C4C3AEB00DE6C62 /* Lato-Italic.ttf */; };
 		43E7F1E61D10A2410052AFF6 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */; };
+		43E9446B20D526AC00F829BA /* ReviewRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9446A20D526AC00F829BA /* ReviewRequester.swift */; };
 		43E9446D20D527DB00F829BA /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9446C20D527DB00F829BA /* UserDefaultsKeys.swift */; };
 		43F03CA41CAE047D005E5D4E /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F03CA31CAE047D005E5D4E /* ShowDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -178,6 +179,7 @@
 		43E7F1D71D10A10A0052AFF6 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		43E7F1DA1D10A10A0052AFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		43E7F1DC1D10A10A0052AFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43E9446A20D526AC00F829BA /* ReviewRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRequester.swift; sourceTree = "<group>"; };
 		43E9446C20D527DB00F829BA /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		43F03CA31CAE047D005E5D4E /* ShowDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailViewController.swift; sourceTree = "<group>"; };
 		43FF27BE1CE6D60000D7226B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				43C94BCC1CBB1FA4007D8797 /* Episode.swift */,
 				43357FEB1C4B5E4C0085EA57 /* Favourites.swift */,
 				43B70CCC1CAB1F1500C50170 /* FavouriteSong.swift */,
+				43E9446A20D526AC00F829BA /* ReviewRequester.swift */,
 				430B85E21CA8939A0047A944 /* SettingsActions.swift */,
 				43C94BC71CBB1F1B007D8797 /* Show.swift */,
 				43C94BC91CBB1F53007D8797 /* Song.swift */,
@@ -684,6 +687,7 @@
 				430E3ED61C488B7200476F48 /* AppDelegate.swift in Sources */,
 				430E3F0A1C488EC900476F48 /* RadioViewController.swift in Sources */,
 				43292F0520D4854200711C73 /* markdown.swift in Sources */,
+				43E9446B20D526AC00F829BA /* ReviewRequester.swift in Sources */,
 				43357FEC1C4B5E4C0085EA57 /* Favourites.swift in Sources */,
 				436335591D21CBF900CBACBC /* SongSearchService.swift in Sources */,
 				433987731CE681CF00F01E29 /* RadialSubMenu.swift in Sources */,
