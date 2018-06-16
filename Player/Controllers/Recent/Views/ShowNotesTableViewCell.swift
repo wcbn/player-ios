@@ -10,7 +10,7 @@ import UIKit
 
 class ShowNotesTableViewCell: UITableViewCell {
 
-  var showNotes = "" {
+  var showNotes: NSAttributedString? = nil {
     didSet {
       updateUI()
     }
@@ -19,7 +19,7 @@ class ShowNotesTableViewCell: UITableViewCell {
   @IBOutlet weak var notes: UILabel!
 
   func updateUI() {
-    notes?.text = showNotes
+    notes?.attributedText = showNotes ?? NSAttributedString()
   }
 
 }

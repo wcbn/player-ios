@@ -33,7 +33,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     showDescription.layoutManager.hyphenationFactor = 1.0
     showDescription.sizeToFit()
-    showDescription.text = show.description
+    showDescription.attributedText = MD.toAttributedString(show.description)
 
     djs.allowsSelection = true
 

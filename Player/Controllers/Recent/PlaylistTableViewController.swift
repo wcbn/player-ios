@@ -107,7 +107,7 @@ class PlaylistTableViewController: UITableViewController {
     if (indexPath.row == 0 && episode.notes != nil && episode.notes != "") {
       let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ShowNotesCellReuseIdentifier, for: indexPath) as! ShowNotesTableViewCell
       cell.backgroundColor = Colors.Dark.green
-      cell.showNotes = episode.notes!
+      cell.showNotes = MD.toAttributedString(episode.notes!)
       return cell
     } else {
       let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SongCellReuseIdentifier, for: indexPath) as! PlaylistTableViewCell

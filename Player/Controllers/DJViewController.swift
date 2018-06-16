@@ -76,7 +76,12 @@ UITableViewDelegate, UITableViewDataSource {
           dj.real_name = json["real_name"].string
           dj.website = URL(string: json["website"].stringValue)
           dj.about = json["about"].stringValue
-          self.djBio.attributedText = NSAttributedString(string: dj.about, attributes: [.font: UIFont(name: "Lato-Regular", size: 14)!])
+
+          if let formattedBio = MD.toAttributedString(
+            dj.about, withBlackText: true
+          ) {
+            self.djBio.attributedText = formattedBio
+          }
 
           self.showsBySemester = json["shows"].arrayValue.map { show in
             let showName = show["name"].stringValue
