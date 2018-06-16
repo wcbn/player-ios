@@ -138,6 +138,9 @@ class PlaylistTableViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    guard indexPath.row - self.episode.numberOfNotesCells >= 0
+      else { return [] }
+
     let favButton = UITableViewRowAction(style: .default, title: "Favorite") {
       _, inxPth in
       let song = self.episode.songs![inxPth.row - self.episode.numberOfNotesCells]
