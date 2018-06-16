@@ -45,7 +45,7 @@ MFMessageComposeViewControllerDelegate
 
   @IBAction func playOrPauseMusic(_: UITapGestureRecognizer) {
     let defaults = UserDefaults.standard
-    defaults.set(true, forKey: "LaunchedBefore")
+    defaults.set(true, forKey: UserDefaultsKeys.launchedBefore)
 
     delegate.radio!.playOrPause()
     updateUI()
@@ -73,7 +73,7 @@ MFMessageComposeViewControllerDelegate
     self.setNeedsStatusBarAppearanceUpdate()
 
     let defaults = UserDefaults.standard
-    if (defaults.bool(forKey: "LaunchedBefore")) {
+    if (defaults.bool(forKey: UserDefaultsKeys.launchedBefore)) {
       delegate.radio!.playOrPause()
     }
 
@@ -175,7 +175,7 @@ MFMessageComposeViewControllerDelegate
     if explainedThisSession {  return  }
     let defaults = UserDefaults.standard
 
-    if (!defaults.bool(forKey: "interfaceExplained[radialMenu]")) {
+    if (!defaults.bool(forKey: UserDefaultsKeys.ExplainedInterface.radialMenu)) {
       explainRadialMenu()
     }
 

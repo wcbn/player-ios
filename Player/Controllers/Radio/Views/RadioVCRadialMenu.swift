@@ -113,7 +113,7 @@ extension RadioViewController {
     }
 
     let defaults = UserDefaults.standard
-    defaults.set(true, forKey: "interfaceExplained[radialMenu]")
+    defaults.set(true, forKey: UserDefaultsKeys.ExplainedInterface.radialMenu)
   }
 
   func resetSubMenu(_ subMenu: RadialSubMenu) {

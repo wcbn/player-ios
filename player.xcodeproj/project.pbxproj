@@ -73,6 +73,7 @@
 		43E7F1E41D10A2410052AFF6 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 430E3F1C1C495ABE00476F48 /* Lato-Black.ttf */; };
 		43E7F1E51D10A2410052AFF6 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9B1C4C3AEB00DE6C62 /* Lato-Italic.ttf */; };
 		43E7F1E61D10A2410052AFF6 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43207A9C1C4C3AEB00DE6C62 /* Lato-Regular.ttf */; };
+		43E9446D20D527DB00F829BA /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9446C20D527DB00F829BA /* UserDefaultsKeys.swift */; };
 		43F03CA41CAE047D005E5D4E /* ShowDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F03CA31CAE047D005E5D4E /* ShowDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +178,7 @@
 		43E7F1D71D10A10A0052AFF6 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		43E7F1DA1D10A10A0052AFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		43E7F1DC1D10A10A0052AFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43E9446C20D527DB00F829BA /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		43F03CA31CAE047D005E5D4E /* ShowDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowDetailViewController.swift; sourceTree = "<group>"; };
 		43FF27BE1CE6D60000D7226B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -432,6 +434,7 @@
 				430E3ED51C488B7200476F48 /* AppDelegate.swift */,
 				430E3EE31C488B7200476F48 /* Info.plist */,
 				435D97B01D15CBD600098168 /* Player.entitlements */,
+				43E9446C20D527DB00F829BA /* UserDefaultsKeys.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 				430E3F071C488C5C00476F48 /* Colors.swift in Sources */,
 				4322A5FC1D7F102F003C124F /* TipJar.swift in Sources */,
 				43C94BCA1CBB1F53007D8797 /* Song.swift in Sources */,
+				43E9446D20D527DB00F829BA /* UserDefaultsKeys.swift in Sources */,
 				433987781CE6852300F01E29 /* RadioVCRadialMenu.swift in Sources */,
 				435B71F51CAF853700D4880B /* DJCollectionViewCell.swift in Sources */,
 				4393E69D1CA62B8D000B2D6F /* SettingsTableViewController.swift in Sources */,

@@ -17,11 +17,11 @@ class TipJar: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver 
   var uid: String {
     get {
       let defaults = UserDefaults.standard
-      if let savedUID = defaults.string(forKey: "UID") {
+      if let savedUID = defaults.string(forKey: UserDefaultsKeys.uid) {
         return savedUID
       }
       let newUID = UIDevice.current.identifierForVendor!.uuidString
-      defaults.set(newUID, forKey: "UID")
+      defaults.set(newUID, forKey: UserDefaultsKeys.uid)
       return newUID
     }
   }

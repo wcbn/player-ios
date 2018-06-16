@@ -9,14 +9,13 @@
 import Foundation
 
 class Favourites {
-  let defaultsKey = "Favourites"
-
+  
   fileprivate let defaults = UserDefaults.standard
 
   var songs: [Favourite] {
 
     get {
-      if let plist = defaults.object(forKey: defaultsKey) as? [[String:AnyObject]] {
+      if let plist = defaults.object(forKey: UserDefaultsKeys.favourites) as? [[String:AnyObject]] {
         var songs: [Favourite] = []
         for s in plist {
           let e = s as! [String: [String: AnyObject]]
@@ -37,7 +36,7 @@ class Favourites {
       let arr: [[String:AnyObject]] = newValue.map{ e in
         return [ "song": e.song.dictionary as AnyObject, "episode": e.episode.dictionary as AnyObject]
       }
-      defaults.set(arr, forKey: defaultsKey)
+      defaults.set(arr, forKey: UserDefaultsKeys.favourites)
     }
   }
 
@@ -48,7 +47,7 @@ class Favourites {
   }
 
   func needsInstructions() -> Bool {
-    switch defaults.object(forKey: defaultsKey) {
+    switch defaults.object(forKey: UserDefaultsKeys.favourites) {
     case .none:
       return true
     case .some:

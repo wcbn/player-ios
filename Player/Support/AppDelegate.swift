@@ -20,14 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   internal var streamURL: String {
     get {
-      if let url = defaults.object(forKey: "WCBNStreamURL") as? String {
+      if let url = defaults.object(forKey: UserDefaultsKeys.Settings.streamURL) as? String {
         return url
       } else {
         return WCBNStream.URL.medium
       }
     }
     set {
-      defaults.set(newValue, forKey: "WCBNStreamURL")
+      defaults.set(newValue, forKey: UserDefaultsKeys.Settings.streamURL)
       radio?.stop()
       radio = WCBNRadioBrain()
       radio?.isPlaying = true
@@ -36,12 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   internal var songSearchService: SongSearchService {
     get {
-      let name = defaults.string(forKey: "songSearchServiceChoice")
+      let name = defaults.string(forKey: UserDefaultsKeys.Settings.songService)
       let svc = SongSearchServiceChoice(rawValue: name ?? "iTunes")
       return getSongSearchService(byChoice: svc ?? .iTunes)
     }
     set {
-      defaults.set(newValue.name, forKey: "songSearchServiceChoice")
+      defaults.set(newValue.name, forKey: UserDefaultsKeys.Settings.songService)
       NotificationCenter.default
         .post(name: Notification.Name(rawValue: "songSearchServiceChoiceSet"), object: nil)
     }
