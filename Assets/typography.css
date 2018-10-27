@@ -8,3 +8,7 @@
 img {
   height: auto;
 }
+
+figcaption {
+  text-align: center;
+}

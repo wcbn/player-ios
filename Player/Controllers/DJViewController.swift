@@ -64,30 +64,23 @@ UITableViewDelegate, UITableViewDataSource {
 
   fileprivate func fetchDJProfile() {
     DispatchQueue.global(qos: .background).async {
-      let playlist_api_url = URL( string: "http://app.wcbn.org\(self.dj_path).json")!
+      let playlist_api_url = URL(string: "http://app.wcbn.org\(self.dj_path).json")!
       if let data = try? Data(contentsOf: playlist_api_url) {
         DispatchQueue.main.async {
           guard let json = try? JSON(data: data) else { return }
 
-          let dj = self.dj
-          dj.id = json["id"].intValue
-          self.profileImageURL = json["image_url"].url
-          dj.dj_name = json["dj_name"].stringValue
-          dj.real_name = json["real_name"].string
-          dj.website = URL(string: json["website"].stringValue)
-          dj.about = json["about"].stringValue
+          self.dj = DJ(from: json)
 
-          if let formattedBio = MD.toAttributedString(
-            dj.about, withBlackText: true
-          ) {
-            self.djBio.attributedText = formattedBio
-          }
+          self.profileImageURL = json["image_url"].url
+          self.djBio.attributedText = self.dj.formattedAbout
 
           self.showsBySemester = json["shows"].arrayValue.map { show in
             let showName = show["name"].stringValue
             let semesters = show["semesters"].arrayValue.map { semester in
-              return DJShowsRow(show: Show(fromJSON: semester),
-                        semesterStart: semester["semester_beginning"].dateTime!)
+              return DJShowsRow(
+                show: Show(fromJSON: semester),
+                semesterStart: semester["semester_beginning"].dateTime!
+              )
             }
             return DJShowsGroup(showName: showName, semesters: semesters)
           }
