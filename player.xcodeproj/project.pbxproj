@@ -26,7 +26,6 @@
 		43270DA120D4401F00B5CD93 /* ColoredTitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43270DA020D4401F00B5CD93 /* ColoredTitleBar.swift */; };
 		43270DA420D4502C00B5CD93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43FF27BE1CE6D60000D7226B /* Images.xcassets */; };
 		43292EFF20D482B500711C73 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43292EFD20D4813500711C73 /* Down.framework */; };
-		43292F0020D482B500711C73 /* Down.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 43292EFD20D4813500711C73 /* Down.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43292F0320D483E400711C73 /* typography.css in Resources */ = {isa = PBXBuildFile; fileRef = 43292F0220D483E400711C73 /* typography.css */; };
 		43292F0520D4854200711C73 /* markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43292F0420D4854200711C73 /* markdown.swift */; };
 		432C6B901D19A5B50077531E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432C6B8F1D19A5B50077531E /* AVFoundation.framework */; };
@@ -89,17 +88,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		43292F0120D482B500711C73 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				43292F0020D482B500711C73 /* Down.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		43E7F1E31D10A10A0052AFF6 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -491,7 +479,6 @@
 				430E3ED01C488B7200476F48 /* Resources */,
 				43E7F1E31D10A10A0052AFF6 /* Embed App Extensions */,
 				4375959B1F68D893000D6D7D /* Carthage: Copy Frameworks */,
-				43292F0120D482B500711C73 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -615,15 +602,17 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/pop.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Down.framework",
 			);
 			name = "Carthage: Copy Frameworks";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/pop.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftyJSON.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Down.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		4375959D1F68D99A000D6D7D /* Carthage: Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
